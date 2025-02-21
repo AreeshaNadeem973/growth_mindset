@@ -31,22 +31,20 @@ if page == "🏡 Home":
         </div>
     """, unsafe_allow_html=True)
 
-# Skill Categories with Detailed Information
+# Skill Categories
 elif page == "📖 Skill Categories":
     st.header("📖 Explore Different Skills")
     categories = {
-        "Coding": ("Learn programming from scratch and build real-world applications.", "https://upload.wikimedia.org/wikipedia/commons/3/39/Programming_languages.jpeg"),
-        "Writing": ("Enhance your writing skills to communicate effectively and creatively.", "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Writing_1.jpg/800px-Writing_1.jpg"),
-        "Public Speaking": ("Master the art of speaking confidently in front of an audience.", "https://upload.wikimedia.org/wikipedia/commons/1/13/Public_Speaking.jpg"),
-        "Graphic Design": ("Learn to create visually appealing content using design tools.", "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Graphic_Design.jpg/800px-Graphic_Design.jpg"),
-        "Finance": ("Understand financial concepts to manage money wisely.", "https://upload.wikimedia.org/wikipedia/commons/1/19/Financial_Charts.jpg")
+        "Coding": "Coding is an essential skill that helps you build websites, applications, and automate tasks.",
+        "Writing": "Writing improves communication skills and is essential for storytelling and professional growth.",
+        "Public Speaking": "Public speaking boosts confidence and helps you communicate ideas effectively.",
+        "Graphic Design": "Graphic design enables you to create visually appealing content for branding and marketing.",
+        "Finance": "Financial literacy is key to managing personal finances and making smart investments."
     }
     
     chosen_category = st.selectbox("Select a skill to explore:", list(categories.keys()))
-    
-    st.write(f"### {chosen_category}")
-    st.write(categories[chosen_category][0])
-    st.image(categories[chosen_category][1], use_column_width=True)
+    st.write(f"**{chosen_category}**: {categories[chosen_category]}")
+    st.image(f"https://source.unsplash.com/400x300/?{chosen_category}", caption=chosen_category)
 
 # Learning Goals
 elif page == "🎯 Learning Goals":
@@ -56,7 +54,7 @@ elif page == "🎯 Learning Goals":
     if st.button("Save Goal"):
         st.success(f"✅ Goal '{goal}' set for {deadline}!")
 
-# Progress Tracker with Animated Balloons
+# Progress Tracker
 elif page == "📊 Progress Tracker":
     st.header("📊 Track Your Learning Progress")
     progress = st.slider("How much progress have you made in your skill (0-100%)?", 0, 100, 50)
@@ -103,27 +101,30 @@ elif page == "💡 Daily Challenges":
         challenge = random.choice(challenge_categories[category])
         st.write(f"### Your Challenge: {challenge}")
     
-    completed = st.checkbox("Mark as Completed")
+    st.write("\n---\n")
     
-    if completed:
-        st.success("🎉 Well done! You've completed the challenge!")
-        uploaded_file = st.file_uploader("Upload proof (image, text, or document)")
-        if uploaded_file:
-            st.write("✅ Proof uploaded successfully!")
+    st.subheader("📝 Submit Your Challenge Work")
+    work_submission = st.text_area("Describe your work or submit code:")
+    uploaded_file = st.file_uploader("Upload proof (image, text, or document)")
+    
+    if st.button("Submit Challenge"):
+        if work_submission or uploaded_file:
+            st.success("✅ Your challenge submission has been received! Keep learning!")
+        else:
+            st.warning("⚠️ Please provide a description or upload a file before submitting.")
 
-# Resource Library with Valid URLs
+# Resource Library
 elif page == "📚 Resource Library":
     st.header("📚 Explore Learning Resources")
     resources = {
         "Coding": "https://www.freecodecamp.org/",
         "Writing": "https://www.grammarly.com/blog/",
-        "Public Speaking": "https://www.toastmasters.org/",
+        "Public Speaking": "https://www.ted.com/talks",
         "Graphic Design": "https://www.canva.com/",
         "Finance": "https://www.investopedia.com/"
     }
-    
     for skill, link in resources.items():
-        st.markdown(f"✅ [{skill}]({link})", unsafe_allow_html=True)
+        st.markdown(f"✅ [{skill}]({link})")
 
 # Discussion Forum
 elif page == "💬 Discussion Forum":
