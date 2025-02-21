@@ -58,7 +58,7 @@ elif page == "🎯 Learning Goals":
     if st.button("Save Goal"):
         st.success(f"✅ Goal '{goal}' set for {deadline}!")
 
-# Progress Tracker with Animated Balloons and Enhanced Graph
+# Progress Tracker
 elif page == "📊 Progress Tracker":
     st.header("📊 Track Your Learning Progress")
     progress = st.slider("How much progress have you made in your skill (0-100%)?", 0, 100, 50)
@@ -76,7 +76,7 @@ elif page == "📊 Progress Tracker":
     ax.legend()
     st.pyplot(fig)
     
-    # Create a button to trigger balloon animation
+    # Celebrate Progress
     if st.button("🎈 Celebrate Progress!"):
         st.write("🎉 Balloons are rising to celebrate your progress!")
         st.balloons()
@@ -84,14 +84,20 @@ elif page == "📊 Progress Tracker":
 # Daily Challenges
 elif page == "💡 Daily Challenges":
     st.header("💡 Take a Daily Learning Challenge")
-    challenges = [
-        "Write a 500-word article on a topic of your choice.",
-        "Code a simple calculator in Python.",
-        "Give a 2-minute speech on an interesting fact.",
-        "Design a creative social media post in Canva.",
-        "Read a book summary and take notes."
-    ]
-    st.write(random.choice(challenges))
+    challenge_categories = {
+        "Coding": ["Build a basic calculator in Python.", "Create a simple web page using HTML & CSS.", "Write a Python script to automate a task."],
+        "Writing": ["Write a short story of at least 300 words.", "Summarize a book in one page.", "Create an engaging blog post on a trending topic."],
+        "Public Speaking": ["Practice a 2-minute speech on a topic you love.", "Record yourself explaining a concept and review it.", "Deliver a speech in front of friends or family."],
+        "Graphic Design": ["Design a business card using Canva.", "Create a social media post graphic.", "Redesign a popular brand logo with your twist."],
+        "Photography": ["Take 10 creative photos of everyday objects.", "Edit an old photo to make it look professional.", "Capture a photo that tells a story."],
+        "Marketing": ["Analyze an ad campaign and note its strengths.", "Write a social media post promoting a product.", "Create a branding strategy for a new company."]
+    }
+    selected_category = st.selectbox("Choose a category to get a challenge:", list(challenge_categories.keys()))
+    
+    if st.button("Get a New Challenge"):
+        challenge = random.choice(challenge_categories[selected_category])
+        st.subheader("Your Challenge:")
+        st.write(f"🚀 {challenge}")
 
 # Resource Library
 elif page == "📚 Resource Library":
