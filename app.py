@@ -23,14 +23,6 @@ page = st.sidebar.radio("Choose a section:", [
 
 # Home Page
 if page == "🏡 Home":
-    st.markdown("""
-        <div class='main-container'>
-        <div class='main-title'>Welcome to Skill Learning Hub 🎓</div>
-        <div class='main-subtext'>Boost your knowledge, one skill at a time!</div>
-        <div class='main-subtext'>🚀 Learn, track, and master new skills efficiently.</div>
-        </div>
-    """, unsafe_allow_html=True)
-    
     st.markdown("### 🌟 Why Learn a New Skill?")
     benefits = [
         "🚀 Expand your career opportunities",
@@ -53,9 +45,18 @@ if page == "🏡 Home":
 # Skill Categories
 elif page == "📖 Skill Categories":
     st.header("📖 Explore Different Skills")
-    categories = ["Coding", "Writing", "Public Speaking", "Graphic Design", "Photography", "Marketing", "Finance"]
-    chosen_category = st.selectbox("Select a skill to explore:", categories)
-    st.write(f"You selected: **{chosen_category}**")
+    categories = {
+        "Coding": "Learn programming languages like Python, Java, and C++. Develop problem-solving skills and create software applications.",
+        "Writing": "Enhance your writing skills for blogs, articles, and creative writing. Improve grammar and storytelling techniques.",
+        "Public Speaking": "Boost your confidence in speaking. Learn presentation skills, articulation, and audience engagement.",
+        "Graphic Design": "Master tools like Photoshop and Canva. Learn design principles, branding, and visual storytelling.",
+        "Photography": "Understand camera settings, composition, and photo editing. Capture stunning images professionally.",
+        "Marketing": "Learn digital marketing, social media strategies, and SEO. Understand consumer behavior and brand growth.",
+        "Finance": "Gain financial literacy, investment strategies, and budgeting techniques. Manage money effectively."
+    }
+    
+    chosen_category = st.selectbox("Select a skill to explore:", list(categories.keys()))
+    st.write(f"**{chosen_category}**: {categories[chosen_category]}")
 
 # Learning Goals
 elif page == "🎯 Learning Goals":
@@ -65,13 +66,13 @@ elif page == "🎯 Learning Goals":
     if st.button("Save Goal"):
         st.success(f"✅ Goal '{goal}' set for {deadline}!")
 
-# Progress Tracker with Enhanced Graph
+# Progress Tracker with Animated Balloons and Enhanced Graph
 elif page == "📊 Progress Tracker":
     st.header("📊 Track Your Learning Progress")
     progress = st.slider("How much progress have you made in your skill (0-100%)?", 0, 100, 50)
     st.write(f"You're {progress}% done! Keep going! 🚀")
     
-    # Enhanced Graph
+    # Enhanced Graph with Animation Effect
     x = np.arange(1, 11)
     y = np.random.randint(10, 100, size=10)
     
@@ -83,8 +84,9 @@ elif page == "📊 Progress Tracker":
     ax.legend()
     st.pyplot(fig)
     
-    # Balloons Celebration
+    # Create a button to trigger balloon animation
     if st.button("🎈 Celebrate Progress!"):
+        st.write("🎉 Balloons are rising to celebrate your progress!")
         st.balloons()
 
 # Daily Challenges
