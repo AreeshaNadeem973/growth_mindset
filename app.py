@@ -23,6 +23,14 @@ page = st.sidebar.radio("Choose a section:", [
 
 # Home Page
 if page == "🏡 Home":
+    st.markdown("""
+        <div class='main-container'>
+        <div class='main-title'>Welcome to Skill Learning Hub 🎓</div>
+        <div class='main-subtext'>Boost your knowledge, one skill at a time!</div>
+        <div class='main-subtext'>🚀 Learn, track, and master new skills efficiently.</div>
+        </div>
+    """, unsafe_allow_html=True)
+    
     st.markdown("### 🌟 Why Learn a New Skill?")
     benefits = [
         "🚀 Expand your career opportunities",
@@ -57,13 +65,13 @@ elif page == "🎯 Learning Goals":
     if st.button("Save Goal"):
         st.success(f"✅ Goal '{goal}' set for {deadline}!")
 
-# Progress Tracker with Animated Balloons and Enhanced Graph
+# Progress Tracker with Enhanced Graph
 elif page == "📊 Progress Tracker":
     st.header("📊 Track Your Learning Progress")
     progress = st.slider("How much progress have you made in your skill (0-100%)?", 0, 100, 50)
     st.write(f"You're {progress}% done! Keep going! 🚀")
     
-    # Enhanced Graph with Animation Effect
+    # Enhanced Graph
     x = np.arange(1, 11)
     y = np.random.randint(10, 100, size=10)
     
@@ -75,9 +83,8 @@ elif page == "📊 Progress Tracker":
     ax.legend()
     st.pyplot(fig)
     
-    # Create a button to trigger balloon animation
+    # Balloons Celebration
     if st.button("🎈 Celebrate Progress!"):
-        st.write("🎉 Balloons are rising to celebrate your progress!")
         st.balloons()
 
 # Daily Challenges
@@ -111,5 +118,6 @@ elif page == "💬 Discussion Forum":
     discussion = st.text_area("📝 What's something new you've learned recently?")
     if st.button("Post"):
         st.success("✅ Your response has been shared!")
+
 
    
