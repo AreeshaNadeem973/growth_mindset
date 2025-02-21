@@ -1,4 +1,3 @@
-
 import streamlit as st
 import matplotlib.pyplot as plt
 import numpy as np
@@ -7,119 +6,112 @@ from datetime import date
 import random
 
 # App Title
-st.set_page_config(page_title="Success & Growth Hub", page_icon="🌟")
-st.title("🌟 Success & Growth Hub")
+st.set_page_config(page_title="Daily Motivation & Productivity Hub", page_icon="🌟")
+st.title("🌟 Daily Motivation & Productivity Hub")
 
 # Sidebar for Navigation
-st.sidebar.header("📌 Explore Topics")
-page = st.sidebar.radio("Navigate to:", [
-    "🏡 Home", "🔄 Daily Habits", "🌱 Growth Mindset", "🧘 Mental Wellness",
-    "🎯 Goal Mastery", "💡 Productivity Hacks", "📚 Learning & Skills", "💰 Financial Growth"
+st.sidebar.header("📌 Quick Navigation")
+page = st.sidebar.radio("Go to:", [
+    "🏡 Home", "📅 Habit Tracker", "💭 Daily Motivation", "📖 Inspirational Stories",
+    "🎯 Goal Setting", "📝 Productivity Tips", "🤔 Self-Reflection", "🧠 Brain Teasers", "📊 Progress Analytics"
 ])
 
 # Home Page
 if page == "🏡 Home":
-    st.header("Welcome to Your Success & Growth Hub! 🚀")
+    st.header("Welcome to Your Daily Motivation & Productivity Hub! 🚀")
+    st.image("https://blog.iawomen.com/wp-content/uploads/2024/01/Depositphotos_682225278_S.jpg", use_container_width=True)
     st.markdown("""
-    ### Why Focus on Personal Growth?
-    ✅ **Daily Improvement**: Small changes lead to big success.  
-    ✅ **Mental Clarity**: A strong mind leads to a strong life.  
-    ✅ **Productivity Boost**: Work smarter, not harder.  
-    ✅ **Financial Wisdom**: Secure your future with smart decisions.  
+    ### Why Focus on Productivity & Motivation?
+    ✅ **Stay Inspired**: Start each day with positive energy.  
+    ✅ **Build Consistent Habits**: Small steps lead to big success.  
+    ✅ **Set and Achieve Goals**: Turn your dreams into reality.  
+    ✅ **Develop a Growth Mindset**: Keep learning and improving!  
     """)
-    st.image("https://m.media-amazon.com/images/I/51JYYBZTjaL._SL500_.jpg", use_container_width=True)
-    st.success("Success is built daily! Keep pushing forward! 🚀")
     
-    # Motivational Quote
+    st.success("Today is a new beginning! Make the most of it! 🚀")
+    
+    # Add a motivational quote of the day
     quotes = [
-        "Your only limit is your mind.",
-        "Success is the sum of small efforts, repeated daily.",
-        "Believe in yourself and you are halfway there.",
-        "Growth is the result of persistence and learning."
+        "The only way to do great work is to love what you do. - Steve Jobs",
+        "Believe you can and you're halfway there. - Theodore Roosevelt",
+        "Success is not final, failure is not fatal: it is the courage to continue that counts. - Winston Churchill",
+        "The future belongs to those who believe in the beauty of their dreams. - Eleanor Roosevelt"
     ]
     st.info(f"💡 **Quote of the Day:** {random.choice(quotes)}")
 
-# Daily Habits
-elif page == "🔄 Daily Habits":
-    st.header("🔄 Build Strong Daily Habits")
-    habits = ["Exercise", "Read", "Meditate", "Healthy Eating", "Plan Your Day"]
+    # Added Graph: Weekly Productivity Levels
+    days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    productivity_levels = np.random.randint(50, 100, size=7)  # Simulated productivity levels
+    fig, ax = plt.subplots()
+    ax.plot(days, productivity_levels, marker='o', linestyle='-', color='blue')
+    ax.set_title("Weekly Productivity Levels")
+    ax.set_ylabel("Productivity (%)")
+    ax.set_ylim(0, 100)
+    st.pyplot(fig)
+
+# Habit Tracker Page
+elif page == "📅 Habit Tracker":
+    st.header("📅 Track Your Daily Habits")
+    habits = ["Exercise", "Read", "Meditate", "Drink Water", "Healthy Eating"]
     
     for habit in habits:
         st.checkbox(f"Did you {habit.lower()} today?")
     
     if st.button("Save Progress"):
-        st.success("Great job! Consistency is key! 🚀")
+        st.success("Great job! Keep up the good work!")
+        st.balloons()
     
-# Growth Mindset
-elif page == "🌱 Growth Mindset":
-    st.header("🌱 Develop a Growth Mindset")
-    st.markdown("""
-    A growth mindset is the belief that you can develop abilities through dedication and hard work.
-    
-    ### Growth Mindset Tips:
-    1. Embrace challenges
-    2. Learn from criticism
-    3. Celebrate effort, not just results
-    4. Be inspired by others’ success
-    """)
-    
-# Mental Wellness
-elif page == "🧘 Mental Wellness":
-    st.header("🧘 Improve Your Mental Wellness")
-    st.markdown("""
-    Your mind is your greatest asset. Take care of it. 
-    
-    ✅ Practice mindfulness and meditation.  
-    ✅ Avoid burnout by balancing work and rest.  
-    ✅ Engage in hobbies that relax and recharge you.  
-    """)
-    
-# Goal Mastery
-elif page == "🎯 Goal Mastery":
-    st.header("🎯 Master the Art of Goal Setting")
-    goal = st.text_input("Set a new goal:")
-    if goal:
-        st.write(f"Your goal: {goal}")
-    
-    if st.button("Save Goal"):
-        st.success("Goal saved successfully! Stay committed! 🚀")
+    # Weekly Habit Completion Graph
+    weekly_progress = {habit: random.randint(0, 7) for habit in habits}
+    fig, ax = plt.subplots()
+    ax.bar(weekly_progress.keys(), weekly_progress.values(), color='green')
+    ax.set_title("Weekly Habit Completion")
+    ax.set_ylabel("Days Completed")
+    ax.set_ylim(0, 7)
+    st.pyplot(fig)
 
-# Productivity Hacks
-elif page == "💡 Productivity Hacks":
-    st.header("💡 Boost Your Productivity")
-    tips = [
-        "🕒 Use the Pomodoro technique for better focus.",
-        "📋 Prioritize tasks using the Eisenhower Matrix.",
-        "📵 Reduce distractions by setting app limits.",
-        "📖 Continuous learning enhances efficiency."
+# Daily Motivation Page
+elif page == "💭 Daily Motivation":
+    st.header("💭 Get Inspired Every Day!")
+    st.info(f"💡 **Today's Motivation:** {random.choice(quotes)}")
+    
+    motivation_level = st.slider("Rate your motivation level today:", 0, 100, 50)
+    fig, ax = plt.subplots()
+    ax.bar(["Motivation Level"], [motivation_level], color='orange')
+    ax.set_ylabel("Percentage")
+    ax.set_ylim(0, 100)
+    st.pyplot(fig)
+
+# Inspirational Stories
+elif page == "📖 Inspirational Stories":
+    st.header("📖 Success Stories to Keep You Going")
+    stories = [
+        ("💡 **Elon Musk**", "Started multiple companies and transformed industries."),
+        ("📚 **J.K. Rowling**", "Rejected 12 times before publishing Harry Potter."),
+        ("🏀 **Michael Jordan**", "Was cut from his high school team but became an icon."),
+        ("🌍 **Nelson Mandela**", "Spent 27 years in prison and changed a nation."),
+        ("🎶 **Ed Sheeran**", "Slept on sofas while pursuing music, now a global icon.")
     ]
-    st.write(f"💡 **Tip for Today:** {random.choice(tips)}")
+    for name, story in stories:
+        st.subheader(name)
+        st.write(story)
+
+# Progress Analytics Page
+elif page == "📊 Progress Analytics":
+    st.header("📊 Track Your Progress")
     
-# Learning & Skills
-elif page == "📚 Learning & Skills":
-    st.header("📚 Keep Learning & Growing")
-    st.markdown("""
-    🎓 Learn something new every day! 
+    labels = ["Productivity", "Motivation", "Consistency", "Focus"]
+    values = [random.randint(50, 100) for _ in labels]
+    fig, ax = plt.subplots()
+    ax.bar(labels, values, color=['blue', 'green', 'orange', 'red'])
+    ax.set_ylabel("Performance (%)")
+    ax.set_ylim(0, 100)
+    ax.set_title("Your Weekly Performance")
+    st.pyplot(fig)
     
-    ✅ Read books & articles.  
-    ✅ Take online courses.  
-    ✅ Practice critical thinking.  
-    ✅ Engage in discussions with experts.
-    """)
-    
-# Financial Growth
-elif page == "💰 Financial Growth":
-    st.header("💰 Develop Smart Financial Habits")
-    st.markdown("""
-    Secure your financial future with these steps:  
-    
-    ✅ Save at least 10% of your income.  
-    ✅ Invest wisely for long-term benefits.  
-    ✅ Track your spending and cut unnecessary costs.  
-    ✅ Learn about financial literacy.  
-    """)
-    
+    st.success("Keep improving and tracking your progress!")
+
 # Footer
 st.markdown("---")
-st.markdown("Built with ❤️ using Streamlit | © 2025 Success & Growth Hub")
+st.markdown("Built with ❤️ using Streamlit | © 2025 Daily Motivation & Productivity Hub")
 
