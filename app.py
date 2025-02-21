@@ -27,8 +27,7 @@ if page == "🏠 Home":
     ✅ **Adopt a Limitless Mindset** – Keep evolving & winning!  
     """)
     
-    st.image("https://source.unsplash.com/800x400/?success,motivation", use_column_width=True)
-    
+   st.image("https://blog.iawomen.com/wp-content/uploads/2024/01/Depositphotos_682225278_S.jpg")
     st.success("Every day is a chance to level up. Let’s make it count! 🚀")
     
     # Motivational Quote of the Day
