@@ -1,114 +1,146 @@
 import streamlit as st
 import random
+import matplotlib.pyplot as plt
+import numpy as np
+from datetime import date
+import time
 
-# App Title
-st.set_page_config(page_title="🚀 Peak Performance Hub", page_icon="🔥")
-st.title("🚀 Peak Performance Hub: Develop a Growth Mindset")
+# App Configuration
+st.set_page_config(page_title="Limitless Growth Hub 🚀", page_icon="🌟")
+st.title("🚀 Limitless Growth Hub: Unlock Your Full Potential")
 
 # Sidebar Navigation
-st.sidebar.header("📌 Navigate")
+st.sidebar.header("📌 Quick Navigation")
 page = st.sidebar.radio("Go to:", [
-    "🏡 Home", "🧠 Mindset Basics", "🎯 Daily Challenges", "📖 Success Stories",
-    "✅ Goal Setting & Progress", "💪 Overcoming Setbacks", "📝 Self-Reflection & Journaling",
-    "🚀 Motivation & Productivity Hacks"
+    "🏡 Home", "🧠 Growth Mindset", "⏳ Productivity Hacks", "🎯 Goal Setting",
+    "📅 Habit Building", "💪 Overcoming Challenges", "💰 Career & Finance", "📖 Self-Reflection"
 ])
 
 # Home Page
 if page == "🏡 Home":
-    st.header("Welcome to Peak Performance Hub! 🚀")
+    st.header("Welcome to Limitless Growth Hub! 🌱")
     st.markdown("""
-    ### Why Growth Mindset Matters?
-    ✅ **Embrace Challenges** – Learn and grow from difficulties.  
-    ✅ **Persist Through Setbacks** – Failure is just a stepping stone.  
-    ✅ **Believe in Progress** – Intelligence & skills can be developed.  
-    ✅ **Learn from Others** – Get inspired by success stories!  
-    
+    ### Why Focus on Growth?
+    ✅ **Develop a Strong Mindset** for success.  
+    ✅ **Master Productivity & Time Management** to achieve more.  
+    ✅ **Set & Crush Your Goals** with proven strategies.  
+    ✅ **Build Habits That Last** and transform your life.  
+    ✅ **Learn & Grow Continuously** for lifelong success.
     """)
-    st.success("Your potential is limitless. Keep pushing forward! 💡")
-    
-    # Random Growth Mindset Quote
-    quotes = [
-        "Failure is an opportunity to grow!",
-        "Effort and attitude determine success.",
-        "I can learn anything if I put in the effort.",
-        "Challenges make me stronger!",
-        "Feedback helps me improve.",
-        "Every mistake is a learning opportunity."
-    ]
-    st.info(f"💡 **Quote of the Day:** {random.choice(quotes)}")
+    st.image("https://m.media-amazon.com/images/I/51JYYBZTjaL._SL500_.jpg", use_container_width=True)
+    st.success("Your journey to unlimited growth starts today! 🚀")
 
-# Mindset Basics
-elif page == "🧠 Mindset Basics":
-    st.header("🧠 Fixed vs. Growth Mindset")
-    st.write("""
-    - **Fixed Mindset**: Believes abilities are static. Avoids challenges. Gives up easily.
-    - **Growth Mindset**: Believes abilities can be developed. Embraces challenges. Keeps going!
-    """)
-    st.image("https://miro.medium.com/max/1400/1*d7PH_YtJOhHBa-3NiAikbQ.jpeg", use_column_width=True)
+# Growth Mindset Page
+elif page == "🧠 Growth Mindset":
+    st.header("🧠 Develop a Growth Mindset")
+    st.write("A growth mindset helps you embrace challenges and improve continuously.")
+    st.subheader("Key Principles:")
+    st.write("- Embrace challenges as opportunities.")
+    st.write("- Learn from feedback and failures.")
+    st.write("- Keep putting in effort and stay persistent.")
     
-# Daily Challenges
-elif page == "🎯 Daily Challenges":
-    st.header("🎯 Today's Growth Challenge")
+    # Daily Challenge
     challenges = [
-        "Try something new today!", "Reframe a failure as a learning experience.",
-        "Give constructive feedback to someone.", "Push yourself outside your comfort zone.",
-        "Learn a new skill or fact today!"
+        "Try something new and reflect on what you learned.",
+        "Reframe a recent failure as a learning experience.",
+        "Ask for constructive feedback and implement it.",
+        "Set a challenging goal and take action.",
+        "Practice positive self-talk when facing a challenge."
     ]
-    st.success(f"🚀 **Your Challenge:** {random.choice(challenges)}")
+    st.write(f"🌟 **Today's Challenge:** {random.choice(challenges)}")
 
-# Success Stories
-elif page == "📖 Success Stories":
-    st.header("📖 Inspirational Growth Mindset Stories")
-    stories = {
-        "🌟 Elon Musk": "Overcame multiple failures to build Tesla & SpaceX.",
-        "📚 J.K. Rowling": "Rejected 12 times before publishing Harry Potter.",
-        "🏀 Michael Jordan": "Was cut from his high school team but became an icon.",
-        "🌍 Nelson Mandela": "Spent 27 years in prison and still changed the world."
-    }
-    for name, story in stories.items():
-        st.subheader(name)
-        st.write(story)
-
-# Goal Setting & Progress
-elif page == "✅ Goal Setting & Progress":
-    st.header("✅ Set & Track Your Goals")
-    goal = st.text_input("Your Goal:")
-    if goal:
-        steps = st.text_area("Steps to Achieve It:")
-        if st.button("Save Goal"):
-            st.success("Goal Saved! Stay committed.")
-            st.balloons()
-
-# Overcoming Setbacks
-elif page == "💪 Overcoming Setbacks":
-    st.header("💪 Bounce Back from Failure")
-    st.write("Failure isn't the end – it's a lesson!")
-    st.image("https://i.imgur.com/Y5B30nD.png", use_column_width=True)
-    st.info("Think about a recent failure. What did you learn from it?")
+# Productivity Hacks Page
+elif page == "⏳ Productivity Hacks":
+    st.header("⏳ Boost Your Productivity")
+    st.write("Time is your most valuable asset. Use it wisely!")
     
-# Self-Reflection & Journaling
-elif page == "📝 Self-Reflection & Journaling":
-    st.header("📝 Daily Reflection")
-    st.write("Take time to reflect on your growth today.")
-    mood = st.select_slider("How was your mood today?", ["😔", "😐", "🙂", "😊", "😃"])
-    reflection = st.text_area("What did you learn today?")
-    if st.button("Save Reflection"):
-        st.success("Reflection saved! Keep growing.")
-        st.balloons()
-
-# Motivation & Productivity Hacks
-elif page == "🚀 Motivation & Productivity Hacks":
-    st.header("🚀 Boost Your Productivity")
     tips = [
-        "Use time-blocking to stay focused.",
-        "Prioritize tasks using the Eisenhower Matrix.",
-        "Get enough sleep for better performance.",
-        "Limit distractions like social media.",
-        "Stay hydrated and take short breaks."
+        "Use the Pomodoro technique to stay focused.",
+        "Start your day with the most important task.",
+        "Avoid multitasking, focus on one task at a time.",
+        "Take regular breaks to maintain energy levels.",
+        "Use a to-do list to track daily tasks."
     ]
     st.write(f"💡 **Tip for Today:** {random.choice(tips)}")
+    
+    # Productivity Chart
+    fig, ax = plt.subplots()
+    sizes = [60, 25, 15]
+    labels = ["Deep Work", "Breaks", "Distractions"]
+    colors = ["green", "yellow", "red"]
+    ax.pie(sizes, labels=labels, autopct='%1.1f%%', colors=colors, startangle=90)
+    ax.axis('equal')
+    st.pyplot(fig)
+
+# Goal Setting Page
+elif page == "🎯 Goal Setting":
+    st.header("🎯 Set & Achieve Your Goals")
+    st.write("Success begins with clear goals and an action plan.")
+    
+    goal = st.text_input("Enter your goal:")
+    steps = st.text_area("Steps to achieve this goal:")
+    if st.button("Save Goal"):
+        st.success("Goal saved! Now take action! 🚀")
+
+# Habit Building Page
+elif page == "📅 Habit Building":
+    st.header("📅 Build Powerful Habits")
+    habits = ["Exercise", "Read", "Meditate", "Drink Water", "Wake Up Early"]
+    
+    for habit in habits:
+        st.checkbox(f"Did you {habit.lower()} today?")
+    if st.button("Save Progress"):
+        st.success("Keep up the good work! 🔥")
+        st.balloons()
+
+# Overcoming Challenges Page
+elif page == "💪 Overcoming Challenges":
+    st.header("💪 Face Challenges with Confidence")
+    st.write("Every challenge is an opportunity to grow.")
+    
+    obstacles = [
+        "Fear of failure", "Lack of motivation", "Time management issues",
+        "Procrastination", "Self-doubt"
+    ]
+    selected_obstacle = st.selectbox("Which challenge are you facing?", obstacles)
+    
+    solutions = {
+        "Fear of failure": "Focus on progress, not perfection.",
+        "Lack of motivation": "Find your 'why' and remind yourself daily.",
+        "Time management issues": "Prioritize your tasks and use time blocking.",
+        "Procrastination": "Use the 5-minute rule—just start!",
+        "Self-doubt": "Replace negative thoughts with empowering beliefs."
+    }
+    st.write(f"✅ Solution: {solutions[selected_obstacle]}")
+
+# Career & Finance Growth Page
+elif page == "💰 Career & Finance":
+    st.header("💰 Build Wealth & Career Success")
+    st.write("Take control of your finances and career growth.")
+    
+    finance_tips = [
+        "Save at least 20% of your income.",
+        "Invest in self-education.",
+        "Build multiple income streams.",
+        "Create a monthly budget and stick to it.",
+        "Focus on skills that increase your earning potential."
+    ]
+    st.write(f"💡 **Finance Tip:** {random.choice(finance_tips)}")
+
+# Self-Reflection Page
+elif page == "📖 Self-Reflection":
+    st.header("📖 Reflect & Improve Daily")
+    st.write("End each day with self-reflection and gratitude.")
+    
+    mood = st.select_slider("How was your day?", options=["😔", "😐", "🙂", "😊", "😃"])
+    st.write(f"You felt {mood} today.")
+    accomplishments = st.text_area("What did you achieve today?")
+    lessons = st.text_area("What did you learn today?")
+    
+    if st.button("Save Reflection"):
+        st.success("Reflection saved! Keep growing! 🌱")
+        st.balloons()
 
 # Footer
 st.markdown("---")
-st.markdown("Built with ❤️ using Streamlit | © 2025 Peak Performance Hub")
-
+st.markdown("Built with ❤️ using Streamlit | © 2025 Limitless Growth Hub")
