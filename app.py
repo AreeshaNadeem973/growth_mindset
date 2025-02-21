@@ -48,7 +48,7 @@ elif page == "📖 Skill Categories":
     if chosen_category:
         st.subheader(chosen_category)
         st.write(categories[chosen_category][0])
-        st.image(categories[chosen_category][1], use_column_width=True)
+        st.image(categories[chosen_category][1], caption=chosen_category, use_column_width=True)
 
 # Learning Goals
 elif page == "🎯 Learning Goals":
