@@ -1,129 +1,118 @@
 import streamlit as st
+import random
+import time
 import matplotlib.pyplot as plt
+import numpy as np
+
+# Custom Styling
+st.markdown("""
+    <style>
+        .main {background-color: #f4f4f4; padding: 20px; border-radius: 10px;}
+        .title {color: #ff6347; text-align: center; font-size: 40px; font-weight: bold;}
+        .subtitle {color: #4682b4; text-align: center; font-size: 20px;}
+        .quote-box {background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0px 4px 6px rgba(0,0,0,0.1);}
+        .goal-box {background: #dff0d8; padding: 20px; border-radius: 8px;}
+    </style>
+""", unsafe_allow_html=True)
 
 # App Title
-st.title("🌟 Success Habits Tracker")
+st.markdown("<div class='title'>🌟 Daily Motivation Hub</div>", unsafe_allow_html=True)
 
 # Sidebar for Navigation
 st.sidebar.header("📌 Quick Navigation")
 page = st.sidebar.radio("Go to:", [
-    "🏡 Home", "📊 Habit Tracker", "📝 Daily Task", "💡 Productivity Tips",
-    "📖 Inspirational Stories", "🎯 Goal Setting", "🤔 Self-Reflection", "🧩 Brain Teasers"
+    "🏡 Home", "📊 Progress Graph", "💬 Daily Quote", "📖 Success Stories", "🎯 Goal Planner",
+    "📝 Journal", "🎵 Motivational Music", "📺 Inspirational Videos"
 ])
 
 # Home Page
 if page == "🏡 Home":
-    st.header("Welcome to the Success Habits Tracker! 🚀")
+    st.markdown("<div class='subtitle'>Welcome to the Daily Motivation Hub! 🚀</div>", unsafe_allow_html=True)
     st.markdown("""
-    ### Why Build Success Habits?
-    ✅ **Stay Consistent**: Small efforts daily lead to big achievements.  
-    ✅ **Learn from Failures**: Mistakes are lessons in disguise.  
-    ✅ **Develop Self-Discipline**: Build a mindset for success.  
-    ✅ **Track Your Progress**: See how far you’ve come!  
-    ✅ **Stay Motivated**: Keep pushing forward every day.  
-    """)
-    st.image("https://media.istockphoto.com/id/1363797430/photo/success-loading-bar.webp", use_container_width=True)
+    <div class='quote-box'>
+    ✅ **Boost Productivity**: A positive mindset leads to better performance.  
+    ✅ **Overcome Challenges**: Face obstacles with confidence.  
+    ✅ **Stay Inspired**: Keep pushing towards your dreams.  
+    ✅ **Achieve Your Goals**: Motivation drives success!  
+    </div>
+    """, unsafe_allow_html=True)
+    st.image("https://media.istockphoto.com/id/1282618663/photo/positivity-and-motivation.webp", use_container_width=True)
 
-# Habit Tracker
-elif page == "📊 Habit Tracker":
-    st.header("📊 Track Your Daily Habits")
+# Progress Graph with Balloons Effect
+elif page == "📊 Progress Graph":
+    st.markdown("<div class='subtitle'>📊 Your Progress Over Time</div>", unsafe_allow_html=True)
     
-    days = st.slider("How many days have you been tracking habits?", 1, 30, 5)
-    effort = st.slider("How consistent have you been (1-10)?", 1, 10, 7)
-
-    st.session_state["days"] = days  
-
+    x = np.arange(1, 11)
+    y = np.random.randint(5, 100, size=10)
+    
     fig, ax = plt.subplots()
-    ax.bar(["Days Tracked", "Consistency Level"], [days, effort], color=["blue", "green"])
-    ax.set_ylabel("Level")
+    ax.plot(x, y, marker='o', linestyle='-', color='blue')
+    ax.set_xlabel("Days")
+    ax.set_ylabel("Motivation Level")
     st.pyplot(fig)
-
-# Daily Task
-elif page == "📝 Daily Task":
-    st.header("📝 Today's Success Habit Task")
     
-    days = st.session_state.get("days", 1)
+    if st.button("Click the Graph for Celebration!"):
+        st.balloons()
 
-    tasks = [
-        "🔹 Write down 3 things you want to achieve today.",
-        "🔹 Start your day with 10 minutes of mindfulness.",
-        "🔹 Avoid distractions for 1 hour and focus on deep work.",
-        "🔹 Read 10 pages of a book related to personal growth.",
-        "🔹 Exercise for at least 30 minutes.",
-        "🔹 Reflect on what went well today and what you can improve."
-    ]
-
-    st.write("💡 **Task for Today:**", tasks[days % len(tasks)])
-
-# Productivity Tips
-elif page == "💡 Productivity Tips":
-    st.header("💡 Daily Productivity Tip")
+# Daily Quote
+elif page == "💬 Daily Quote":
+    st.markdown("<div class='subtitle'>💬 Today's Motivational Quote</div>", unsafe_allow_html=True)
     
-    tips = [
-        "🔥 **Use the Pomodoro Technique** – Work for 25 minutes, then take a 5-minute break.",
-        "🔥 **Eliminate Distractions** – Turn off notifications and focus.",
-        "🔥 **Prioritize Tasks** – Focus on the most important tasks first.",
-        "🔥 **Stay Hydrated & Eat Well** – Your brain needs energy!",
-        "🔥 **Review Your Goals Daily** – Keep yourself accountable.",
-        "🔥 **Get Enough Sleep** – A well-rested mind performs better."
+    quotes = [
+        "Believe you can and you're halfway there. – Theodore Roosevelt",
+        "Your limitation—it's only your imagination.",
+        "Push yourself, because no one else is going to do it for you.",
+        "Great things never come from comfort zones.",
+        "Dream it. Wish it. Do it.",
+        "Success doesn’t just find you. You have to go out and get it."
     ]
+    st.markdown(f"<div class='quote-box'><b>{random.choice(quotes)}</b></div>", unsafe_allow_html=True)
 
-    days = st.session_state.get("days", 1)
-    st.markdown(f"💡 **Tip for Today:** {tips[days % len(tips)]}")
-
-# Inspirational Stories
-elif page == "📖 Inspirational Stories":
-    st.header("📖 Success Stories of Famous People")
+# Success Stories
+elif page == "📖 Success Stories":
+    st.markdown("<div class='subtitle'>📖 Inspirational Success Stories</div>", unsafe_allow_html=True)
     
     stories = [
-        ("💪 **Elon Musk**", "Failed multiple times before Tesla and SpaceX became successful."),
-        ("📚 **Stephen King**", "His first novel was rejected 30 times before publication."),
-        ("🎤 **Lady Gaga**", "Dropped by her first record label but didn’t give up."),
-        ("🏀 **Kobe Bryant**", "Practiced 4 AM workouts every day to be the best."),
-        ("💻 **Steve Jobs**", "Was fired from Apple, then returned to make it a global giant.")
+        ("💪 **Nick Vujicic**", "Born without limbs, became a world-renowned motivational speaker."),
+        ("📚 **J.K. Rowling**", "Rejected multiple times before publishing Harry Potter."),
+        ("🏀 **Michael Jordan**", "Cut from his high school basketball team, but became an NBA legend."),
+        ("🚀 **Elon Musk**", "Faced failures but built Tesla & SpaceX into global giants.")
     ]
     
     for name, story in stories:
-        st.subheader(name)
-        st.write(story)
+        st.markdown(f"<div class='quote-box'><b>{name}</b><br>{story}</div>", unsafe_allow_html=True)
 
-# Goal Setting
-elif page == "🎯 Goal Setting":
-    st.header("🎯 Set Your Success Goals")
-
+# Goal Planner
+elif page == "🎯 Goal Planner":
+    st.markdown("<div class='subtitle'>🎯 Set Your Goals</div>", unsafe_allow_html=True)
+    
     goal = st.text_input("📝 Write your goal:")
     deadline = st.date_input("📅 Set a deadline:")
-
+    
     if st.button("Save Goal"):
         st.success(f"🎯 Goal '{goal}' set for {deadline}!")
 
-# Self-Reflection
-elif page == "🤔 Self-Reflection":
-    st.header("🤔 Reflect on Your Progress")
-
-    journal = st.text_area("📖 Write about your progress, challenges, and key learnings:")
+# Journal
+elif page == "📝 Journal":
+    st.markdown("<div class='subtitle'>📝 Daily Reflection Journal</div>", unsafe_allow_html=True)
     
-    if st.button("Save Reflection"):
-        st.success("📝 Reflection saved! Keep pushing forward.")
-
-# Brain Teasers
-elif page == "🧩 Brain Teasers":
-    st.header("🧩 Daily Brain Teaser")
-
-    riddles = [
-        ("🤔 **What comes once in a minute, twice in a moment, but never in a thousand years?**", "The letter M"),
-        ("🔍 **I am not alive, but I grow. I don’t have lungs, but I need air. What am I?**", "Fire"),
-        ("🎭 **The more you remove from me, the bigger I get. What am I?**", "A hole"),
-        ("💡 **What can travel around the world while staying in the same spot?**", "A stamp")
-    ]
+    journal_entry = st.text_area("📖 Write about your thoughts and achievements today:")
     
-    days = st.session_state.get("days", 1)
-    question, answer = riddles[days % len(riddles)]
+    if st.button("Save Journal Entry"):
+        st.success("📝 Journal entry saved! Keep reflecting and growing.")
 
-    st.write(question)
-    if st.button("Show Answer"):
-        st.write(f"✅ **Answer:** {answer}")
+# Motivational Music
+elif page == "🎵 Motivational Music":
+    st.markdown("<div class='subtitle'>🎵 Listen to Motivational Music</div>", unsafe_allow_html=True)
+    st.video("https://www.youtube.com/watch?v=ZXsQAXx_ao0")
+    st.write("🎧 Enjoy this motivational speech to power up your day!")
+
+# Inspirational Videos
+elif page == "📺 Inspirational Videos":
+    st.markdown("<div class='subtitle'>📺 Watch Inspirational Videos</div>", unsafe_allow_html=True)
+    st.video("https://www.youtube.com/watch?v=mgmVOuLgFB0")
+    st.write("🔥 Watch this powerful video to ignite your motivation!")
 
 # Footer
 st.markdown("---")
-st.markdown("🚀 *Built with ❤️ using Streamlit. Keep Growing & Succeeding!*")
+st.markdown("🚀 *Stay Inspired, Stay Motivated!* 🌟")
