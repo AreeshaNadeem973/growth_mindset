@@ -2,86 +2,85 @@ import streamlit as st
 import matplotlib.pyplot as plt
 
 # App Title
-st.title("🚀 Growth Mindset Challenge")
+st.title("🌟 Success Habits Tracker")
 
 # Sidebar for Navigation
 st.sidebar.header("📌 Quick Navigation")
 page = st.sidebar.radio("Go to:", [
-    "🏡 Home", "📊 Progress Tracker", "📝 Daily Challenge", "💡 Tips for Growth",
-    "📖 Success Stories", "🎯 Goal Setting", "🤔 Self-Reflection", "🧠 Brain Exercises"
+    "🏡 Home", "📊 Habit Tracker", "📝 Daily Task", "💡 Productivity Tips",
+    "📖 Inspirational Stories", "🎯 Goal Setting", "🤔 Self-Reflection", "🧩 Brain Teasers"
 ])
 
 # Home Page
 if page == "🏡 Home":
-    st.header("Welcome to the Growth Mindset Challenge! 🎯")
+    st.header("Welcome to the Success Habits Tracker! 🚀")
     st.markdown("""
-    ### Why Adopt a Growth Mindset?
-    ✅ **Embrace Challenges**: View obstacles as opportunities to learn rather than setbacks.  
-    ✅ **Learn from Mistakes**: Mistakes help you improve.  
-    ✅ **Persist Through Difficulties**: Stay determined!  
-    ✅ **Celebrate Effort**: Focus on growth, not just results.  
-    ✅ **Stay Curious**: Always be open to learning.  
+    ### Why Build Success Habits?
+    ✅ **Stay Consistent**: Small efforts daily lead to big achievements.  
+    ✅ **Learn from Failures**: Mistakes are lessons in disguise.  
+    ✅ **Develop Self-Discipline**: Build a mindset for success.  
+    ✅ **Track Your Progress**: See how far you’ve come!  
+    ✅ **Stay Motivated**: Keep pushing forward every day.  
     """)
-    st.image("https://media.istockphoto.com/id/1973623637/photo/mindset-loading-bar-concept.webp?a=1&b=1&s=612x612&w=0&k=20&c=_IrFcWJW6qoDNKpKgSNT4rY78RxoQYJo9kkPPXh7cFc=", use_container_width=True)
+    st.image("https://media.istockphoto.com/id/1363797430/photo/success-loading-bar.webp", use_container_width=True)
 
-# Progress Tracker
-elif page == "📊 Progress Tracker":
-    st.header("📊 Your Growth Progress")
+# Habit Tracker
+elif page == "📊 Habit Tracker":
+    st.header("📊 Track Your Daily Habits")
     
-    days = st.slider("How many days have you been practicing a Growth Mindset?", 1, 30, 5)
-    effort = st.slider("How much effort do you put in (1-10)?", 1, 10, 7)
+    days = st.slider("How many days have you been tracking habits?", 1, 30, 5)
+    effort = st.slider("How consistent have you been (1-10)?", 1, 10, 7)
 
     st.session_state["days"] = days  
 
     fig, ax = plt.subplots()
-    ax.bar(["Days Practiced", "Effort Level"], [days, effort], color=["blue", "green"])
+    ax.bar(["Days Tracked", "Consistency Level"], [days, effort], color=["blue", "green"])
     ax.set_ylabel("Level")
     st.pyplot(fig)
 
-# Daily Challenge
-elif page == "📝 Daily Challenge":
-    st.header("📝 Today's Growth Mindset Challenge")
+# Daily Task
+elif page == "📝 Daily Task":
+    st.header("📝 Today's Success Habit Task")
     
     days = st.session_state.get("days", 1)
 
-    challenges = [
-        "🔹 Identify one mistake you made today and what you learned from it.",
-        "🔹 Try something new that challenges you.",
-        "🔹 Replace a negative thought with a positive one.",
-        "🔹 Teach a new skill to a friend.",
-        "🔹 Read about someone who overcame obstacles and got successful.",
-        "🔹 Write down three things you're grateful for today."
+    tasks = [
+        "🔹 Write down 3 things you want to achieve today.",
+        "🔹 Start your day with 10 minutes of mindfulness.",
+        "🔹 Avoid distractions for 1 hour and focus on deep work.",
+        "🔹 Read 10 pages of a book related to personal growth.",
+        "🔹 Exercise for at least 30 minutes.",
+        "🔹 Reflect on what went well today and what you can improve."
     ]
 
-    st.write("💡 **Challenge for Today:**", challenges[days % len(challenges)])
+    st.write("💡 **Task for Today:**", tasks[days % len(tasks)])
 
-# Tips for Growth
-elif page == "💡 Tips for Growth":
-    st.header("💡 Daily Growth Tips")
+# Productivity Tips
+elif page == "💡 Productivity Tips":
+    st.header("💡 Daily Productivity Tip")
     
     tips = [
-        "🔥 **Learn from Feedback** – Constructive criticism helps you improve.",
-        "🔥 **Be Persistent** – Hard work leads to success.",
-        "🔥 **Surround Yourself with Positive People** – Learn from those with a growth mindset.",
-        "🔥 **Stay Curious** – Ask questions and keep learning.",
-        "🔥 **Break Big Goals into Small Steps** – Focus on progress, not perfection.",
-        "🔥 **Celebrate Small Wins** – Every step forward counts!",
-        "🔥 **Develop a Learning Habit** – Read books, watch tutorials, and improve every day."
+        "🔥 **Use the Pomodoro Technique** – Work for 25 minutes, then take a 5-minute break.",
+        "🔥 **Eliminate Distractions** – Turn off notifications and focus.",
+        "🔥 **Prioritize Tasks** – Focus on the most important tasks first.",
+        "🔥 **Stay Hydrated & Eat Well** – Your brain needs energy!",
+        "🔥 **Review Your Goals Daily** – Keep yourself accountable.",
+        "🔥 **Get Enough Sleep** – A well-rested mind performs better."
     ]
 
     days = st.session_state.get("days", 1)
     st.markdown(f"💡 **Tip for Today:** {tips[days % len(tips)]}")
 
-# Success Stories
-elif page == "📖 Success Stories":
-    st.header("📖 Real-Life Growth Mindset Stories")
+# Inspirational Stories
+elif page == "📖 Inspirational Stories":
+    st.header("📖 Success Stories of Famous People")
     
     stories = [
-        ("💪 **Thomas Edison**", "Failed over 1,000 times before inventing the light bulb."),
-        ("🌍 **Oprah Winfrey**", "Was fired from her first TV job but never gave up."),
-        ("🎶 **Eminem**", "Rejected multiple times before becoming a rap legend."),
-        ("🏀 **Michael Jordan**", "Cut from his high school basketball team, but became a legend."),
-        ("📚 **J.K. Rowling**", "Harry Potter was rejected by 12 publishers before success.")
+        ("💪 **Elon Musk**", "Failed multiple times before Tesla and SpaceX became successful."),
+        ("📚 **Stephen King**", "His first novel was rejected 30 times before publication."),
+        ("🎤 **Lady Gaga**", "Dropped by her first record label but didn’t give up."),
+        ("🏀 **Kobe Bryant**", "Practiced 4 AM workouts every day to be the best."),
+        ("💻 **Steve Jobs**", "Was fired from Apple, then returned to make it a global giant.")
     ]
     
     for name, story in stories:
@@ -90,7 +89,7 @@ elif page == "📖 Success Stories":
 
 # Goal Setting
 elif page == "🎯 Goal Setting":
-    st.header("🎯 Set Your Goals")
+    st.header("🎯 Set Your Success Goals")
 
     goal = st.text_input("📝 Write your goal:")
     deadline = st.date_input("📅 Set a deadline:")
@@ -100,22 +99,22 @@ elif page == "🎯 Goal Setting":
 
 # Self-Reflection
 elif page == "🤔 Self-Reflection":
-    st.header("🤔 Daily Self-Reflection")
+    st.header("🤔 Reflect on Your Progress")
 
-    journal = st.text_area("📖 Write about your day, your challenges, and what you learned:")
+    journal = st.text_area("📖 Write about your progress, challenges, and key learnings:")
     
     if st.button("Save Reflection"):
-        st.success("📝 Reflection saved! Keep learning and growing.")
+        st.success("📝 Reflection saved! Keep pushing forward.")
 
-# Brain Exercises
-elif page == "🧠 Brain Exercises":
-    st.header("🧠 Daily Brain Challenge")
+# Brain Teasers
+elif page == "🧩 Brain Teasers":
+    st.header("🧩 Daily Brain Teaser")
 
     riddles = [
-        ("🤔 **I speak without a mouth and hear without ears. Who am I?**", "An echo"),
-        ("🔍 **The more you take, the more you leave behind. What am I?**", "Footsteps"),
-        ("🎭 **I have keys but open no locks. What am I?**", "A piano"),
-        ("💡 **What has to be broken before you can use it?**", "An egg")
+        ("🤔 **What comes once in a minute, twice in a moment, but never in a thousand years?**", "The letter M"),
+        ("🔍 **I am not alive, but I grow. I don’t have lungs, but I need air. What am I?**", "Fire"),
+        ("🎭 **The more you remove from me, the bigger I get. What am I?**", "A hole"),
+        ("💡 **What can travel around the world while staying in the same spot?**", "A stamp")
     ]
     
     days = st.session_state.get("days", 1)
@@ -127,4 +126,4 @@ elif page == "🧠 Brain Exercises":
 
 # Footer
 st.markdown("---")
-st.markdown("🌱 *Developed with ❤️ using Streamlit. Keep Growing!*")
+st.markdown("🚀 *Built with ❤️ using Streamlit. Keep Growing & Succeeding!*")
