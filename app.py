@@ -2,7 +2,7 @@ import streamlit as st
 import random
 import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib.animation import FuncAnimation
+import time
 
 # Custom Styling
 st.markdown("""
@@ -70,20 +70,23 @@ elif page == "📊 Progress Tracker":
     progress = st.slider("How much progress have you made in your skill (0-100%)?", 0, 100, 50)
     st.write(f"You're {progress}% done! Keep going! 🚀")
     
-    fig, ax = plt.subplots()
-    ax.set_xlim(0, 1)
-    ax.set_ylim(0, 1)
-    balloons = np.random.rand(5, 2)
-    scatter = ax.scatter(balloons[:, 0], balloons[:, 1], s=200, c='red', alpha=0.6)
-    
-    def update(frame):
-        balloons[:, 1] += 0.02
-        balloons[balloons[:, 1] > 1, 1] = 0
-        scatter.set_offsets(balloons)
-        return scatter,
-    
-    ani = FuncAnimation(fig, update, frames=50, interval=100)
-    st.pyplot(fig)
+    # Create a button to trigger balloon animation
+    if st.button("🎈 Celebrate Progress!"):
+        st.write("🎉 Balloons are rising to celebrate your progress!")
+        time.sleep(1)
+        fig, ax = plt.subplots()
+        ax.set_xlim(0, 1)
+        ax.set_ylim(0, 1)
+        balloons = np.random.rand(5, 2)
+        scatter = ax.scatter(balloons[:, 0], balloons[:, 1], s=200, c='red', alpha=0.6)
+        
+        for _ in range(20):  # Move balloons upwards
+            balloons[:, 1] += 0.05
+            balloons[balloons[:, 1] > 1, 1] = 0  # Reset balloons at the top
+            scatter.set_offsets(balloons)
+            plt.pause(0.1)
+        
+        st.pyplot(fig)
 
 # Daily Challenges
 elif page == "💡 Daily Challenges":
