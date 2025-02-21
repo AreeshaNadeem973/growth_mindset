@@ -1,33 +1,32 @@
 import streamlit as st
 import matplotlib.pyplot as plt
 import numpy as np
-import random
+import time
 from datetime import date
+import random
 
-# App Configuration
-st.set_page_config(page_title="Limitless Growth Hub 🚀", page_icon="🔥")
-st.title("🚀 Limitless Growth Hub - Unlock Your Potential")
+# App Title
+st.set_page_config(page_title="🚀 Peak Performance Hub", page_icon="🌟")
+st.title("🚀 Peak Performance Hub")
 
-# Sidebar Navigation
+# Sidebar for Navigation
 st.sidebar.header("📌 Quick Navigation")
 page = st.sidebar.radio("Go to:", [
-    "🏡 Home", "🎯 Goal Setting", "📝 Productivity Hacks", "💡 Growth Mindset",
-    "📅 Habit Tracker", "💭 Daily Motivation", "🤔 Self-Reflection", "🎮 Brain Boosters"
+    "🏡 Home", "📅 Habit Tracker", "💭 Daily Motivation", "📖 Inspirational Stories",
+    "🎯 Goal Setting", "📝 Productivity Hacks", "🤔 Self-Reflection", "🧠 Brain Teasers", "🧠 Growth Mindset"
 ])
 
 # Home Page
 if page == "🏡 Home":
-    st.header("Welcome to Limitless Growth Hub! 🌟")
+    st.header("Welcome to Peak Performance Hub! 🚀")
     st.markdown("""
-    ### Why Focus on Growth & Productivity?
-    ✅ **Achieve Your Goals Faster** - Smart work over hard work.  
-    ✅ **Build Life-Changing Habits** - Small steps lead to big success.  
-    ✅ **Master Productivity Hacks** - Work smarter, not harder.  
-    ✅ **Adopt a Growth Mindset** - Success is a continuous journey!  
+    ### Why Focus on Productivity & Motivation?
+    ✅ **Stay Inspired**: Start each day with positive energy.  
+    ✅ **Build Consistent Habits**: Small steps lead to big success.  
+    ✅ **Set and Achieve Goals**: Turn your dreams into reality.  
+    ✅ **Develop a Growth Mindset**: Keep learning and improving!  
     """)
-    st.image("https://m.media-amazon.com/images/I/51JYYBZTjaL._SL500_.jpg", use_container_width=True)
     
-    # Motivational Quote of the Day
     quotes = [
         "The only way to do great work is to love what you do. - Steve Jobs",
         "Believe you can and you're halfway there. - Theodore Roosevelt",
@@ -35,85 +34,81 @@ if page == "🏡 Home":
         "The future belongs to those who believe in the beauty of their dreams. - Eleanor Roosevelt"
     ]
     st.info(f"💡 **Quote of the Day:** {random.choice(quotes)}")
+    
+# Habit Tracker
+elif page == "📅 Habit Tracker":
+    st.header("📅 Habit Tracker")
+    habits = ["Exercise", "Read", "Meditate", "Drink Water", "Healthy Eating"]
+    
+    for habit in habits:
+        st.checkbox(f"Did you {habit.lower()} today?")
+    
+    if st.button("Save Progress"):
+        st.success("Great job! Keep up the good work!")
+        st.balloons()
 
+# Daily Motivation
+elif page == "💭 Daily Motivation":
+    st.header("💭 Your Daily Dose of Motivation")
+    quotes = [
+        "🌟 *Believe in yourself and all that you are!*", 
+        "🚀 *Small daily improvements lead to stunning results!*", 
+        "🔥 *Your potential is endless. Keep going!*"
+    ]
+    st.success(f"💡 **Today's Motivation:** {random.choice(quotes)}")
+
+# Inspirational Stories
+elif page == "📖 Inspirational Stories":
+    st.header("📖 Real-Life Success Stories")
+    stories = [
+        ("💡 **Elon Musk**", "Started multiple companies and transformed industries."),
+        ("📚 **J.K. Rowling**", "Rejected 12 times before publishing Harry Potter.")
+    ]
+    for name, story in stories:
+        st.subheader(name)
+        st.write(story)
+
+# Goal Setting
+elif page == "🎯 Goal Setting":
+    st.header("🎯 Set Your Goals")
+    st.write("Setting clear goals is the first step towards achieving them.")
+    goal = st.text_input("Enter your goal:")
+    if goal:
+        st.write(f"Your goal: {goal}")
+    
 # Productivity Hacks
 elif page == "📝 Productivity Hacks":
-    st.header("📝 Master Productivity Hacks")
-    
-    # 1. Task Prioritization Techniques
-    st.subheader("✅ Task Prioritization Frameworks")
+    st.header("📝 Boost Your Productivity")
+    st.write("Here are some powerful productivity hacks:")
     st.markdown("""
-    - **Eisenhower Matrix:** Urgent vs. Important Tasks
-    - **Pomodoro Technique:** 25-min Work + 5-min Break
-    - **80/20 Rule:** Focus on the 20% that gives 80% results
+    - 🕒 **Time Blocking** – Schedule time for tasks to improve focus.
+    - 📋 **Prioritize Tasks** – Use the Eisenhower Matrix for efficiency.
+    - 📵 **Digital Detox** – Reduce screen time for better concentration.
     """)
-    
-    # 2. AI-Powered Productivity Tools
-    st.subheader("🤖 AI Productivity Tools")
-    st.markdown("""
-    - **Notion** for organizing tasks & knowledge.
-    - **ChatGPT** for brainstorming & automation.
-    - **Trello** for task & project management.
-    """)
-    
-    # 3. Productivity Timer
-    st.subheader("⏳ Focus Timer (Pomodoro)")
-    minutes = st.number_input("Set Focus Timer (Minutes):", min_value=1, max_value=60, value=25)
-    if st.button("Start Timer"):
-        st.success("Stay focused and productive!")
-        st.balloons()
-    
-    # 4. Daily Routine Optimization
-    st.subheader("🌅 Morning & Night Routines")
-    st.markdown("""
-    - **Morning Routine:** Hydration, Meditation, Goal Setting
-    - **Night Routine:** Reflection, Planning, Digital Detox
-    """)
-    
-    # 5. Focus Improvement Tips
-    st.subheader("📵 Digital Detox & Focus Strategies")
-    st.markdown("""
-    - Turn off notifications 🚫
-    - Use website blockers (e.g., Freedom, Cold Turkey) ⏳
-    - Practice Deep Work (90-minute focus sessions) 📖
-    """)
-    
-    # Productivity Bar Chart (Distraction Analysis)
-    categories = ["Focused Work", "Breaks", "Distractions"]
-    values = [60, 25, 15]
-    fig, ax = plt.subplots()
-    ax.bar(categories, values, color=['green', 'yellow', 'red'])
-    ax.set_ylabel("Time Spent (%)")
-    ax.set_title("How You Spend Your Day")
-    st.pyplot(fig)
-    
-    st.success("🚀 Optimize your productivity and reach new heights!")
 
-# Other Sections Placeholder
-elif page == "🎯 Goal Setting":
-    st.header("🎯 Set & Achieve Your Goals")
-    st.write("Coming soon...")
-
-elif page == "💡 Growth Mindset":
-    st.header("💡 Unlock Your Growth Mindset")
-    st.write("Coming soon...")
-
-elif page == "📅 Habit Tracker":
-    st.header("📅 Track Your Habits Consistently")
-    st.write("Coming soon...")
-
-elif page == "💭 Daily Motivation":
-    st.header("💭 Stay Inspired Every Day")
-    st.write("Coming soon...")
-
+# Self-Reflection
 elif page == "🤔 Self-Reflection":
-    st.header("🤔 Reflect on Your Daily Progress")
-    st.write("Coming soon...")
+    st.header("🤔 End-of-Day Reflection")
+    mood = st.select_slider("How was your mood today?", options=["😔", "😐", "🙂", "😊", "😃"])
+    st.write(f"You felt {mood} today.")
 
-elif page == "🎮 Brain Boosters":
-    st.header("🎮 Sharpen Your Mind with Fun Challenges")
-    st.write("Coming soon...")
+# Brain Teasers
+elif page == "🧠 Brain Teasers":
+    st.header("🧠 Sharpen Your Mind")
+    st.write("Solve this riddle:")
+    riddle = "What has keys but can't open locks?"
+    st.write(riddle)
+    user_answer = st.text_input("Your answer:")
+    if st.button("Check Answer"):
+        if user_answer.lower() == "piano":
+            st.success("Correct! Well done!")
+        else:
+            st.error("Not quite. The correct answer is: A piano")
 
-# Footer
-st.markdown("---")
-st.markdown("Built with ❤️ using Streamlit | © 2025 Limitless Growth Hub")
+# Growth Mindset
+elif page == "🧠 Growth Mindset":
+    st.header("🧠 Develop a Growth Mindset")
+    st.markdown("""
+    ### What is a Growth Mindset?
+    A growth mindset is the belief that abilities and intelligence can be developed with effort, learning, and persistence.
+    """)
