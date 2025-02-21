@@ -31,24 +31,22 @@ if page == "🏡 Home":
         </div>
     """, unsafe_allow_html=True)
 
-# Skill Categories
+# Skill Categories with Detailed Information
 elif page == "📖 Skill Categories":
     st.header("📖 Explore Different Skills")
     categories = {
-        "Coding": ("Learn programming languages like Python, Java, and more to build applications and software.", "https://upload.wikimedia.org/wikipedia/commons/3/3a/Neural_Network.svg"),
-        "Writing": ("Enhance your writing skills for blogging, content creation, and storytelling.", "https://upload.wikimedia.org/wikipedia/commons/6/69/Writing.svg"),
-        "Public Speaking": ("Improve your speaking skills to communicate effectively and confidently.", "https://upload.wikimedia.org/wikipedia/commons/a/a3/Public_speaking.svg"),
-        "Graphic Design": ("Master tools like Photoshop and Canva to create visually stunning designs.", "https://upload.wikimedia.org/wikipedia/commons/4/4e/Graphic_design.svg"),
-        "Photography": ("Learn the art of capturing beautiful moments and editing photos.", "https://upload.wikimedia.org/wikipedia/commons/3/3f/Photography.svg"),
-        "Marketing": ("Understand digital marketing, branding, and social media strategies.", "https://upload.wikimedia.org/wikipedia/commons/e/e6/Marketing.svg"),
-        "Finance": ("Gain knowledge in financial management, investment, and wealth building.", "https://upload.wikimedia.org/wikipedia/commons/8/88/Finance.svg")
+        "Coding": ("Learn programming from scratch and build real-world applications.", "https://upload.wikimedia.org/wikipedia/commons/3/39/Programming_languages.jpeg"),
+        "Writing": ("Enhance your writing skills to communicate effectively and creatively.", "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Writing_1.jpg/800px-Writing_1.jpg"),
+        "Public Speaking": ("Master the art of speaking confidently in front of an audience.", "https://upload.wikimedia.org/wikipedia/commons/1/13/Public_Speaking.jpg"),
+        "Graphic Design": ("Learn to create visually appealing content using design tools.", "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Graphic_Design.jpg/800px-Graphic_Design.jpg"),
+        "Finance": ("Understand financial concepts to manage money wisely.", "https://upload.wikimedia.org/wikipedia/commons/1/19/Financial_Charts.jpg")
     }
+    
     chosen_category = st.selectbox("Select a skill to explore:", list(categories.keys()))
     
-    if chosen_category:
-        st.subheader(chosen_category)
-        st.write(categories[chosen_category][0])
-        st.image(categories[chosen_category][1], use_column_width=True)
+    st.write(f"### {chosen_category}")
+    st.write(categories[chosen_category][0])
+    st.image(categories[chosen_category][1], use_column_width=True)
 
 # Learning Goals
 elif page == "🎯 Learning Goals":
@@ -58,57 +56,72 @@ elif page == "🎯 Learning Goals":
     if st.button("Save Goal"):
         st.success(f"✅ Goal '{goal}' set for {deadline}!")
 
-# Progress Tracker
+# Progress Tracker with Animated Balloons
 elif page == "📊 Progress Tracker":
     st.header("📊 Track Your Learning Progress")
     progress = st.slider("How much progress have you made in your skill (0-100%)?", 0, 100, 50)
     st.write(f"You're {progress}% done! Keep going! 🚀")
     
-    # Enhanced Graph with Animation Effect
-    x = np.arange(1, 11)
-    y = np.random.randint(10, 100, size=10)
-    
-    fig, ax = plt.subplots()
-    ax.plot(x, y, marker='o', linestyle='-', color='blue', label='Learning Progress')
-    ax.set_xlabel("Days")
-    ax.set_ylabel("Skill Mastery (%)")
-    ax.set_title("Learning Progress Over Time")
-    ax.legend()
-    st.pyplot(fig)
-    
-    # Celebrate Progress
     if st.button("🎈 Celebrate Progress!"):
-        st.write("🎉 Balloons are rising to celebrate your progress!")
         st.balloons()
 
-# Daily Challenges
+# Daily Challenges with Interactive Features
 elif page == "💡 Daily Challenges":
     st.header("💡 Take a Daily Learning Challenge")
-    challenge_categories = {
-        "Coding": ["Build a basic calculator in Python.", "Create a simple web page using HTML & CSS.", "Write a Python script to automate a task."],
-        "Writing": ["Write a short story of at least 300 words.", "Summarize a book in one page.", "Create an engaging blog post on a trending topic."],
-        "Public Speaking": ["Practice a 2-minute speech on a topic you love.", "Record yourself explaining a concept and review it.", "Deliver a speech in front of friends or family."],
-        "Graphic Design": ["Design a business card using Canva.", "Create a social media post graphic.", "Redesign a popular brand logo with your twist."],
-        "Photography": ["Take 10 creative photos of everyday objects.", "Edit an old photo to make it look professional.", "Capture a photo that tells a story."],
-        "Marketing": ["Analyze an ad campaign and note its strengths.", "Write a social media post promoting a product.", "Create a branding strategy for a new company."]
-    }
-    selected_category = st.selectbox("Choose a category to get a challenge:", list(challenge_categories.keys()))
     
-    if st.button("Get a New Challenge"):
-        challenge = random.choice(challenge_categories[selected_category])
-        st.subheader("Your Challenge:")
-        st.write(f"🚀 {challenge}")
+    challenge_categories = {
+        "Coding": [
+            "Write a Python script that prints Fibonacci numbers.",
+            "Build a simple calculator using Python.",
+            "Create a to-do list app with a GUI framework."
+        ],
+        "Writing": [
+            "Write a 500-word article on AI in daily life.",
+            "Summarize a TED talk in 200 words.",
+            "Write a short story based on a random prompt."
+        ],
+        "Public Speaking": [
+            "Record a 2-minute speech on an inspiring topic.",
+            "Practice storytelling for 5 minutes.",
+            "Explain a concept in 60 seconds without filler words."
+        ],
+        "Graphic Design": [
+            "Create a social media post using Canva.",
+            "Design a simple logo for a fictional brand.",
+            "Make a poster promoting environmental awareness."
+        ],
+        "Finance": [
+            "Make a budget plan for a month.",
+            "Read about stock market basics and write a summary.",
+            "Track your expenses for the next 3 days."
+        ]
+    }
+    
+    category = st.selectbox("Select a challenge category:", list(challenge_categories.keys()))
+    
+    if st.button("Get Challenge"):
+        challenge = random.choice(challenge_categories[category])
+        st.write(f"### Your Challenge: {challenge}")
+    
+    completed = st.checkbox("Mark as Completed")
+    
+    if completed:
+        st.success("🎉 Well done! You've completed the challenge!")
+        uploaded_file = st.file_uploader("Upload proof (image, text, or document)")
+        if uploaded_file:
+            st.write("✅ Proof uploaded successfully!")
 
-# Resource Library
+# Resource Library with Valid URLs
 elif page == "📚 Resource Library":
     st.header("📚 Explore Learning Resources")
     resources = {
         "Coding": "https://www.freecodecamp.org/",
         "Writing": "https://www.grammarly.com/blog/",
-        "Public Speaking": "https://www.ted.com/talks",
+        "Public Speaking": "https://www.toastmasters.org/",
         "Graphic Design": "https://www.canva.com/",
         "Finance": "https://www.investopedia.com/"
     }
+    
     for skill, link in resources.items():
         st.markdown(f"✅ [{skill}]({link})", unsafe_allow_html=True)
 
