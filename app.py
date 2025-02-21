@@ -1,188 +1,100 @@
 import streamlit as st
-import matplotlib.pyplot as plt
 import numpy as np
-import time
-from datetime import date
+import matplotlib.pyplot as plt
 import random
 
-# App Configuration
-st.set_page_config(page_title="🚀 Peak Performance Hub", page_icon="🔥", layout="wide")
+st.set_page_config(page_title="🚀 Peak Performance Hub", layout="wide")
 
 # Sidebar Navigation
-st.sidebar.image("https://cdn-icons-png.flaticon.com/512/3094/3094876.png", width=100)
-st.sidebar.title("🚀 Peak Performance Hub")
-st.sidebar.markdown("### Elevate Your Mindset & Productivity")
-
-page = st.sidebar.radio("Navigate", [
-    "🏡 Home", "📅 Habit Tracker", "💭 Daily Motivation", "📖 Success Stories",
-    "🎯 Goal Setting", "📝 Productivity Hacks", "🤔 Self-Reflection", "🧠 Brain Teasers", "🔝 Growth Mindset"
-])
+st.sidebar.title("📌 Navigation")
+pages = ["🏡 Home", "🏆 Success Stories", "🎯 Goal Setting", "💡 Productivity Hacks", "🌱 Growth Mindset"]
+page = st.sidebar.radio("Go to", pages)
 
 # Home Page
 if page == "🏡 Home":
-    st.image("https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0", use_column_width=True)
-    st.title("Welcome to 🚀 Peak Performance Hub")
+    st.header("🚀 Welcome to Peak Performance Hub! 🌟")
     
     st.markdown("""
-    ## Why Join?
-    ✅ **Stay Inspired** – Daily motivation to uplift your spirits.  
-    ✅ **Build Habits** – Track your progress towards success.  
-    ✅ **Set Goals** – Structure your dreams into reality.  
-    ✅ **Sharpen Your Mind** – Solve brain teasers and boost intelligence.  
+    **🌱 Small Steps, Big Success!**  
+    *Start your day with the right mindset and unstoppable energy.*  
     """)
     
-    st.success("💡 *Remember, every expert was once a beginner!*")
-
-    # Quote of the Day
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        st.image("https://images.unsplash.com/photo-1573497491208-6b1acb260507", caption="📚 Learn & Grow", width=100)
+        st.image("https://images.unsplash.com/photo-1517694712202-14dd9538aa97", caption="📅 Plan Your Day", width=100)
+        
+    with col2:
+        st.image("https://images.unsplash.com/photo-1516542076529-1ea3854896f4", caption="🎯 Set Goals", width=100)
+        st.image("https://images.unsplash.com/photo-1586281380349-632531db7ed5", caption="💡 Stay Inspired", width=100)
+    
+    with col3:
+        st.image("https://images.unsplash.com/photo-1494883759339-0b042055a4ee", caption="🏋️‍♂️ Build Habits", width=100)
+        st.image("https://images.unsplash.com/photo-1494390248081-4e521a5940db", caption="📖 Read & Reflect", width=100)
+    
+    st.success("💪 Every day is a fresh start! Stay focused and keep pushing forward! 🚀")
+    
     quotes = [
-        "Dream big, work hard, stay focused! 🔥",
-        "Challenges are opportunities in disguise. 🚀",
-        "Success is a journey, not a destination. 🌍",
-        "Consistency beats talent when talent doesn’t work hard. ⚡"
+        "🔥 Your future is created by what you do today, not tomorrow. - Robert Kiyosaki",
+        "💡 The only way to do great work is to love what you do. - Steve Jobs",
+        "🚀 You miss 100% of the shots you don’t take. - Wayne Gretzky",
+        "🎯 Success is not final, failure is not fatal: it is the courage to continue that counts. - Winston Churchill"
     ]
-    st.info(f"📢 **Quote of the Day:** {random.choice(quotes)}")
-
-# Habit Tracker
-elif page == "📅 Habit Tracker":
-    st.title("📅 Habit Tracker – Build Consistency")
-    habits = ["Exercise 🏋️", "Read 📖", "Meditate 🧘", "Drink Water 💧", "Journaling ✍️"]
-
-    for habit in habits:
-        st.checkbox(f"Did you {habit.lower()} today? ✅")
-
-    if st.button("Save Progress"):
-        st.success("Great job! Keep pushing forward! 🔥")
-        st.balloons()
-
-# Daily Motivation
-elif page == "💭 Daily Motivation":
-    st.title("💭 Daily Motivation – Power Up Your Day")
-    quotes = [
-        "💪 *Your only limit is you!*",
-        "🚀 *Every day is a new opportunity to be better!*",
-        "🔥 *Hard work always beats talent!*",
-        "💡 *Your potential is limitless!*"
-    ]
-    st.success(f"🔝 **Today's Motivation:** {random.choice(quotes)}")
-
-    # Motivation Level
-    motivation_level = st.slider("How motivated are you today? 🎯", 0, 100, 50)
+    st.info(f"💬 **Quote of the Day:** {random.choice(quotes)}")
+    
+    days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    motivation_levels = np.random.randint(60, 100, size=7)  
     fig, ax = plt.subplots()
-    ax.bar(["Motivation Level"], [motivation_level], color='orange')
+    ax.plot(days, motivation_levels, marker='o', linestyle='-', color='blue')
+    ax.set_title("📊 Weekly Motivation Trend")
+    ax.set_ylabel("Motivation Level (%)")
     ax.set_ylim(0, 100)
     st.pyplot(fig)
 
 # Success Stories
-elif page == "📖 Success Stories":
-    st.title("📖 Inspiring Success Stories")
-    st.markdown("### Learn from those who turned struggles into success!")
-
-    stories = [
-        {
-            "name": "💡 **Elon Musk**",
-            "image": "https://upload.wikimedia.org/wikipedia/commons/e/ec/Elon_Musk_%28cropped%29.jpg",
-            "story": "From failing SpaceX launches to revolutionizing Tesla, Elon Musk never stopped innovating.",
-            "lesson": "🚀 **Lesson:** Failures are just stepping stones to success!"
-        },
-        {
-            "name": "📚 **J.K. Rowling**",
-            "image": "https://upload.wikimedia.org/wikipedia/commons/a/ab/J._K._Rowling_2010.jpg",
-            "story": "Rejected 12 times before Harry Potter became a global phenomenon.",
-            "lesson": "📖 **Lesson:** Keep believing in your dreams!"
-        },
-        {
-            "name": "🏀 **Michael Jordan**",
-            "image": "https://upload.wikimedia.org/wikipedia/commons/a/ae/Michael_Jordan_in_2014.jpg",
-            "story": "Cut from his high school team but became the greatest basketball player ever.",
-            "lesson": "🔥 **Lesson:** Hard work beats everything!"
-        }
-    ]
-
-    for s in stories:
-        st.image(s["image"], width=250)
-        st.subheader(s["name"])
-        st.write(s["story"])
-        st.success(s["lesson"])
-        st.markdown("---")
+elif page == "🏆 Success Stories":
+    st.header("🏆 Inspiring Success Stories")
+    st.subheader("🚀 Learn from those who achieved greatness")
+    st.markdown("""
+    - **Elon Musk:** From PayPal to Tesla & SpaceX, relentless innovation drives success.  
+    - **Oprah Winfrey:** Overcame hardships to build a media empire.  
+    - **J.K. Rowling:** Rejected 12 times before *Harry Potter* became a global phenomenon.  
+    - **Michael Jordan:** Cut from his high school basketball team, but went on to become the greatest.  
+    """)
+    
+    st.image("https://images.unsplash.com/photo-1570129477492-45c003edd2be", caption="💪 Never Give Up!", use_column_width=True)
 
 # Goal Setting
 elif page == "🎯 Goal Setting":
-    st.title("🎯 Set Your Goals & Achieve Them")
-    goal_types = ["Short-term ⏳", "Mid-term 📆", "Long-term 🏆"]
-
-    for goal_type in goal_types:
-        st.subheader(f"{goal_type} Goals")
-        goal = st.text_input(f"Set a {goal_type.lower()} goal:")
-        if goal:
-            st.write(f"✅ Your goal: {goal}")
+    st.header("🎯 Master the Art of Goal Setting")
+    st.markdown("""
+    - **SMART Goals:** Make them Specific, Measurable, Achievable, Relevant, and Time-bound.
+    - **Break Big Goals into Small Steps:** Achieve milestones consistently.
+    - **Track Progress:** Regular self-checks increase success rates.
+    """)
+    
+    st.image("https://images.unsplash.com/photo-1523289333742-be1143f77677", caption="📅 Plan & Execute", use_column_width=True)
 
 # Productivity Hacks
-elif page == "📝 Productivity Hacks":
-    st.title("📝 Supercharge Your Productivity")
-    tips = [
-        "🕒 **Time Blocking** – Assign dedicated time for deep work.",
-        "📋 **Prioritize Tasks** – Use the Eisenhower Matrix.",
-        "📵 **Limit Distractions** – Set social media limits.",
-        "💤 **Rest & Recharge** – Sleep fuels productivity."
-    ]
-    st.write(f"💡 **Tip of the Day:** {random.choice(tips)}")
-
-# Self-Reflection
-elif page == "🤔 Self-Reflection":
-    st.title("🤔 Reflect & Improve")
-    mood = st.select_slider("How was your mood today?", options=["😔", "😐", "🙂", "😊", "😃"])
-    st.write(f"You felt {mood} today.")
-
-    st.text_area("Today's Accomplishments:")
-    st.text_area("Challenges Faced:")
-    st.text_area("Lessons Learned:")
-    st.text_area("Gratitude Notes:")
-
-    if st.button("Save Reflection"):
-        st.success("✅ Reflection saved!")
-
-# Brain Teasers
-elif page == "🧠 Brain Teasers":
-    st.title("🧠 Brain Teasers – Sharpen Your Mind")
-    riddles = [
-        ("🔍 **What has to be broken before you can use it?**", "An egg"),
-        ("🎭 **The more you take, the more you leave behind. What is it?**", "Footsteps"),
-        ("❓ **I speak without a mouth and hear without ears. What am I?**", "An echo")
-    ]
+elif page == "💡 Productivity Hacks":
+    st.header("💡 Top Productivity Hacks")
+    st.markdown("""
+    - **The 5 AM Club:** Start your day early for peak performance.
+    - **Pomodoro Technique:** Work in focused sprints with short breaks.
+    - **Eliminate Distractions:** Use ‘Do Not Disturb’ mode and focus apps.
+    - **Prioritize Tasks:** Use Eisenhower Matrix to differentiate urgent vs. important tasks.
+    """)
     
-    question, answer = riddles[date.today().day % len(riddles)]
-    st.write(question)
-    user_answer = st.text_input("Your answer:")
-    
-    if st.button("Check Answer"):
-        if user_answer.lower() == answer.lower():
-            st.success("Correct! 🎉")
-        else:
-            st.error(f"Wrong! The answer is: {answer}")
+    st.image("https://images.unsplash.com/photo-1568992687947-868a62a9f521", caption="🕒 Work Smart!", use_column_width=True)
 
 # Growth Mindset
-elif page == "🔝 Growth Mindset":
-    st.title("🔝 Develop a Growth Mindset")
+elif page == "🌱 Growth Mindset":
+    st.header("🌱 Cultivate a Growth Mindset")
     st.markdown("""
-    ### Key Principles:
-    ✅ Embrace Challenges  
-    ✅ Persist Through Setbacks  
-    ✅ Learn from Feedback  
-    ✅ Keep Growing & Improving  
+    - **Embrace Challenges:** Growth happens outside the comfort zone.
+    - **Learn from Criticism:** Feedback is the fuel for improvement.
+    - **Stay Persistent:** Failures are just stepping stones to success.
     """)
-
-    # Growth Mindset Challenge
-    challenges = [
-        "Try something new and reflect on it.",
-        "Reframe a recent failure as a learning opportunity.",
-        "Ask for feedback and act on it.",
-        "Practice positive self-talk."
-    ]
-    st.write(f"🔝 **Today's Challenge:** {random.choice(challenges)}")
-
-    if st.button("Accept Challenge"):
-        st.success("Great! Keep growing! 🔥")
-
-# Footer
-st.markdown("---")
-st.markdown("🔹 Built with ❤️ using Streamlit | © 2025 🚀 Peak Performance Hub")
+    
+    st.image("https://images.unsplash.com/photo-1516321318423-f06f85e504b3", caption="🌟 Keep Growing!", use_column_width=True)
