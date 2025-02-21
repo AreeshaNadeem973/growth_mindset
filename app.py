@@ -1,5 +1,4 @@
-
- import streamlit as st
+import streamlit as st
 import matplotlib.pyplot as plt
 import numpy as np
 import time
@@ -100,3 +99,4 @@ elif page == "⚡ Productivity Hacks":
         st.checkbox(task)
     
     st.success("Stay consistent and you'll see amazing results! 🚀")
+
