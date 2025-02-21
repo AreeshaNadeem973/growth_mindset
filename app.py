@@ -14,13 +14,6 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# App Title
-st.markdown("<div class='main-container'>"
-            "<div class='main-title'>Welcome to Skill Learning Hub 🎓</div>"
-            "<div class='main-subtext'>Boost your knowledge, one skill at a time!</div>"
-            "<div class='main-subtext'>🚀 Learn, track, and master new skills efficiently.</div>"
-            "</div>", unsafe_allow_html=True)
-
 # Sidebar for Navigation
 st.sidebar.header("📚 Explore Sections")
 page = st.sidebar.radio("Choose a section:", [
@@ -55,8 +48,6 @@ elif page == "📖 Skill Categories":
     categories = ["Coding", "Writing", "Public Speaking", "Graphic Design", "Photography", "Marketing", "Finance"]
     chosen_category = st.selectbox("Select a skill to explore:", categories)
     st.write(f"You selected: **{chosen_category}**")
-    st.markdown("### 📌 Why Learn This Skill?")
-    st.write("Every skill opens new doors and opportunities. Mastering a skill can help in career growth, problem-solving, and personal satisfaction.")
 
 # Learning Goals
 elif page == "🎯 Learning Goals":
@@ -66,29 +57,28 @@ elif page == "🎯 Learning Goals":
     if st.button("Save Goal"):
         st.success(f"✅ Goal '{goal}' set for {deadline}!")
 
-# Progress Tracker with Animated Balloons
+# Progress Tracker with Animated Balloons and Enhanced Graph
 elif page == "📊 Progress Tracker":
     st.header("📊 Track Your Learning Progress")
     progress = st.slider("How much progress have you made in your skill (0-100%)?", 0, 100, 50)
     st.write(f"You're {progress}% done! Keep going! 🚀")
     
+    # Enhanced Graph with Animation Effect
+    x = np.arange(1, 11)
+    y = np.random.randint(10, 100, size=10)
+    
+    fig, ax = plt.subplots()
+    ax.plot(x, y, marker='o', linestyle='-', color='blue', label='Learning Progress')
+    ax.set_xlabel("Days")
+    ax.set_ylabel("Skill Mastery (%)")
+    ax.set_title("Learning Progress Over Time")
+    ax.legend()
+    st.pyplot(fig)
+    
     # Create a button to trigger balloon animation
     if st.button("🎈 Celebrate Progress!"):
         st.write("🎉 Balloons are rising to celebrate your progress!")
-        time.sleep(1)
-        fig, ax = plt.subplots()
-        ax.set_xlim(0, 1)
-        ax.set_ylim(0, 1)
-        balloons = np.random.rand(5, 2)
-        scatter = ax.scatter(balloons[:, 0], balloons[:, 1], s=200, c='red', alpha=0.6)
-        
-        for _ in range(20):  # Move balloons upwards
-            balloons[:, 1] += 0.05
-            balloons[balloons[:, 1] > 1, 1] = 0  # Reset balloons at the top
-            scatter.set_offsets(balloons)
-            plt.pause(0.1)
-        
-        st.pyplot(fig)
+        st.balloons()
 
 # Daily Challenges
 elif page == "💡 Daily Challenges":
@@ -101,8 +91,6 @@ elif page == "💡 Daily Challenges":
         "Read a book summary and take notes."
     ]
     st.write(random.choice(challenges))
-    st.markdown("### 📌 How Challenges Help?")
-    st.write("Taking on challenges keeps you motivated, enhances problem-solving skills, and provides hands-on experience in learning.")
 
 # Resource Library
 elif page == "📚 Resource Library":
@@ -123,5 +111,5 @@ elif page == "💬 Discussion Forum":
     discussion = st.text_area("📝 What's something new you've learned recently?")
     if st.button("Post"):
         st.success("✅ Your response has been shared!")
-    st.markdown("### 📌 Why Share Your Journey?")
-    st.write("Sharing knowledge helps you reinforce learning, get feedback, and inspire others on their learning path.")
+
+   
