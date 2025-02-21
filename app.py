@@ -4,7 +4,6 @@ import os
 import json
 import random
 from io import BytesIO
-import matplotlib.pyplot as plt
 
 # Load or initialize data
 def load_data():
@@ -20,108 +19,104 @@ def save_data(data):
 data = load_data()
 
 # Streamlit App
-st.set_page_config(page_title="Mindset Mastery Hub", layout="wide")
-st.title("🚀 Mindset Mastery Hub!")
-st.sidebar.title("Navigation")
-page = st.sidebar.radio("Go to", ["🏠 Home", "🔥 Daily Growth Challenge", "📝 Self-Reflection Journal", "📊 Mindset Progress Tracker", "📂 File Converter"])
+st.set_page_config(page_title="Next-Gen Power: Mindset, Innovation & Success", layout="wide")
+st.title("🚀 Next-Gen Power: Mindset, Innovation & Success")
+st.sidebar.title("Explore")
+page = st.sidebar.radio("Navigate to:", ["Home", "Today's Challenge", "Mindset Quiz", "Journal & Reflections", "Youth Innovation Hub"])
 
 # Home Page
-if page == "🏠 Home":
-    st.header("Welcome to Mindset Mastery Hub!")
-    st.write("Cultivate a resilient and growth-oriented mindset through daily challenges, self-reflection, and progress tracking.")
-    st.image("https://cdn.pixabay.com/photo/2020/04/16/17/54/mindset-5052770_1280.jpg", use_container_width=True)
+if page == "Home":
+    st.header("Welcome to Next-Gen Power! ⚡")
+    st.write("Empowering the youth with a growth mindset, innovation, and the drive for success!")
     
-    st.subheader("Why Growth Mindset Matters?")
-    st.write("- *Embrace Challenges:* Develop a mindset that sees obstacles as opportunities.")
-    st.write("- *Learn from Mistakes:* Turn failures into valuable lessons.")
-    st.write("- *Stay Resilient:* Push through difficulties with determination.")
+    st.image("https://source.unsplash.com/800x400/?success,motivation")
     
-    # Graph: Growth Mindset vs. Fixed Mindset
-    st.subheader("Growth vs. Fixed Mindset")
-    labels = ["Embracing Challenges", "Learning from Mistakes", "Seeking Feedback", "Resilience"]
-    growth_mindset = [90, 85, 80, 95]
-    fixed_mindset = [40, 30, 35, 50]
-    x = range(len(labels))
-    fig, ax = plt.subplots()
-    ax.bar(x, growth_mindset, width=0.4, label='Growth Mindset', align='center')
-    ax.bar([p + 0.4 for p in x], fixed_mindset, width=0.4, label='Fixed Mindset', align='center')
-    ax.set_xticks([p + 0.2 for p in x])
-    ax.set_xticklabels(labels)
-    ax.legend()
-    st.pyplot(fig)
+    st.subheader("🔥 The Power of a Growth Mindset")
+    st.write("A growth mindset allows you to face challenges, learn from failures, and persist towards success.")
+    
+    st.subheader("🌍 Why This Matters for the Youth?")
+    st.write("- Build confidence to overcome obstacles")
+    st.write("- Learn from failures and turn them into stepping stones")
+    st.write("- Think creatively and innovate")
+    st.write("- Stay resilient and adaptable in the face of change")
+    
+    st.subheader("📈 Youth Success Insights")
+    data_chart = pd.DataFrame({"Year": [2020, 2021, 2022, 2023, 2024], "Innovation Growth": [50, 65, 80, 90, 120]})
+    st.line_chart(data_chart, use_container_width=True)
+    
+    st.subheader("🚀 Inspirational Quote")
+    st.write("""_"The future belongs to those who believe in the beauty of their dreams." - Eleanor Roosevelt_""")
 
-# Daily Growth Challenge
-elif page == "🔥 Daily Growth Challenge":
-    st.header("🌟 Today's Growth Mindset Challenge")
+# Today's Challenge
+elif page == "Today's Challenge":
+    st.header("💡 Your Challenge for the Day")
     challenges = [
-        "Write three things you learned today and how they'll help you grow.",
-        "Share a mistake you made recently and what you learned from it.",
-        "Set a goal for self-improvement and outline steps to achieve it.",
-        "Encourage someone to adopt a growth mindset.",
-        "Read about a successful person with a growth mindset.",
-        "Try something outside your comfort zone and document your experience."
+        "Try learning a new skill online today and document your progress.",
+        "Share a mistake you made and how it helped you grow.",
+        "Reach out to a mentor or role model and ask them for advice.",
+        "Set a personal goal and write down three steps to achieve it.",
+        "Encourage a friend to think positively and embrace challenges."
     ]
     challenge = random.choice(challenges)
-    st.subheader("✨ Your Challenge Today:")
+    st.subheader("🚀 Challenge:")
     st.write(challenge)
 
-# Self-Reflection Journal
-elif page == "📝 Self-Reflection Journal":
-    st.header("📖 Personal Journal")
-    journal_entry = st.text_area("Write about your experiences and growth mindset journey:")
+    response = st.text_area("How will you complete this challenge?")
+    if st.button("Submit Response"):
+        data["challenges"].append({"challenge": challenge, "response": response})
+        save_data(data)
+        st.success("🎉 Your response has been saved!")
+
+# Mindset Quiz
+elif page == "Mindset Quiz":
+    st.header("🧠 Test Your Growth Mindset")
+    quiz_questions = [
+        {"question": "What is a growth mindset?", "options": ["Avoiding failure", "Embracing challenges", "Giving up easily"], "answer": "Embracing challenges"},
+        {"question": "How do you view mistakes?", "options": ["As failures", "As learning opportunities", "As things to avoid"], "answer": "As learning opportunities"}
+    ]
+    
+    score = 0
+    for q in quiz_questions:
+        st.write(q["question"])
+        option = st.radio("Choose an answer:", q["options"], key=q["question"])
+        if option == q["answer"]:
+            score += 1
+    
+    if st.button("Submit Quiz"):
+        st.write(f"Your score: {score}/{len(quiz_questions)}")
+
+# Journal & Reflections
+elif page == "Journal & Reflections":
+    st.header("📖 Write & Reflect")
+    journal_entry = st.text_area("Write about your mindset journey today:")
     if st.button("Save Entry"):
         if journal_entry.strip():
             data["journal"].append(journal_entry)
             save_data(data)
-            st.success("Your journal entry has been saved!")
+            st.success("Journal entry saved!")
         else:
             st.error("Please write something before saving.")
-    st.subheader("📜 Past Entries")
+
     if data["journal"]:
+        st.subheader("📝 Past Entries")
         for i, entry in enumerate(reversed(data["journal"])):
             st.write(f"*Entry {len(data['journal']) - i}:* {entry}")
     else:
-        st.write("No journal entries yet. Start writing today!")
+        st.write("No entries yet. Start writing today!")
 
-# Mindset Progress Tracker
-elif page == "📊 Mindset Progress Tracker":
-    st.header("📈 Your Growth Mindset Progress")
-    progress_data = pd.DataFrame({
-        "Day": list(range(1, 11)),
-        "Growth Mindset Score": [50, 55, 60, 65, 70, 72, 78, 80, 85, 90]
-    })
-    st.line_chart(progress_data, x="Day", y="Growth Mindset Score")
+# Youth Innovation Hub
+elif page == "Youth Innovation Hub":
+    st.header("🌍 Youth Innovation & Success")
+    st.write("This section highlights real-world success stories and innovative ideas from young minds.")
+    
+    stories = [
+        {"name": "Elon Musk's Early Struggles", "summary": "Elon Musk faced multiple failures before achieving success with Tesla and SpaceX."},
+        {"name": "Malala Yousafzai's Fight for Education", "summary": "Malala stood against all odds to advocate for girls' education worldwide."},
+        {"name": "Nick D'Aloisio's Tech Innovation", "summary": "At 17, he sold his app Summly to Yahoo for millions, proving young minds can innovate!"}
+    ]
+    
+    for story in stories:
+        st.subheader(f"📌 {story['name']}")
+        st.write(story["summary"])
 
-# File Converter
-elif page == "📂 File Converter":
-    st.header("📂 CSV & Excel File Converter")
-    upload_files = st.file_uploader("Upload your files (CSV or Excel):", type=["csv", "xlsx"], accept_multiple_files=True)
-    if upload_files:
-        for file in upload_files:
-            file_extension = os.path.splitext(file.name)[-1].lower()
-            if file_extension == ".csv":
-                df = pd.read_csv(file)
-            elif file_extension == ".xlsx":
-                df = pd.read_excel(file)
-            else:
-                st.error(f"Unsupported File type: {file_extension}")
-                continue
-            st.write(f"*File Name*: {file.name}")
-            st.write(f"*File Size*: {file.size/1024} KB")
-            st.dataframe(df.head())
-            conversion_type = st.radio(f"Convert {file.name} to:", ["CSV", "Excel"], key=file.name)
-            if st.button(f"Convert {file.name}"):
-                buffer = BytesIO()
-                if conversion_type == "CSV":
-                    df.to_csv(buffer, index=False)
-                    file_name = file.name.replace(file_extension, ".csv")
-                    mime_type = "text/csv"
-                else:
-                    df.to_excel(buffer, index=False, engine='openpyxl')
-                    file_name = file.name.replace(file_extension, ".xlsx")
-                    mime_type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-                buffer.seek(0)
-                st.download_button(label=f"Download {file.name} as {conversion_type}", data=buffer, file_name=file_name, mime=mime_type)
-
-st.success("🚀 All features loaded successfully! Enjoy your Mindset Mastery journey!")
-
+st.success("🚀 Next-Gen Power Loaded! Keep learning & growing!")
