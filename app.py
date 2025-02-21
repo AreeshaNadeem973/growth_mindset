@@ -1,122 +1,169 @@
 import streamlit as st
-import pandas as pd
-import os
-import json
+import matplotlib.pyplot as plt
+import numpy as np
 import random
-from io import BytesIO
+import time
+from datetime import date
 
-# Load or initialize data
-def load_data():
-    if os.path.exists("data.json"):
-        with open("data.json", "r") as f:
-            return json.load(f)
-    return {"challenges": [], "journal": []}
+# App Title
+st.set_page_config(page_title="Rise & Thrive: Unlock Your Potential", page_icon="🔥")
+st.title("🔥 Rise & Thrive: Unlock Your Potential")
 
-def save_data(data):
-    with open("data.json", "w") as f:
-        json.dump(data, f, indent=4)
-
-data = load_data()
-
-# Streamlit App
-st.set_page_config(page_title="Next-Gen Power: Mindset, Innovation & Success", layout="wide")
-st.title("🚀 Next-Gen Power: Mindset, Innovation & Success")
-st.sidebar.title("Explore")
-page = st.sidebar.radio("Navigate to:", ["Home", "Today's Challenge", "Mindset Quiz", "Journal & Reflections", "Youth Innovation Hub"])
+# Sidebar for Navigation
+st.sidebar.header("🚀 Explore")
+page = st.sidebar.radio("Choose a Section:", [
+    "🏠 Home", "📅 Habit Builder", "🌟 Daily Boost", "📚 Inspiring Journeys",
+    "🎯 Goal Mastery", "⚡ Productivity Hacks", "💡 Mind Expansion", "🔎 Brain Boost", "🚀 Limitless Growth"
+])
 
 # Home Page
-if page == "Home":
-    st.header("Welcome to Next-Gen Power! ⚡")
-    st.write("Empowering the youth with a growth mindset, innovation, and the drive for success!")
+if page == "🏠 Home":
+    st.header("Welcome to Rise & Thrive! 🌟")
+    st.markdown("""
+    **Why This Matters?**  
+    ✅ **Fuel Your Ambition** – Start each day with energy.  
+    ✅ **Create Powerful Habits** – Small actions, massive impact.  
+    ✅ **Crush Your Goals** – Turn vision into success.  
+    ✅ **Adopt a Limitless Mindset** – Keep evolving & winning!  
+    """)
     
-    st.image("https://source.unsplash.com/800x400/?success,motivation")
+    st.image("https://source.unsplash.com/800x400/?success,motivation", use_column_width=True)
     
-    st.subheader("🔥 The Power of a Growth Mindset")
-    st.write("A growth mindset allows you to face challenges, learn from failures, and persist towards success.")
+    st.success("Every day is a chance to level up. Let’s make it count! 🚀")
     
-    st.subheader("🌍 Why This Matters for the Youth?")
-    st.write("- Build confidence to overcome obstacles")
-    st.write("- Learn from failures and turn them into stepping stones")
-    st.write("- Think creatively and innovate")
-    st.write("- Stay resilient and adaptable in the face of change")
-    
-    st.subheader("📈 Youth Success Insights")
-    data_chart = pd.DataFrame({"Year": [2020, 2021, 2022, 2023, 2024], "Innovation Growth": [50, 65, 80, 90, 120]})
-    st.line_chart(data_chart, use_container_width=True)
-    
-    st.subheader("🚀 Inspirational Quote")
-    st.write("""_"The future belongs to those who believe in the beauty of their dreams." - Eleanor Roosevelt_""")
-
-# Today's Challenge
-elif page == "Today's Challenge":
-    st.header("💡 Your Challenge for the Day")
-    challenges = [
-        "Try learning a new skill online today and document your progress.",
-        "Share a mistake you made and how it helped you grow.",
-        "Reach out to a mentor or role model and ask them for advice.",
-        "Set a personal goal and write down three steps to achieve it.",
-        "Encourage a friend to think positively and embrace challenges."
+    # Motivational Quote of the Day
+    quotes = [
+        "Dream big, work hard, stay focused, and surround yourself with good people.",
+        "Your potential is endless. Keep going!", 
+        "Success isn’t about luck; it’s about consistency and effort.",
+        "Make today so awesome that yesterday gets jealous.",
+        "The harder you work for something, the greater you’ll feel when you achieve it."
     ]
-    challenge = random.choice(challenges)
-    st.subheader("🚀 Challenge:")
-    st.write(challenge)
+    st.info(f"💡 **Today's Quote:** {random.choice(quotes)}")
 
-    response = st.text_area("How will you complete this challenge?")
-    if st.button("Submit Response"):
-        data["challenges"].append({"challenge": challenge, "response": response})
-        save_data(data)
-        st.success("🎉 Your response has been saved!")
+# Habit Builder
+elif page == "📅 Habit Builder":
+    st.header("📅 Build Winning Habits")
+    habits = ["Workout", "Read 10 Pages", "Meditate", "Drink Water", "Journal Thoughts"]
+    
+    for habit in habits:
+        st.checkbox(f"Completed: {habit}")
+    
+    if st.button("Save Progress ✅"):
+        st.success("Great job! Keep pushing forward!")
+        st.balloons()
 
-# Mindset Quiz
-elif page == "Mindset Quiz":
-    st.header("🧠 Test Your Growth Mindset")
-    quiz_questions = [
-        {"question": "What is a growth mindset?", "options": ["Avoiding failure", "Embracing challenges", "Giving up easily"], "answer": "Embracing challenges"},
-        {"question": "How do you view mistakes?", "options": ["As failures", "As learning opportunities", "As things to avoid"], "answer": "As learning opportunities"}
+    # Habit Progress Graph
+    progress = np.random.randint(2, 7, size=len(habits))
+    fig, ax = plt.subplots()
+    ax.bar(habits, progress, color='skyblue')
+    ax.set_title("Your Weekly Habit Progress")
+    ax.set_ylabel("Days Completed")
+    ax.set_ylim(0, 7)
+    st.pyplot(fig)
+
+# Daily Boost
+elif page == "🌟 Daily Boost":
+    st.header("🌟 Elevate Your Energy")
+    
+    energy_levels = st.slider("How energized do you feel today?", 0, 100, 50)
+    fig, ax = plt.subplots()
+    ax.bar(["Energy Level"], [energy_levels], color='gold')
+    ax.set_ylim(0, 100)
+    st.pyplot(fig)
+    
+    st.markdown("🔥 Tip: Move your body, get some fresh air, and hydrate!")
+
+# Inspiring Journeys
+elif page == "📚 Inspiring Journeys":
+    st.header("📚 Real Success Stories")
+    
+    people = [
+        ("⚡ **Oprah Winfrey**", "From rejection to global media icon."),
+        ("🚀 **Jeff Bezos**", "Started Amazon in a garage, changed the world."),
+        ("🏀 **Kobe Bryant**", "Relentless work ethic turned him into a legend."),
+        ("🎶 **Eminem**", "Overcame struggle to become a music icon."),
     ]
     
-    score = 0
-    for q in quiz_questions:
-        st.write(q["question"])
-        option = st.radio("Choose an answer:", q["options"], key=q["question"])
-        if option == q["answer"]:
-            score += 1
-    
-    if st.button("Submit Quiz"):
-        st.write(f"Your score: {score}/{len(quiz_questions)}")
+    for name, story in people:
+        st.subheader(name)
+        st.write(story)
 
-# Journal & Reflections
-elif page == "Journal & Reflections":
-    st.header("📖 Write & Reflect")
-    journal_entry = st.text_area("Write about your mindset journey today:")
-    if st.button("Save Entry"):
-        if journal_entry.strip():
-            data["journal"].append(journal_entry)
-            save_data(data)
-            st.success("Journal entry saved!")
+# Goal Mastery
+elif page == "🎯 Goal Mastery":
+    st.header("🎯 Define & Crush Your Goals")
+    
+    goal = st.text_input("What's a major goal you're working on?")
+    steps = st.text_area("Steps to achieve this goal:")
+    
+    if st.button("Save Goal 🎯"):
+        st.success("Your goal is set! Time to execute.")
+        st.balloons()
+
+# Productivity Hacks
+elif page == "⚡ Productivity Hacks":
+    st.header("⚡ Work Smarter, Not Harder")
+    
+    tips = [
+        "Time block your day for efficiency.",
+        "Avoid distractions by setting app limits.",
+        "Use the 2-minute rule—if it takes less than 2 minutes, do it now!",
+        "Take strategic breaks to refresh your mind.",
+    ]
+    st.write(f"💡 **Hack of the Day:** {random.choice(tips)}")
+
+# Mind Expansion
+elif page == "💡 Mind Expansion":
+    st.header("💡 Expand Your Knowledge")
+    
+    challenge = random.choice([
+        "Try a new skill today.",
+        "Write down one big idea you have.",
+        "Watch a TED Talk on something unfamiliar.",
+        "Read about an inspiring leader.",
+        "Teach something new to someone today."
+    ])
+    st.write(f"🌟 **Today's Challenge:** {challenge}")
+    
+    if st.button("Accept Challenge ✅"):
+        st.success("You're on your way to leveling up!")
+        st.balloons()
+
+# Brain Boost
+elif page == "🔎 Brain Boost":
+    st.header("🔎 Sharpen Your Thinking")
+    
+    puzzles = [
+        ("I’m tall when I’m young, and I’m short when I’m old. What am I?", "A candle"),
+        ("What has hands but can’t clap?", "A clock"),
+        ("What has a head, a tail, but no body?", "A coin"),
+    ]
+    
+    q, a = random.choice(puzzles)
+    st.write(f"🤔 **Riddle:** {q}")
+    ans = st.text_input("Your answer:")
+    
+    if st.button("Check Answer"):
+        if ans.lower() == a.lower():
+            st.success("Correct! 🎉")
+            st.balloons()
         else:
-            st.error("Please write something before saving.")
+            st.error(f"Not quite. The correct answer is: {a}")
 
-    if data["journal"]:
-        st.subheader("📝 Past Entries")
-        for i, entry in enumerate(reversed(data["journal"])):
-            st.write(f"*Entry {len(data['journal']) - i}:* {entry}")
+# Limitless Growth
+elif page == "🚀 Limitless Growth":
+    st.header("🚀 The Power of a Growth Mindset")
+    
+    mindset = st.radio("Do you believe you can always improve?", ["Yes", "No"])
+    if mindset == "Yes":
+        st.success("That’s the spirit! Keep growing! 🌱")
     else:
-        st.write("No entries yet. Start writing today!")
-
-# Youth Innovation Hub
-elif page == "Youth Innovation Hub":
-    st.header("🌍 Youth Innovation & Success")
-    st.write("This section highlights real-world success stories and innovative ideas from young minds.")
+        st.warning("Challenge your limits, don’t limit your challenges.")
     
-    stories = [
-        {"name": "Elon Musk's Early Struggles", "summary": "Elon Musk faced multiple failures before achieving success with Tesla and SpaceX."},
-        {"name": "Malala Yousafzai's Fight for Education", "summary": "Malala stood against all odds to advocate for girls' education worldwide."},
-        {"name": "Nick D'Aloisio's Tech Innovation", "summary": "At 17, he sold his app Summly to Yahoo for millions, proving young minds can innovate!"}
-    ]
-    
-    for story in stories:
-        st.subheader(f"📌 {story['name']}")
-        st.write(story["summary"])
+    if st.button("Start Growth Challenge 🚀"):
+        st.success("You’ve taken the first step towards limitless potential!")
+        st.balloons()
 
-st.success("🚀 Next-Gen Power Loaded! Keep learning & growing!")
+# Footer
+st.markdown("---")
+st.markdown("Made with ❤️ to empower the next-gen achievers. 🚀")
