@@ -2,116 +2,155 @@ import streamlit as st
 import matplotlib.pyplot as plt
 import numpy as np
 import time
-from datetime import date
 import random
+from datetime import date
 
 # App Title
-st.set_page_config(page_title="Daily Motivation & Productivity Hub", page_icon="🌟")
-st.title("🌟 Daily Motivation & Productivity Hub")
+st.set_page_config(page_title="Success & Mindset Hub", page_icon="🚀")
+st.title("🚀 Success & Mindset Hub")
 
-# Sidebar for Navigation
+# Sidebar Navigation
 st.sidebar.header("📌 Quick Navigation")
 page = st.sidebar.radio("Go to:", [
-    "🏡 Home", "📅 Habit Tracker", "💭 Daily Motivation", "📖 Inspirational Stories",
-    "🎯 Goal Setting", "📝 Productivity Tips", "🤔 Self-Reflection", "🧠 Brain Teasers", "📊 Progress Analytics"
+    "🏡 Home", "📊 Progress Tracker", "💡 Daily Wisdom", "📖 Success Stories",
+    "🎯 Vision & Goals", "📈 Productivity Insights", "🧠 Mindset Growth"
 ])
 
 # Home Page
 if page == "🏡 Home":
-    st.header("Welcome to Your Daily Motivation & Productivity Hub! 🚀")
+    st.header("Welcome to the Success & Mindset Hub! 🌟")
     st.image("https://blog.iawomen.com/wp-content/uploads/2024/01/Depositphotos_682225278_S.jpg", use_container_width=True)
+    
     st.markdown("""
-    ### Why Focus on Productivity & Motivation?
-    ✅ **Stay Inspired**: Start each day with positive energy.  
-    ✅ **Build Consistent Habits**: Small steps lead to big success.  
-    ✅ **Set and Achieve Goals**: Turn your dreams into reality.  
-    ✅ **Develop a Growth Mindset**: Keep learning and improving!  
+    ### Why Success & Mindset Matter?
+    ✅ **Build Confidence** – Believe in yourself every day.  
+    ✅ **Master Productivity** – Optimize your workflow.  
+    ✅ **Set Big Goals** – Transform vision into action.  
+    ✅ **Develop a Winning Mindset** – Stay resilient and adaptable.  
     """)
     
-    st.success("Today is a new beginning! Make the most of it! 🚀")
-    
-    # Add a motivational quote of the day
+    # Motivational Quote of the Day
     quotes = [
-        "The only way to do great work is to love what you do. - Steve Jobs",
-        "Believe you can and you're halfway there. - Theodore Roosevelt",
-        "Success is not final, failure is not fatal: it is the courage to continue that counts. - Winston Churchill",
-        "The future belongs to those who believe in the beauty of their dreams. - Eleanor Roosevelt"
+        "Success is not just about making money. It’s about making a difference.",
+        "Your mindset shapes your reality. Think big!",
+        "Opportunities don't happen. You create them!",
+        "Don't wait for the perfect moment. Take the moment and make it perfect!"
     ]
-    st.info(f"💡 **Quote of the Day:** {random.choice(quotes)}")
-
-    # Added Graph: Weekly Productivity Levels
+    st.success(f"💡 **Quote of the Day:** {random.choice(quotes)}")
+    
+    # Weekly Motivation Graph
     days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-    productivity_levels = np.random.randint(50, 100, size=7)  # Simulated productivity levels
+    motivation_levels = np.random.randint(50, 100, size=7)
     fig, ax = plt.subplots()
-    ax.plot(days, productivity_levels, marker='o', linestyle='-', color='blue')
-    ax.set_title("Weekly Productivity Levels")
-    ax.set_ylabel("Productivity (%)")
+    ax.plot(days, motivation_levels, marker='o', linestyle='-', color='blue')
+    ax.set_title("Weekly Motivation Trend")
+    ax.set_ylabel("Motivation Level (%)")
     ax.set_ylim(0, 100)
     st.pyplot(fig)
 
-# Habit Tracker Page
-elif page == "📅 Habit Tracker":
-    st.header("📅 Track Your Daily Habits")
-    habits = ["Exercise", "Read", "Meditate", "Drink Water", "Healthy Eating"]
-    
+# Progress Tracker
+elif page == "📊 Progress Tracker":
+    st.header("📊 Track Your Progress")
+    habits = ["Exercise", "Read", "Learn Something New", "Meditate", "Plan Goals"]
     for habit in habits:
         st.checkbox(f"Did you {habit.lower()} today?")
     
     if st.button("Save Progress"):
-        st.success("Great job! Keep up the good work!")
+        st.success("Progress saved! Keep pushing forward! 💪")
         st.balloons()
     
-    # Weekly Habit Completion Graph
-    weekly_progress = {habit: random.randint(0, 7) for habit in habits}
+    # Weekly Progress Chart
+    weekly_data = {habit: random.randint(0, 7) for habit in habits}
     fig, ax = plt.subplots()
-    ax.bar(weekly_progress.keys(), weekly_progress.values(), color='green')
-    ax.set_title("Weekly Habit Completion")
+    ax.bar(weekly_data.keys(), weekly_data.values(), color='green')
+    ax.set_title("Weekly Habit Progress")
     ax.set_ylabel("Days Completed")
     ax.set_ylim(0, 7)
     st.pyplot(fig)
 
-# Daily Motivation Page
-elif page == "💭 Daily Motivation":
-    st.header("💭 Get Inspired Every Day!")
-    st.info(f"💡 **Today's Motivation:** {random.choice(quotes)}")
+# Daily Wisdom
+elif page == "💡 Daily Wisdom":
+    st.header("💡 Insights to Elevate Your Day")
+    wisdoms = [
+        "Hardships often prepare ordinary people for an extraordinary destiny.",
+        "The mind is everything. What you think, you become.",
+        "Take risks in life. If you win, you can lead. If you lose, you can guide.",
+        "The only limit to our realization of tomorrow is our doubts of today."
+    ]
+    st.success(f"🌟 **Today's Wisdom:** {random.choice(wisdoms)}")
     
-    motivation_level = st.slider("Rate your motivation level today:", 0, 100, 50)
+    # Daily Focus Chart
+    focus_levels = np.random.randint(40, 100, size=7)
     fig, ax = plt.subplots()
-    ax.bar(["Motivation Level"], [motivation_level], color='orange')
-    ax.set_ylabel("Percentage")
+    ax.plot(days, focus_levels, marker='o', linestyle='--', color='purple')
+    ax.set_title("Daily Focus Levels")
+    ax.set_ylabel("Focus (%)")
     ax.set_ylim(0, 100)
     st.pyplot(fig)
 
-# Inspirational Stories
-elif page == "📖 Inspirational Stories":
-    st.header("📖 Success Stories to Keep You Going")
+# Success Stories
+elif page == "📖 Success Stories":
+    st.header("📖 Inspiring Success Stories")
     stories = [
-        ("💡 **Elon Musk**", "Started multiple companies and transformed industries."),
-        ("📚 **J.K. Rowling**", "Rejected 12 times before publishing Harry Potter."),
-        ("🏀 **Michael Jordan**", "Was cut from his high school team but became an icon."),
-        ("🌍 **Nelson Mandela**", "Spent 27 years in prison and changed a nation."),
-        ("🎶 **Ed Sheeran**", "Slept on sofas while pursuing music, now a global icon.")
+        ("🌍 **Oprah Winfrey**", "Overcame poverty and built a media empire."),
+        ("📱 **Steve Jobs**", "Revolutionized technology with Apple."),
+        ("⚡ **Nikola Tesla**", "Pioneered innovations in electricity and energy."),
+        ("🚀 **Elon Musk**", "Shaped the future of space travel and electric cars.")
     ]
     for name, story in stories:
         st.subheader(name)
         st.write(story)
+    
+    # Add Your Own Success Story
+    st.subheader("Share Your Story")
+    user_story = st.text_area("Your success journey:")
+    if st.button("Submit Story"):
+        st.success("Thanks for sharing! Your journey will inspire others! 🌟")
+        st.balloons()
 
-# Progress Analytics Page
-elif page == "📊 Progress Analytics":
-    st.header("📊 Track Your Progress")
+# Vision & Goals
+elif page == "🎯 Vision & Goals":
+    st.header("🎯 Define Your Vision & Goals")
+    goal_types = ["Short-term", "Medium-term", "Long-term"]
+    for goal in goal_types:
+        goal_input = st.text_input(f"Enter a {goal.lower()} goal:")
+        if goal_input:
+            st.write(f"Your {goal.lower()} goal: {goal_input}")
     
-    labels = ["Productivity", "Motivation", "Consistency", "Focus"]
-    values = [random.randint(50, 100) for _ in labels]
+    if st.button("Save Goals"):
+        st.success("Goals saved successfully! Stay committed! 🚀")
+        st.balloons()
+
+# Productivity Insights
+elif page == "📈 Productivity Insights":
+    st.header("📈 Productivity Strategies")
+    tips = [
+        "🕒 Prioritize high-impact tasks.",
+        "🚀 Use the Pomodoro technique to stay focused.",
+        "📋 Plan your day the night before.",
+        "🛑 Minimize distractions and maximize deep work time.",
+        "📊 Track progress and adjust strategies accordingly."
+    ]
+    st.write(f"💡 **Productivity Tip of the Day:** {random.choice(tips)}")
+    
+    # Productivity Pie Chart
     fig, ax = plt.subplots()
-    ax.bar(labels, values, color=['blue', 'green', 'orange', 'red'])
-    ax.set_ylabel("Performance (%)")
-    ax.set_ylim(0, 100)
-    ax.set_title("Your Weekly Performance")
+    labels = ["Deep Work", "Meetings", "Breaks", "Distractions"]
+    sizes = [50, 20, 20, 10]
+    ax.pie(sizes, labels=labels, autopct='%1.1f%%', colors=["green", "blue", "yellow", "red"])
     st.pyplot(fig)
-    
-    st.success("Keep improving and tracking your progress!")
+
+# Mindset Growth
+elif page == "🧠 Mindset Growth":
+    st.header("🧠 Cultivating a Strong Mindset")
+    challenges = [
+        "Face a fear today and take action!",
+        "Reframe a negative thought into a positive one.",
+        "Push beyond your comfort zone for growth.",
+        "Learn from a mistake and apply the lesson."
+    ]
+    st.write(f"🌱 **Today's Growth Challenge:** {random.choice(challenges)}")
 
 # Footer
 st.markdown("---")
-st.markdown("Built with ❤️ using Streamlit | © 2025 Daily Motivation & Productivity Hub")
-
+st.markdown("Built with ❤️ using Streamlit | © 2025 Success & Mindset Hub")
