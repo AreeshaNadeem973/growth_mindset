@@ -3,106 +3,96 @@ import random
 
 # App Title
 st.set_page_config(page_title="📚 Reading Hub", page_icon="📖")
-st.title("📖 Welcome to the Reading Hub!")
+st.title("📚 Reading Hub")
 
 # Sidebar for Navigation
 st.sidebar.header("📌 Quick Navigation")
 page = st.sidebar.radio("Go to:", [
-    "🏡 Home", "📅 Reading Tracker", "📖 Book Recommendations", "✍️ Book Reviews",
-    "🎯 Reading Goals", "📜 Literary Quotes", "🧠 Reading Challenges", "📝 Writing Corner"
+    "🏡 Home", "📖 My Bookshelf", "⭐ Book Recommendations", "📝 Book Reviews",
+    "🎯 Reading Goals", "⏳ Reading Progress", "💡 Author Insights", "🧠 Book Trivia"
 ])
 
 # Home Page
 if page == "🏡 Home":
-    st.header("Welcome to Your Personal Reading Hub! 📚")
+    st.header("Welcome to Your Personal Reading Hub! 📖")
+    st.image("https://images.unsplash.com/photo-1512820790803-83ca734da794", use_container_width=True)
     st.markdown("""
-    ### Why Reading Matters?
-    ✅ **Expand Your Knowledge**: Learn something new every day.  
-    ✅ **Improve Focus & Imagination**: Books transport you to different worlds.  
-    ✅ **Reduce Stress**: Reading helps you relax and unwind.  
-    ✅ **Develop a Lifelong Habit**: Build a consistent reading routine.  
+    ### Why Read More Books?
+    ✅ **Expand Your Knowledge**: Books are the gateway to new ideas.
+    ✅ **Improve Focus & Creativity**: Enhance your imagination and thinking.
+    ✅ **Reduce Stress**: Reading helps in relaxation and mindfulness.
+    ✅ **Achieve Your Reading Goals**: Track your progress and stay motivated!
     """)
-    st.image("https://media.istockphoto.com/id/1168362768/photo/book-open-with-magical-light.jpg", use_container_width=True)
-    st.success("Today is a great day to start a new book! 📖")
+    st.success("Start your reading journey today! 📖")
 
-# Reading Tracker
-elif page == "📅 Reading Tracker":
-    st.header("📅 Track Your Reading Progress")
-    books = st.text_area("Enter the books you're currently reading:")
+# My Bookshelf
+elif page == "📖 My Bookshelf":
+    st.header("📖 Your Personal Bookshelf")
+    st.write("Track books you've read and want to read.")
+    books = ["Atomic Habits", "The Alchemist", "1984", "To Kill a Mockingbird", "Sapiens"]
+    for book in books:
+        st.checkbox(f"Read: {book}")
     if st.button("Save Progress"):
-        st.success("Great job! Keep reading!")
-        st.balloons()
-    
-    # Add a reading streak counter
-    streak = st.session_state.get('reading_streak', 0)
-    st.write(f"🔥 Current Reading Streak: {streak} days")
-    if st.button("Increment Streak"):
-        streak += 1
-        st.session_state.reading_streak = streak
-        st.success(f"New streak: {streak} days!")
+        st.success("Bookshelf updated! Keep reading! 📚")
 
 # Book Recommendations
-elif page == "📖 Book Recommendations":
-    st.header("📖 Book Recommendations")
-    categories = {
-        "Fiction": "'To Kill a Mockingbird' by Harper Lee",
-        "Mystery": "'Gone Girl' by Gillian Flynn",
-        "Fantasy": "'Harry Potter and the Sorcerer’s Stone' by J.K. Rowling",
-        "Science Fiction": "'Dune' by Frank Herbert",
-        "Non-Fiction": "'Sapiens' by Yuval Noah Harari",
-        "Self-Help": "'Atomic Habits' by James Clear"
-    }
-    genre = st.selectbox("Choose a genre:", list(categories.keys()))
-    st.write(f"📚 Recommended Book: {categories[genre]}")
+elif page == "⭐ Book Recommendations":
+    st.header("⭐ Personalized Book Recommendations")
+    genres = {"Fiction": "The Great Gatsby", "Self-Help": "The 7 Habits of Highly Effective People",
+              "Science": "Brief Answers to the Big Questions", "History": "Sapiens"}
+    genre = st.selectbox("Choose a genre:", list(genres.keys()))
+    st.subheader(f"📖 Recommended Book: {genres[genre]}")
+    st.image("https://via.placeholder.com/150", caption=genres[genre])
+    st.write(f"Explore **{genres[genre]}** and expand your knowledge!")
 
 # Book Reviews
-elif page == "✍️ Book Reviews":
-    st.header("✍️ Write and Read Book Reviews")
-    book_title = st.text_input("Enter the book title:")
-    review = st.text_area("Write your review:")
+elif page == "📝 Book Reviews":
+    st.header("📝 Share & Read Book Reviews")
+    st.subheader("Submit Your Review")
+    book_name = st.text_input("Book Title:")
+    review = st.text_area("Your Review:")
+    rating = st.slider("Rate the book:", 1, 5, 3)
     if st.button("Submit Review"):
-        st.success("Review submitted successfully! 📖")
+        st.success("Review submitted successfully! ✅")
 
 # Reading Goals
 elif page == "🎯 Reading Goals":
     st.header("🎯 Set Your Reading Goals")
-    goal = st.text_input("Enter your reading goal (e.g., Read 20 books this year):")
+    books_goal = st.number_input("Set a goal: Number of books to read this year", min_value=1, step=1)
+    st.write(f"📚 Your goal: Read {books_goal} books this year!")
     if st.button("Save Goal"):
-        st.success(f"Goal saved: {goal}")
-        st.balloons()
+        st.success("Reading goal saved! Keep going! 📖")
 
-# Literary Quotes
-elif page == "📜 Literary Quotes":
-    st.header("📜 Inspiring Literary Quotes")
-    quotes = [
-        "A reader lives a thousand lives before he dies. - George R.R. Martin",
-        "Until I feared I would lose it, I never loved to read. One does not love breathing. - Harper Lee",
-        "So many books, so little time. - Frank Zappa",
-        "There is no friend as loyal as a book. - Ernest Hemingway"
-    ]
-    st.info(f"💡 **Quote of the Day:** {random.choice(quotes)}")
+# Reading Progress
+elif page == "⏳ Reading Progress":
+    st.header("⏳ Track Your Reading Progress")
+    books_read = st.slider("How many books have you read so far?", 0, 50, 5)
+    st.progress(books_read / 50)
+    st.write(f"📖 You have read {books_read} books so far! Keep it up!")
 
-# Reading Challenges
-elif page == "🧠 Reading Challenges":
-    st.header("🧠 Take a Reading Challenge!")
-    challenges = [
-        "Read a book by an author from a different country.",
-        "Read a book with more than 500 pages.",
-        "Read a book that was published over 100 years ago.",
-        "Read a book that was adapted into a movie."
-    ]
-    st.write(f"📖 **Your Challenge Today:** {random.choice(challenges)}")
-    if st.button("I Accept the Challenge"):
-        st.success("Great! Enjoy your reading journey! 📚")
-        st.balloons()
+# Author Insights
+elif page == "💡 Author Insights":
+    st.header("💡 Insights from Famous Authors")
+    authors = {"J.K. Rowling": "Failure is the foundation of success.",
+               "Stephen King": "Books are uniquely portable magic.",
+               "Mark Twain": "A person who won't read has no advantage over one who can't read."}
+    author = st.selectbox("Choose an author:", list(authors.keys()))
+    st.write(f"📖 **{author}** once said: *'{authors[author]}'*")
 
-# Writing Corner
-elif page == "📝 Writing Corner":
-    st.header("📝 Express Yourself Through Writing")
-    st.write("Use this space to write your thoughts, poetry, or a short story!")
-    user_text = st.text_area("Start writing:")
-    if st.button("Save Writing"):
-        st.success("Writing saved successfully! ✍️")
+# Book Trivia
+elif page == "🧠 Book Trivia":
+    st.header("🧠 Test Your Book Knowledge")
+    questions = {"Who wrote 'Pride and Prejudice'?": "Jane Austen",
+                 "Which book features the character Sherlock Holmes?": "A Study in Scarlet",
+                 "What is the best-selling book of all time?": "The Bible"}
+    question = random.choice(list(questions.keys()))
+    st.write(question)
+    answer = st.text_input("Your Answer:")
+    if st.button("Check Answer"):
+        if answer.lower() == questions[question].lower():
+            st.success("Correct! ✅")
+        else:
+            st.error(f"Wrong! The correct answer is: {questions[question]}")
 
 # Footer
 st.markdown("---")
