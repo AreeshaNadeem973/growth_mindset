@@ -17,7 +17,7 @@ st.markdown("""
 st.sidebar.header("📌 Navigate")
 page = st.sidebar.radio("Choose a section:", [
     "🏡 Home", "📊 AI Progress Tracker", "💬 AI Daily Insights", "📖 AI Success Stories", "🎯 AI Goal Setter",
-    "📝 AI Reflection Hub", "📚 Learning Resources", "💡 Discussion Forum"
+    "📝 AI Reflection Hub", "📚 Code Learning Hub", "💡 Discussion Forum"
 ])
 
 # Home Page
@@ -82,17 +82,17 @@ elif page == "📝 AI Reflection Hub":
     if st.button("Save Reflection"):
         st.success("📝 Reflection saved! Keep progressing.")
 
-# Learning Resources
-elif page == "📚 Learning Resources":
-    st.markdown("<div class='title'>📚 AI Learning Resources</div>", unsafe_allow_html=True)
-    st.markdown("Check out these top AI learning platforms:")
-    resources = [
-        "- [Coursera - AI Courses](https://www.coursera.org)",
-        "- [edX - AI Programs](https://www.edx.org)",
-        "- [Kaggle - AI Competitions](https://www.kaggle.com)",
-        "- [Fast.ai - Deep Learning](https://www.fast.ai)"
+# Code Learning Hub
+elif page == "📚 Code Learning Hub":
+    st.markdown("<div class='title'>📚 Code Learning Hub</div>", unsafe_allow_html=True)
+    st.markdown("Improve your coding skills with these resources:")
+    coding_resources = [
+        "- [Python for Beginners](https://www.python.org/about/gettingstarted/)",
+        "- [JavaScript Basics](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide)",
+        "- [Data Science with Python](https://www.datacamp.com/)",
+        "- [Machine Learning with TensorFlow](https://www.tensorflow.org/tutorials)"
     ]
-    for res in resources:
+    for res in coding_resources:
         st.markdown(res)
 
 # Discussion Forum
