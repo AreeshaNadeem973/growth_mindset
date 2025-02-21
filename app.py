@@ -23,40 +23,32 @@ page = st.sidebar.radio("Choose a section:", [
 
 # Home Page
 if page == "🏡 Home":
-    st.markdown("### 🌟 Why Learn a New Skill?")
-    benefits = [
-        "🚀 Expand your career opportunities",
-        "📚 Enhance creativity & problem-solving",
-        "💡 Boost confidence & personal growth",
-        "🎯 Stay ahead in a competitive world"
-    ]
-    for benefit in benefits:
-        st.write(f"✅ {benefit}")
-    
-    st.markdown("### 🔥 Today's Learning Tip")
-    tips = [
-        "Break your learning into small chunks for better retention!",
-        "Practice makes perfect – keep experimenting!",
-        "Teach someone what you learn – it strengthens your knowledge!",
-        "Stay consistent, even if you learn for just 10 minutes a day."
-    ]
-    st.write(random.choice(tips))
+    st.markdown("""
+        <div class='main-container'>
+        <div class='main-title'>Welcome to Skill Learning Hub 🎓</div>
+        <div class='main-subtext'>Boost your knowledge, one skill at a time!</div>
+        <div class='main-subtext'>🚀 Learn, track, and master new skills efficiently.</div>
+        </div>
+    """, unsafe_allow_html=True)
 
 # Skill Categories
 elif page == "📖 Skill Categories":
     st.header("📖 Explore Different Skills")
     categories = {
-        "Coding": "Learn programming languages like Python, Java, and C++. Develop problem-solving skills and create software applications.",
-        "Writing": "Enhance your writing skills for blogs, articles, and creative writing. Improve grammar and storytelling techniques.",
-        "Public Speaking": "Boost your confidence in speaking. Learn presentation skills, articulation, and audience engagement.",
-        "Graphic Design": "Master tools like Photoshop and Canva. Learn design principles, branding, and visual storytelling.",
-        "Photography": "Understand camera settings, composition, and photo editing. Capture stunning images professionally.",
-        "Marketing": "Learn digital marketing, social media strategies, and SEO. Understand consumer behavior and brand growth.",
-        "Finance": "Gain financial literacy, investment strategies, and budgeting techniques. Manage money effectively."
+        "Coding": ("Learn programming languages like Python, Java, and more to build applications and software.", "https://upload.wikimedia.org/wikipedia/commons/3/3a/Neural_Network.svg"),
+        "Writing": ("Enhance your writing skills for blogging, content creation, and storytelling.", "https://upload.wikimedia.org/wikipedia/commons/6/69/Writing.svg"),
+        "Public Speaking": ("Improve your speaking skills to communicate effectively and confidently.", "https://upload.wikimedia.org/wikipedia/commons/a/a3/Public_speaking.svg"),
+        "Graphic Design": ("Master tools like Photoshop and Canva to create visually stunning designs.", "https://upload.wikimedia.org/wikipedia/commons/4/4e/Graphic_design.svg"),
+        "Photography": ("Learn the art of capturing beautiful moments and editing photos.", "https://upload.wikimedia.org/wikipedia/commons/3/3f/Photography.svg"),
+        "Marketing": ("Understand digital marketing, branding, and social media strategies.", "https://upload.wikimedia.org/wikipedia/commons/e/e6/Marketing.svg"),
+        "Finance": ("Gain knowledge in financial management, investment, and wealth building.", "https://upload.wikimedia.org/wikipedia/commons/8/88/Finance.svg")
     }
-    
     chosen_category = st.selectbox("Select a skill to explore:", list(categories.keys()))
-    st.write(f"**{chosen_category}**: {categories[chosen_category]}")
+    
+    if chosen_category:
+        st.subheader(chosen_category)
+        st.write(categories[chosen_category][0])
+        st.image(categories[chosen_category][1], use_column_width=True)
 
 # Learning Goals
 elif page == "🎯 Learning Goals":
@@ -120,6 +112,7 @@ elif page == "💬 Discussion Forum":
     discussion = st.text_area("📝 What's something new you've learned recently?")
     if st.button("Post"):
         st.success("✅ Your response has been shared!")
+
 
 
    
