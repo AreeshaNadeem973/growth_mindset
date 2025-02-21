@@ -19,40 +19,40 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # App Title
-st.markdown("<div class='title'>🚀 AI-Powered Growth Hub</div>", unsafe_allow_html=True)
+st.markdown("<div class='title'>🚀 Personal Growth & Productivity Hub</div>", unsafe_allow_html=True)
 
 # Sidebar for Navigation
 st.sidebar.header("🌍 Explore")
 page = st.sidebar.radio("Choose a section:", [
-    "🏡 Home", "📊 AI Growth Tracker", "💬 AI-Powered Insights", "📖 Inspiring AI Stories", "🎯 Smart Goal Setter",
-    "📝 Reflection Journal", "🧠 AI Brain Boost"
+    "🏡 Home", "📊 Productivity Tracker", "💡 Daily Motivation", "📖 Success Stories", "🎯 Goal Setter",
+    "📝 Reflection Journal", "🧠 Brain Boost"
 ])
 
 # Home Page
 if page == "🏡 Home":
     st.markdown("""
         <div class='home-container'>
-            <div class='home-title'>Welcome to the AI-Powered Growth Hub 🤖</div>
-            <div class='home-subtext'>Supercharge your mindset with AI-driven insights and motivation.</div>
-            <div class='home-subtext'>🚀 Let AI help you grow and achieve more every day!</div>
+            <div class='home-title'>Welcome to Your Productivity Hub 💪</div>
+            <div class='home-subtext'>Boost your focus, stay consistent, and achieve your dreams.</div>
+            <div class='home-subtext'>🚀 Let's grow and improve every day!</div>
         </div>
     """, unsafe_allow_html=True)
     
-    st.image("https://blog.iawomen.com/wp-content/uploads/2024/01/Depositphotos_682225278_S.jpg", use_container_width=True)
+    st.image("https://www.success.com/wp-content/uploads/legacy/sites/default/files/new3.jpg", use_container_width=True)
     
     st.markdown("""
         <div class='box'>
-        ✅ **AI-Powered Insights**: Use AI to track and boost your growth.  
-        ✅ **Smart Learning**: Get personalized recommendations based on your progress.  
-        ✅ **Stay Motivated**: AI-generated daily tips to keep you going.  
-        ✅ **Achieve More**: Set smarter goals with AI-driven analytics.  
+        ✅ **Track Your Progress**: Stay consistent with daily habits.  
+        ✅ **Stay Motivated**: Get fresh daily motivation and success tips.  
+        ✅ **Set Goals**: Define and achieve smart personal goals.  
+        ✅ **Challenge Your Mind**: Engage in brain-boosting activities.  
         </div>
     """, unsafe_allow_html=True)
 
-# AI Growth Tracker
-elif page == "📊 AI Growth Tracker":
-    st.header("📊 Track Your AI Growth")
-    days = st.slider("How many days have you been improving with AI?", 1, 30, 5)
+# Productivity Tracker
+elif page == "📊 Productivity Tracker":
+    st.header("📊 Track Your Productivity")
+    days = st.slider("How many days have you been consistent?", 1, 30, 5)
     effort = st.slider("How much effort do you put in (1-10)?", 1, 10, 7)
     
     fig, ax = plt.subplots()
@@ -60,32 +60,32 @@ elif page == "📊 AI Growth Tracker":
     ax.set_ylabel("Progress Level")
     st.pyplot(fig)
 
-# AI-Powered Insights
-elif page == "💬 AI-Powered Insights":
-    st.header("💡 AI-Generated Daily Motivation")
+# Daily Motivation
+elif page == "💡 Daily Motivation":
+    st.header("💡 Get Your Daily Dose of Motivation")
     tips = [
-        "🚀 Keep pushing forward! AI believes in your potential.",
-        "🎯 Every step matters. Stay consistent and grow.",
-        "💡 Learning from failures is the key to AI-driven success.",
-        "🔥 Challenge yourself today, and let AI assist your journey."
+        "🚀 Keep pushing forward! Your efforts matter.",
+        "🎯 Every small step brings you closer to success.",
+        "💡 Learning from mistakes makes you stronger.",
+        "🔥 Challenge yourself today to become better tomorrow."
     ]
     st.write(random.choice(tips))
 
-# Inspiring AI Stories
-elif page == "📖 Inspiring AI Stories":
-    st.header("📖 Real-Life AI Success Stories")
+# Success Stories
+elif page == "📖 Success Stories":
+    st.header("📖 Real-Life Success Stories")
     stories = [
-        ("🔬 **AlphaGo**", "An AI that beat human champions in the complex game of Go."),
-        ("🚗 **Self-Driving Cars**", "AI is transforming transportation worldwide."),
-        ("🎶 **AI in Music**", "AI is composing music and revolutionizing creativity.")
+        ("📚 **J.K. Rowling**", "From struggling single mother to one of the world's best-selling authors."),
+        ("💼 **Elon Musk**", "From failed startups to revolutionizing multiple industries."),
+        ("🏃 **David Goggins**", "Overcame incredible odds to become an ultra-endurance athlete.")
     ]
     for name, story in stories:
         st.subheader(name)
         st.write(story)
 
-# Smart Goal Setter
-elif page == "🎯 Smart Goal Setter":
-    st.header("🎯 AI-Powered Goal Setting")
+# Goal Setter
+elif page == "🎯 Goal Setter":
+    st.header("🎯 Set Your Goals & Achieve More")
     goal = st.text_input("📝 Enter your goal:")
     deadline = st.date_input("📅 Set a deadline:")
     if st.button("Save Goal"):
@@ -93,24 +93,18 @@ elif page == "🎯 Smart Goal Setter":
 
 # Reflection Journal
 elif page == "📝 Reflection Journal":
-    st.header("📝 Daily AI-Assisted Reflection")
+    st.header("📝 Daily Reflection Journal")
     journal = st.text_area("📖 Share your thoughts and progress:")
     if st.button("Save Reflection"):
-        st.success("📝 Reflection saved! Keep growing with AI.")
+        st.success("📝 Reflection saved! Keep growing.")
 
-# AI Brain Boost
-elif page == "🧠 AI Brain Boost":
-    st.header("🧠 AI-Generated Brain Challenge")
+# Brain Boost
+elif page == "🧠 Brain Boost":
+    st.header("🧠 Daily Brain Challenge")
     riddles = [
-        ("🤖 **I speak without a mouth and hear without ears. What am I?**", "An AI model"),
-        ("💡 **The more data I get, the smarter I become. What am I?**", "Machine Learning"),
-        ("🔍 **I can predict the future but have no mind. What am I?**", "Artificial Intelligence")
+        ("🤔 **The more you use me, the sharper I get. What am I?**", "Your brain"),
+        ("📖 **I can fill a room but take up no space. What am I?**", "Knowledge"),
+        ("💡 **I grow the more you share me. What am I?**", "Happiness")
     ]
     question, answer = random.choice(riddles)
     st.write(question)
-    if st.button("Show Answer"):
-        st.write(f"✅ **Answer:** {answer}")
-
-# Footer
-st.markdown("---")
-st.markdown("🌱 *Built with ❤️ using Streamlit. AI is here to help you grow!*")
