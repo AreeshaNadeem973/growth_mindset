@@ -100,8 +100,9 @@ elif page == "⚡ Productivity Hacks":
     
     st.success("Stay consistent and you'll see amazing results! 🚀")
 
-# Other Pages with Placeholder Content
+# Other Pages
 else:
-    st.header(f"🚀 {page}")
-    st.write("Content coming soon! Stay tuned for valuable insights and tools to enhance your performance.")
+    st.header(page)
+    st.write("Here you will find insights, strategies, and tools to enhance your personal growth and performance.")
+    st.info("Stay tuned for detailed content!")
 
