@@ -4,86 +4,72 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # App Title
-st.set_page_config(page_title="Mindset Growth Lab", page_icon="🧠")
+st.set_page_config(page_title="Mindset Growth Hub", page_icon="🌱")
 
-# Sidebar for Navigation
-st.sidebar.header("🚀 Mindset Boost")
+# Sidebar for Navigation (Updated Navbar Names)
+st.sidebar.header("🌿 Mindset Navigator")
 page = st.sidebar.radio("Jump to:", [
-    "🏡 Home", "💡 Daily Affirmations", "🧠 Mindset Quiz", "📊 Growth Tracker", "🔥 Challenge Yourself"
+    "🏡 Home", "💡 Growth Affirmations", "🧠 Mindset Challenges", "📊 Progress Tracker", "🚀 Power Habits"
 ])
 
 # Home Page
 if page == "🏡 Home":
-    st.title("🧠 Mindset Growth Lab")
-    st.header("Unlock the Power of a Growth Mindset! 🚀")
+    st.title("🌱 Elevate Your Thinking, Transform Your Life! 🌱")
+    st.header("Unlock Your Full Potential! 🚀")
     st.markdown("""
-    🔥 **Shift Your Thinking**: Rewire your brain for success.  
-    💡 **Embrace Challenges**: Learn from failures & keep pushing forward.  
-    🚀 **Develop Grit & Resilience**: Small steps lead to massive success.  
+    🌿 **Shift Your Thinking**: Develop a resilient, positive mindset.  
+    💡 **Learn from Setbacks**: Every failure is a step to success.  
+    🔥 **Embrace Challenges**: Growth happens outside your comfort zone.  
     """)
-
+    
     st.image("https://miro.medium.com/v2/resize:fit:1400/format:webp/1*qfh-TpOCaE_o_4sTAyoVhQ.png", use_container_width=True)
-
-    st.success("Every day is a chance to grow! Keep going! 🌱")
-
-# Daily Affirmations Page
-elif page == "💡 Daily Affirmations":
-    st.header("💡 Positive Mindset Affirmations")
     
+    st.success("Every challenge is a new opportunity to grow! Keep evolving! 🌱")
+
+# Growth Affirmations Page
+elif page == "💡 Growth Affirmations":
+    st.header("💡 Daily Affirmations for a Strong Mindset")
     affirmations = [
-        "I am capable of achieving greatness! 🚀",
-        "Challenges help me grow stronger. 💪",
-        "Every failure is a lesson towards success. 🎯",
-        "I embrace learning and improvement daily. 🌱"
+        "I am constantly growing and evolving. 🌿",
+        "Every challenge strengthens me. 💪",
+        "I believe in my ability to succeed. 🚀",
+        "Obstacles are just opportunities in disguise. 🎯"
     ]
-    
-    st.info(f"✨ **Your Affirmation for Today:** {random.choice(affirmations)}")
+    st.info(f"✨ **Today's Affirmation:** {random.choice(affirmations)}")
 
-# Mindset Quiz Page
-elif page == "🧠 Mindset Quiz":
-    st.header("🧠 Growth vs. Fixed Mindset Quiz")
-    st.markdown("**Answer the following questions to check your mindset!**")
-
-    questions = [
-        "1️⃣ When I fail, I... (A) Give up | (B) Learn from it",
-        "2️⃣ Challenges are... (A) Frustrating | (B) Opportunities",
-        "3️⃣ Effort is... (A) Pointless | (B) Key to success",
-        "4️⃣ Criticism is... (A) An attack | (B) Helpful feedback"
+# Mindset Challenges Page
+elif page == "🧠 Mindset Challenges":
+    st.header("🧠 Challenge Yourself to Grow")
+    challenges = [
+        "📖 Read about someone who overcame failure and succeeded.",
+        "🚀 Try something new that pushes your limits!",
+        "🎯 Reframe a negative thought into a positive one.",
+        "💡 Spend 5 minutes visualizing your ideal future."
     ]
+    st.info(f"🔥 **Your Challenge Today:** {random.choice(challenges)}")
 
-    for q in questions:
-        st.markdown(q)
-    
-    st.success("If most of your answers are (B), you're developing a **Growth Mindset!** 🌟")
-
-# Growth Tracker Page
-elif page == "📊 Growth Tracker":
-    st.header("📊 Track Your Mindset Growth")
-
-    categories = ["Resilience", "Confidence", "Problem-Solving", "Adaptability"]
+# Progress Tracker Page
+elif page == "📊 Progress Tracker":
+    st.header("📊 Measure Your Mindset Growth")
+    categories = ["Resilience", "Optimism", "Problem-Solving", "Self-Discipline"]
     progress = np.random.randint(50, 100, size=len(categories))
-
+    
     fig, ax = plt.subplots()
     ax.bar(categories, progress, color=['blue', 'green', 'red', 'purple'])
     ax.set_title("Mindset Growth Progress")
     ax.set_ylabel("Growth (%)")
     ax.set_ylim(0, 100)
-
+    
     st.pyplot(fig)
-    st.success("Keep growing! Every step counts! 🌱")
+    st.success("Small improvements every day lead to massive success! 🌟")
 
-# Challenge Yourself Page
-elif page == "🔥 Challenge Yourself":
-    st.header("🔥 Growth Mindset Challenges")
-    
-    challenges = [
-        "📖 Read about someone who overcame adversity.",
-        "🚀 Try something new that scares you!",
-        "🎯 Reframe a negative thought into a positive one.",
-        "💡 Spend 10 minutes reflecting on a past success."
+# Power Habits Page
+elif page == "🚀 Power Habits":
+    st.header("🚀 Build Habits That Strengthen Your Mindset")
+    habits = [
+        "📌 Start your day with gratitude.",
+        "🧘‍♂️ Meditate for 5-10 minutes daily.",
+        "📚 Read or listen to personal growth content.",
+        "✍️ Journal your thoughts & progress."
     ]
-    
-    st.info(f"💪 **Today's Challenge:** {random.choice(challenges)}")
-
-st.sidebar.success("Embrace the Growth Mindset! 🚀")
-
+    st.info(f"💪 **Try This Habit Today:** {random.choice(habits)}")
