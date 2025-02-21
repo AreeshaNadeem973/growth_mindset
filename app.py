@@ -111,16 +111,6 @@ elif page == "📝 AI Reflection Hub":
     if st.button("Save Reflection"):
         st.success("📝 Reflection saved! Keep progressing.")
 
-# Interactive Checkbox Feature
-st.markdown("### ✅ Mark Your AI-Driven Achievements")
-achievements = ["Completed a daily challenge", "Read an AI success story", "Set a new AI-powered goal", "Reflected on AI-driven progress"]
-checkbox_states = {}
-
-for achievement in achievements:
-    checkbox_states[achievement] = st.checkbox(achievement)
-
 # Footer
 st.markdown("---")
 st.markdown("🔥 *Stay Inspired with AI, Stay Focused!* 🚀")
-
-    
