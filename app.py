@@ -1,116 +1,181 @@
 import streamlit as st
+import pandas as pd
+import os
+import json
 import random
-import time
-import matplotlib.pyplot as plt
-import numpy as np
+from io import BytesIO
 
-# Custom Styling
-st.markdown("""
-    <style>
-        .main {background-color: #f4f4f4; padding: 20px; border-radius: 10px;}
-        .title {color: #ff4500; text-align: center; font-size: 42px; font-weight: bold;}
-        .subtitle {color: #2e8b57; text-align: center; font-size: 22px;}
-        .box {background: #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 6px rgba(0,0,0,0.1);}
-        .home-container {text-align: center; padding: 40px; background: linear-gradient(to right, #36d1dc, #5b86e5); border-radius: 12px; color: white;}
-        .home-title {font-size: 36px; font-weight: bold; margin-bottom: 10px;}
-        .home-subtext {font-size: 18px; margin-bottom: 20px;}
-    </style>
-""", unsafe_allow_html=True)
+# Load or initialize data
+def load_data():
+    if os.path.exists("data.json"):
+        with open("data.json", "r") as f:
+            return json.load(f)
+    return {"challenges": [], "journal": []}
 
-# App Title
-st.markdown("<div class='title'>🤖 AI-Powered Success Hub</div>", unsafe_allow_html=True)
+def save_data(data):
+    with open("data.json", "w") as f:
+        json.dump(data, f, indent=4)
 
-# Sidebar for Navigation
-st.sidebar.header("📌 Navigate")
-page = st.sidebar.radio("Choose a section:", [
-    "🏡 Home", "📊 AI Progress Tracker", "💬 AI Daily Insights", "📖 AI Success Stories", "🎯 AI Goal Setter",
-    "📝 AI Reflection Hub", "🎶 AI Music Generator", "📺 AI Video Recommender"
-])
+data = load_data()
+
+
+
+# Streamlit App
+st.set_page_config(page_title="Growth Mindset Challenge", layout="wide")
+st.title("🚀 Growth Mindset Challenge!")
+st.sidebar.title("Navigation")
+page = st.sidebar.radio("Go to", ["Home", "Daily Challenge", "Quiz", "Journal & Reflection", "File Converter"])
+
+
 
 # Home Page
-if page == "🏡 Home":
-    st.markdown("""
-        <div class='home-container'>
-            <div class='home-title'>Welcome to AI-Powered Success Hub 🚀</div>
-            <div class='home-subtext'>Harness AI to elevate your mindset, overcome hurdles, and thrive in life.</div>
-            <div class='home-subtext'>✨ Let AI guide your journey to greatness! ✨</div>
-        </div>
-    """, unsafe_allow_html=True)
+if page == "Home":
+    st.header("Welcome to the Growth Mindset Challenge!")
+    st.write("A growth mindset is the belief that intelligence and abilities can be developed through dedication and hard work.")
     
-    st.image("https://media.istockphoto.com/id/1322275371/photo/goal-achievement.webp", use_container_width=True)
+    st.image("https://blog.iawomen.com/wp-content/uploads/2024/01/Depositphotos_682225278_S.jpg")
     
-    st.markdown("""
-        <div class='box'>
-        ✅ **Enhance Productivity**: AI-driven insights boost efficiency.  
-        ✅ **Tackle Challenges Smartly**: Let AI help you navigate hurdles.  
-        ✅ **Stay Inspired**: AI-generated motivation keeps you going.  
-        ✅ **Achieve Your Goals**: AI optimizes your path to success!  
-        </div>
-    """, unsafe_allow_html=True)
+    st.subheader("Why Growth Mindset Matters?")
+    st.write("A growth mindset helps you embrace challenges, learn from criticism, and persist in the face of setbacks. It encourages continuous learning and resilience.")
+    
+    st.subheader("Benefits of a Growth Mindset")
+    st.write("- *Embracing Challenges:* See difficulties as opportunities for growth.")
+    st.write("- *Learning from Mistakes:* Understand that mistakes are part of the learning process.")
+    st.write("- *Developing Resilience:* Stay committed to your goals despite obstacles.")
+    st.write("- *Fostering Creativity:* Encourages innovative problem-solving skills.")
+    
+    st.subheader("How to Cultivate a Growth Mindset?")
+    st.write("- *Set Learning Goals:* Focus on acquiring new skills instead of just results.")
+    st.write("- *Practice Self-Reflection:* Regularly analyze your progress and areas for improvement.")
+    st.write("- *Seek Constructive Feedback:* Use feedback to enhance your learning.")
+    st.write("- *Stay Positive:* Keep an optimistic approach towards learning and growth.")
+    
+    st.subheader("Inspirational Quote")
+    st.write("\"Success is not the result of talent alone, but of effort, persistence, and a willingness to learn.\" - Carol Dweck")
 
-# AI Progress Tracker with Balloons Effect
-elif page == "📊 AI Progress Tracker":
-    st.markdown("<div class='subtitle'>📊 Track Your AI-Optimized Progress</div>", unsafe_allow_html=True)
-    
-    x = np.arange(1, 11)
-    y = np.random.randint(10, 100, size=10)
-    
-    fig, ax = plt.subplots()
-    ax.plot(x, y, marker='o', linestyle='-', color='blue')
-    ax.set_xlabel("Days")
-    ax.set_ylabel("Motivation Level")
-    st.pyplot(fig)
-    
-    if st.button("Celebrate Progress! 🎈"):
-        st.balloons()
 
-# AI Daily Insights
-elif page == "💬 AI Daily Insights":
-    st.markdown("<div class='subtitle'>💬 Get AI-Powered Inspiration</div>", unsafe_allow_html=True)
-    
-    quotes = [
-        "Your potential is limitless!", 
-        "Every step forward is progress.",
-        "Believe in yourself and take action.",
-        "Dream big, work hard, stay focused.",
-        "Challenges are opportunities in disguise.",
-        "Success comes to those who persist."
-    ]
-    st.markdown(f"<div class='box'><b>{random.choice(quotes)}</b></div>", unsafe_allow_html=True)
 
-# AI Success Stories
-elif page == "📖 AI Success Stories":
-    st.markdown("<div class='subtitle'>📖 Learn from AI-Powered Achievements</div>", unsafe_allow_html=True)
+# Daily Challenge
+elif page == "Daily Challenge":
+    st.header("🌟 Today's Growth Mindset Challenge")
     
-    stories = [
-        ("💡 **Elon Musk & AI**", "Using AI to innovate Tesla & SpaceX."),
-        ("🏀 **AI in Sports**", "AI-driven analytics transforming athletes."),
-        ("📚 **AI in Media**", "How AI is changing entertainment & journalism."),
-        ("🚀 **AI & Business**", "Entrepreneurs using AI to scale success.")
+    st.write("Embracing a growth mindset means consistently challenging yourself to improve and learn. Each day, take on a new challenge to foster resilience and self-improvement.")
+    
+    challenges = [
+        "Write down three things you learned today and how they can help you grow.",
+        "Share a mistake you made recently, what you learned from it, and how you'll avoid it in the future.",
+        "Set a clear and measurable goal for self-improvement this week. Outline steps to achieve it.",
+        "Encourage someone else to adopt a growth mindset by sharing an inspiring story or helpful advice.",
+        "Reflect on a difficult situation you faced and how adopting a growth mindset helped you overcome it.",
+        "Read about a successful person who embodies a growth mindset and summarize key takeaways.",
+        "Try something outside your comfort zone and document your experience and feelings."
     ]
     
-    for name, story in stories:
-        st.markdown(f"<div class='box'><b>{name}</b><br>{story}</div>", unsafe_allow_html=True)
+    challenge = random.choice(challenges)
+    st.subheader("✨ Your Challenge Today:")
+    st.write(challenge)
+    
+    response = st.text_area("How will you complete this challenge? Share your thoughts and plan.")
+    
+    if st.button("Submit Response"):
+        data["challenges"].append({"challenge": challenge, "response": response})
+        save_data(data)
+        st.success("🎉 Your response has been saved! Keep pushing yourself towards growth!")
+    
+    st.info("💡 Remember: Growth comes from stepping out of your comfort zone. Take this challenge seriously and embrace the process!")
 
-# AI Goal Setter
-elif page == "🎯 AI Goal Setter":
-    st.markdown("<div class='subtitle'>🎯 AI-Assisted Goal Setting</div>", unsafe_allow_html=True)
-    
-    goal = st.text_input("📝 Your Goal:")
-    deadline = st.date_input("📅 Set a Deadline:")
-    
-    if st.button("Save Goal"):
-        st.success(f"🎯 Goal '{goal}' set for {deadline}!")
 
-# AI Reflection Hub
-elif page == "📝 AI Reflection Hub":
-    st.markdown("<div class='subtitle'>📝 AI-Powered Reflection & Growth</div>", unsafe_allow_html=True)
-    
-    journal_entry = st.text_area("📖 Share your thoughts & insights:")
-    
-    if st.button("Save Reflection"):
-        st.success("📝 Reflection saved! Keep progressing.")
 
-# Footer
-st.markdown("---")
-st.markdown("🔥 *Stay Inspired with AI, Stay Focused!* 🚀")
+# Quiz Section
+elif page == "Quiz":
+    st.header("🧠 Growth Mindset Quiz")
+    quiz_questions = [
+        {"question": "What is a key trait of a growth mindset?", "options": ["Avoiding challenges", "Embracing challenges", "Giving up easily"], "answer": "Embracing challenges"},
+        {"question": "How should you view mistakes?", "options": ["As failures", "As learning opportunities", "As things to avoid"], "answer": "As learning opportunities"},
+        {"question": "What is the best way to deal with setbacks?", "options": ["Give up", "Learn from them", "Ignore them"], "answer": "Learn from them"},
+        {"question": "What is a good way to develop a growth mindset?", "options": ["Stick to what you know", "Try new challenges", "Avoid feedback"], "answer": "Try new challenges"},
+        {"question": "How should you react to constructive criticism?", "options": ["Ignore it", "Use it to improve", "Take it personally"], "answer": "Use it to improve"},
+        {"question": "Which of these is a characteristic of a fixed mindset?", "options": ["Believing abilities can grow", "Avoiding failure", "Seeking challenges"], "answer": "Avoiding failure"},
+        {"question": "Why is persistence important in a growth mindset?", "options": ["It helps overcome obstacles", "It guarantees success", "It is unnecessary"], "answer": "It helps overcome obstacles"}
+    ]
+    
+    score = 0
+    for q in quiz_questions:
+        st.write(q["question"])
+        option = st.radio("Choose an answer:", q["options"], key=q["question"])
+        if option == q["answer"]:
+            score += 1
+    
+    if st.button("Submit Quiz"):
+        st.write(f"Your score: {score}/{len(quiz_questions)}")
+
+
+
+# Journal & Reflection
+elif page == "Journal & Reflection":
+    st.header("📖 Personal Journal")
+    st.subheader("Daily Reflection")
+    st.write("Take a moment to reflect on your growth mindset journey.")
+    journal_entry = st.text_area("Write about your experiences, challenges, and successes today:")
+    if st.button("Save Entry"):
+        if journal_entry.strip():
+            data["journal"].append(journal_entry)
+            save_data(data)
+            st.success("Your journal entry has been saved!")
+        else:
+            st.error("Please write something before saving.")
+
+    st.subheader("📜 Past Entries")
+    if data["journal"]:
+        for i, entry in enumerate(reversed(data["journal"])):
+            st.write(f"*Entry {len(data['journal']) - i}:* {entry}")
+    else:
+        st.write("No journal entries yet. Start writing today!")
+
+
+# File Converter
+elif page == "File Converter":
+    st.header("📂 CSV & Excel File Converter")
+    upload_Files = st.file_uploader("Upload your files (CSV or Excel):", type=["csv", "xlsx"], accept_multiple_files=True)
+
+    # Upload files
+    if upload_Files:
+        for file in upload_Files:
+            file_extension = os.path.splitext(file.name)[-1].lower()
+            if file_extension == ".csv":
+                df = pd.read_csv(file)
+            elif file_extension == ".xlsx":
+                df = pd.read_excel(file)
+            else:
+                st.error(f"Unsupported File type:{file_extension}")
+                continue
+            st.write(f"*File Name*: {file.name}")
+            st.write(f"*File Size*: {file.size/1024} KB")
+            st.dataframe(df.head())
+
+            # Data visualization
+            if st.checkbox(f"Show Visualization for {file.name}"):
+                st.bar_chart(df.select_dtypes(include='number').iloc[:, :2])
+            conversion_type = st.radio(f"Convert {file.name} to:", ["CSV", "Excel"], key=file.name)
+
+            # Convert File CSV, Excel 
+            if st.button(f"Convert {file.name}"):
+                buffer = BytesIO()
+                if conversion_type == "CSV":
+                    df.to_csv(buffer, index=False)
+                    file_name = file.name.replace(file_extension, ".csv")
+                    mime_type = "text/csv"
+                else:
+                    df.to_excel(buffer, index=False, engine='openpyxl')  # Save as Excel using openpyxl
+                    file_name = file.name.replace(file_extension, ".xlsx")
+                    mime_type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                buffer.seek(0)
+
+                # Download file
+                st.download_button(
+                    label=f"Download {file.name} as {conversion_type}",
+                    data=buffer,
+                    file_name=file_name,
+                    mime=mime_type
+                )
+st.success("🎉All features loaded successfully! Enjoy your Growth Mindset journey!")
