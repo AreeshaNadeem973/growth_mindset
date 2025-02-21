@@ -1,108 +1,131 @@
 import streamlit as st
-import pandas as pd
 import random
-from datetime import datetime
+import time
+import matplotlib.pyplot as plt
+import numpy as np
 
-# Page Configuration
-st.set_page_config(page_title="🌱 Growth Mindset Challenge", layout='wide')
-st.title('🌱 Growth Mindset Challenge')
-st.write("Welcome! Track your progress and embrace challenges with a growth mindset.")
+# Custom Styling
+st.markdown("""
+    <style>
+        .main {background-color: #f4f4f4; padding: 20px; border-radius: 10px;}
+        .title {color: #ff4500; text-align: center; font-size: 42px; font-weight: bold;}
+        .subtitle {color: #2e8b57; text-align: center; font-size: 22px;}
+        .box {background: #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 6px rgba(0,0,0,0.1);}
+        .home-container {text-align: center; padding: 40px; background: linear-gradient(to right, #36d1dc, #5b86e5); border-radius: 12px; color: white;}
+        .home-title {font-size: 36px; font-weight: bold; margin-bottom: 10px;}
+        .home-subtext {font-size: 18px; margin-bottom: 20px;}
+    </style>
+""", unsafe_allow_html=True)
 
-# Sidebar for user details
-st.sidebar.header("👤 Your Profile")
-name = st.sidebar.text_input("Enter your name:")
-current_date = datetime.now().strftime('%Y-%m-%d')
+# App Title
+st.markdown("<div class='title'>🌱 Growth Mindset Hub</div>", unsafe_allow_html=True)
 
-# Motivational Quote Section
-quotes = [
-    "“Success is not an accident, success is a choice.” – Stephen Curry",
-    "“Failure is success in progress.” – Albert Einstein",
-    "“The only way to do great work is to love what you do.” – Steve Jobs",
-    "“Don’t let what you cannot do interfere with what you can do.” – John Wooden",
-    "“Challenges are what make life interesting. Overcoming them is what makes life meaningful.”",
-    "“Believe you can and you’re halfway there.” – Theodore Roosevelt",
-    "“Hardships often prepare ordinary people for an extraordinary destiny.” – C.S. Lewis",
-]
-st.sidebar.write("💡 **Motivational Quote:**")
-st.sidebar.write(f"📢 *{random.choice(quotes)}*")
+# Sidebar for Navigation
+st.sidebar.header("📌 Navigate")
+page = st.sidebar.radio("Choose a section:", [
+    "🏡 Home", "📊 Progress Tracker", "💡 Daily Motivation", "📖 Success Stories", "🎯 Goal Setter",
+    "📝 Reflection Journal", "🎶 Brain Boost Exercises"
+])
 
-# Challenge of the Day
-st.subheader("🚀 Challenge of the Day")
-challenge_list = [
-    "Try learning something completely new today!",
-    "Embrace failure and reflect on what you can learn from it.",
-    "Step outside your comfort zone and tackle a difficult task.",
-    "Ask for constructive feedback and act on it.",
-    "Teach someone else a concept you're mastering.",
-    "Turn a negative thought into a positive one!",
-    "Practice gratitude by writing three things you’re grateful for.",
-    "Spend 15 minutes meditating or reflecting on your goals.",
-    "Challenge yourself to avoid distractions and focus on deep work.",
-]
-selected_challenge = st.selectbox("Choose a challenge to focus on today:", challenge_list)
+# Home Page
+if page == "🏡 Home":
+    st.markdown("""
+        <div class='home-container'>
+            <div class='home-title'>Welcome to the Growth Mindset Hub 🚀</div>
+            <div class='home-subtext'>Develop resilience, embrace challenges, and unlock your full potential.</div>
+            <div class='home-subtext'>✨ Your journey to growth starts here! ✨</div>
+        </div>
+    """, unsafe_allow_html=True)
+    
+    st.image("https://media.istockphoto.com/id/1322275371/photo/goal-achievement.webp", use_container_width=True)
+    
+    st.markdown("""
+        <div class='box'>
+        ✅ **Embrace Challenges**: View obstacles as learning opportunities.  
+        ✅ **Learn from Mistakes**: Every failure is a stepping stone to success.  
+        ✅ **Stay Persistent**: Keep pushing forward no matter what.  
+        ✅ **Celebrate Progress**: Every step counts toward growth!  
+        </div>
+    """, unsafe_allow_html=True)
 
 # Progress Tracker
-st.subheader("📊 Track Your Progress")
-progress_options = ["Not Started", "In Progress", "Completed"]
-progress = st.radio("How far along are you?", progress_options, index=0)
-
-# Reflection Section
-st.subheader("✍️ Reflection Journal")
-reflection = st.text_area("Write about your experience today:")
-
-# Initialize session state for progress tracking
-if "progress_data" not in st.session_state:
-    st.session_state.progress_data = {"Not Started": 0, "In Progress": 0, "Completed": 0}
-
-# Save Progress
-if st.button("💾 Save Progress"):
-    st.session_state.progress_data[progress] += 1  # Update progress counts
-
-    # Save data to DataFrame
-    data = pd.DataFrame({
-        "Name": [name if name else "Anonymous"],
-        "Date": [current_date],
-        "Challenge": [selected_challenge],
-        "Progress": [progress],
-        "Reflection": [reflection if reflection else "No reflection provided."]
-    })
+elif page == "📊 Progress Tracker":
+    st.markdown("<div class='subtitle'>📊 Track Your Growth Journey</div>", unsafe_allow_html=True)
     
-    st.success("✅ Your progress has been saved! Keep growing!")
-    st.dataframe(data)
+    x = np.arange(1, 11)
+    y = np.random.randint(10, 100, size=10)
+    
+    fig, ax = plt.subplots()
+    ax.plot(x, y, marker='o', linestyle='-', color='blue')
+    ax.set_xlabel("Days")
+    ax.set_ylabel("Growth Level")
+    st.pyplot(fig)
+    
+    if st.button("Celebrate Progress! 🎈"):
+        st.balloons()
 
-    # Download Progress Data
-    csv = data.to_csv(index=False).encode('utf-8')
-    st.download_button(
-        label="📥 Download Your Progress",
-        data=csv,
-        file_name=f"growth_mindset_{name}_{current_date}.csv",
-        mime="text/csv",
-    )
+# Daily Motivation
+elif page == "💡 Daily Motivation":
+    st.markdown("<div class='subtitle'>💡 Your Daily Growth Booster</div>", unsafe_allow_html=True)
+    
+    quotes = [
+        "Success is not final, failure is not fatal: it is the courage to continue that counts.", 
+        "The only limit to our realization of tomorrow is our doubts of today.",
+        "Believe in yourself and all that you are. Know that there is something inside you greater than any obstacle.",
+        "Growth and comfort do not coexist.",
+        "Difficulties in life are intended to make us better, not bitter."
+    ]
+    st.markdown(f"<div class='box'><b>{random.choice(quotes)}</b></div>", unsafe_allow_html=True)
 
-# Clear Progress Button
-if st.button("🗑 Clear Progress"):
-    st.session_state.progress_data = {"Not Started": 0, "In Progress": 0, "Completed": 0}
-    st.warning("Progress cleared! Start fresh.")
+# Success Stories
+elif page == "📖 Success Stories":
+    st.markdown("<div class='subtitle'>📖 Learn from Real-Life Growth Mindsets</div>", unsafe_allow_html=True)
+    
+    stories = [
+        ("💡 **Thomas Edison**", "Failed 1,000 times before inventing the light bulb."),
+        ("🌍 **Oprah Winfrey**", "Overcame rejection to build a media empire."),
+        ("🎶 **Eminem**", "Was rejected multiple times before becoming a rap legend."),
+        ("🏀 **Michael Jordan**", "Was cut from his basketball team but became a legend."),
+    ]
+    
+    for name, story in stories:
+        st.markdown(f"<div class='box'><b>{name}</b><br>{story}</div>", unsafe_allow_html=True)
 
-# Progress Visualization (Dynamic)
-st.subheader("📈 Growth Mindset Progress Chart")
-progress_chart_data = pd.DataFrame(
-    {"Stage": list(st.session_state.progress_data.keys()), 
-     "Count": list(st.session_state.progress_data.values())}
-)
-st.bar_chart(progress_chart_data)
+# Goal Setter
+elif page == "🎯 Goal Setter":
+    st.markdown("<div class='subtitle'>🎯 Set & Achieve Your Growth Goals</div>", unsafe_allow_html=True)
+    
+    goal = st.text_input("📝 Your Goal:")
+    deadline = st.date_input("📅 Set a Deadline:")
+    
+    if st.button("Save Goal"):
+        st.success(f"🎯 Goal '{goal}' set for {deadline}!")
 
-# Dark Mode Toggle
-dark_mode = st.sidebar.checkbox("🌙 Enable Dark Mode")
-if dark_mode:
-    st.markdown(
-        """
-        <style>
-        body { background-color: #1E1E1E; color: white; }
-        .stTextInput, .stTextArea, .stSelectbox, .stRadio { background-color: #333333; color: white; }
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
+# Reflection Journal
+elif page == "📝 Reflection Journal":
+    st.markdown("<div class='subtitle'>📝 Reflect on Your Growth</div>", unsafe_allow_html=True)
+    
+    journal_entry = st.text_area("📖 Share your thoughts & experiences:")
+    
+    if st.button("Save Reflection"):
+        st.success("📝 Reflection saved! Keep growing.")
 
-st.sidebar.write("💡 Remember: Growth happens when you push yourself beyond your limits!")
+# Brain Boost Exercises
+elif page == "🎶 Brain Boost Exercises":
+    st.markdown("<div class='subtitle'>🎶 Fun Brain Exercises for Growth</div>", unsafe_allow_html=True)
+    
+    puzzles = [
+        ("🤔 **What has keys but can't open locks?**", "A piano"),
+        ("🔍 **The more you take, the more you leave behind. What am I?**", "Footsteps"),
+        ("🎭 **I speak without a mouth and hear without ears. Who am I?**", "An echo"),
+    ]
+    
+    question, answer = random.choice(puzzles)
+    st.markdown(f"<div class='box'><b>{question}</b></div>", unsafe_allow_html=True)
+    if st.button("Show Answer"):
+        st.markdown(f"✅ **Answer:** {answer}")
+
+# Footer
+st.markdown("---")
+st.markdown("🌱 *Stay Curious, Keep Growing!* 🚀")
+
