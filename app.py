@@ -113,18 +113,16 @@ elif page == "🔎 Fun Trivia":
 elif page == "📚 Life & Motivation Books":
     st.header("📚 Life & Motivation Books")
     motivation_books = [
-        ("The 7 Habits of Highly Effective People", "https://images-na.ssl-images-amazon.com/images/I/81Rc+3O8g4L.jpg"),
-        ("Think and Grow Rich", "https://images-na.ssl-images-amazon.com/images/I/91VS9xmr5UL.jpg"),
-        ("The Power of Now", "https://images-na.ssl-images-amazon.com/images/I/71t4GuxLCuL.jpg")
+        ("The 7 Habits of Highly Effective People", "https://m.media-amazon.com/images/I/81Rc+3O8g4L._SL1500_.jpg", "https://www.pdfdrive.com/the-7-habits-of-highly-effective-people-e15874302.html"),
+        ("Think and Grow Rich", "https://m.media-amazon.com/images/I/91VS9xmr5UL._SL1500_.jpg", "https://www.pdfdrive.com/think-and-grow-rich-e15879348.html"),
+        ("The Power of Now", "https://m.media-amazon.com/images/I/71t4GuxLCuL._SL1500_.jpg", "https://www.pdfdrive.com/the-power-of-now-e15874234.html")
     ]
-    for title, img in motivation_books:
+    for title, img, link in motivation_books:
         st.subheader(title)
         st.image(img, width=200)
-        st.write("📖 Click below to start reading!")
-        st.button(f"Read {title}")
+        st.markdown(f"[📖 Read Now]({link})", unsafe_allow_html=True)
 
 # Footer
 st.markdown("---")
 st.markdown("Built with ❤️ using Streamlit | © 2025 Reading Hub")
 
- 
