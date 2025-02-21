@@ -1,121 +1,116 @@
 import streamlit as st
 import random
+import time
 import matplotlib.pyplot as plt
 import numpy as np
-import time
 
 # Custom Styling
 st.markdown("""
     <style>
-        .main-container {text-align: center; padding: 50px; background: linear-gradient(to right, #ff758c, #ff7eb3); border-radius: 12px; color: white;}
-        .main-title {font-size: 42px; font-weight: bold; margin-bottom: 10px;}
-        .main-subtext {font-size: 22px; margin-bottom: 20px;}
-        .highlight {color: #ffeb3b; font-weight: bold;}
+        .main {background-color: #f4f4f4; padding: 20px; border-radius: 10px;}
+        .title {color: #ff4500; text-align: center; font-size: 42px; font-weight: bold;}
+        .subtitle {color: #2e8b57; text-align: center; font-size: 22px;}
+        .box {background: #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 6px rgba(0,0,0,0.1);}
+        .home-container {text-align: center; padding: 40px; background: linear-gradient(to right, #36d1dc, #5b86e5); border-radius: 12px; color: white;}
+        .home-title {font-size: 36px; font-weight: bold; margin-bottom: 10px;}
+        .home-subtext {font-size: 18px; margin-bottom: 20px;}
     </style>
 """, unsafe_allow_html=True)
 
 # App Title
-st.markdown("<div class='main-container'>"
-            "<div class='main-title'>Welcome to Skill Learning Hub 🎓</div>"
-            "<div class='main-subtext'>Boost your knowledge, one skill at a time!</div>"
-            "<div class='main-subtext'>🚀 Learn, track, and master new skills efficiently.</div>"
-            "</div>", unsafe_allow_html=True)
+st.markdown("<div class='title'>🤖 AI-Powered Success Hub</div>", unsafe_allow_html=True)
 
 # Sidebar for Navigation
-st.sidebar.header("📚 Explore Sections")
+st.sidebar.header("📌 Navigate")
 page = st.sidebar.radio("Choose a section:", [
-    "🏡 Home", "📖 Skill Categories", "🎯 Learning Goals", "📊 Progress Tracker", "💡 Daily Challenges",
-    "📚 Resource Library", "💬 Discussion Forum"
+    "🏡 Home", "📊 AI Progress Tracker", "💬 AI Daily Insights", "📖 AI Success Stories", "🎯 AI Goal Setter",
+    "📝 AI Reflection Hub", "🎶 AI Music Generator", "📺 AI Video Recommender"
 ])
 
 # Home Page
 if page == "🏡 Home":
-    st.markdown("### 🌟 Why Learn a New Skill?")
-    benefits = [
-        "🚀 Expand your career opportunities",
-        "📚 Enhance creativity & problem-solving",
-        "💡 Boost confidence & personal growth",
-        "🎯 Stay ahead in a competitive world"
-    ]
-    for benefit in benefits:
-        st.write(f"✅ {benefit}")
+    st.markdown("""
+        <div class='home-container'>
+            <div class='home-title'>Welcome to AI-Powered Success Hub 🚀</div>
+            <div class='home-subtext'>Harness AI to elevate your mindset, overcome hurdles, and thrive in life.</div>
+            <div class='home-subtext'>✨ Let AI guide your journey to greatness! ✨</div>
+        </div>
+    """, unsafe_allow_html=True)
     
-    st.markdown("### 🔥 Today's Learning Tip")
-    tips = [
-        "Break your learning into small chunks for better retention!",
-        "Practice makes perfect – keep experimenting!",
-        "Teach someone what you learn – it strengthens your knowledge!",
-        "Stay consistent, even if you learn for just 10 minutes a day."
+    st.image("https://media.istockphoto.com/id/1322275371/photo/goal-achievement.webp", use_container_width=True)
+    
+    st.markdown("""
+        <div class='box'>
+        ✅ **Enhance Productivity**: AI-driven insights boost efficiency.  
+        ✅ **Tackle Challenges Smartly**: Let AI help you navigate hurdles.  
+        ✅ **Stay Inspired**: AI-generated motivation keeps you going.  
+        ✅ **Achieve Your Goals**: AI optimizes your path to success!  
+        </div>
+    """, unsafe_allow_html=True)
+
+# AI Progress Tracker with Balloons Effect
+elif page == "📊 AI Progress Tracker":
+    st.markdown("<div class='subtitle'>📊 Track Your AI-Optimized Progress</div>", unsafe_allow_html=True)
+    
+    x = np.arange(1, 11)
+    y = np.random.randint(10, 100, size=10)
+    
+    fig, ax = plt.subplots()
+    ax.plot(x, y, marker='o', linestyle='-', color='blue')
+    ax.set_xlabel("Days")
+    ax.set_ylabel("Motivation Level")
+    st.pyplot(fig)
+    
+    if st.button("Celebrate Progress! 🎈"):
+        st.balloons()
+
+# AI Daily Insights
+elif page == "💬 AI Daily Insights":
+    st.markdown("<div class='subtitle'>💬 Get AI-Powered Inspiration</div>", unsafe_allow_html=True)
+    
+    quotes = [
+        "Your potential is limitless!", 
+        "Every step forward is progress.",
+        "Believe in yourself and take action.",
+        "Dream big, work hard, stay focused.",
+        "Challenges are opportunities in disguise.",
+        "Success comes to those who persist."
     ]
-    st.write(random.choice(tips))
+    st.markdown(f"<div class='box'><b>{random.choice(quotes)}</b></div>", unsafe_allow_html=True)
 
-# Skill Categories
-elif page == "📖 Skill Categories":
-    st.header("📖 Explore Different Skills")
-    categories = ["Coding", "Writing", "Public Speaking", "Graphic Design", "Photography", "Marketing", "Finance"]
-    chosen_category = st.selectbox("Select a skill to explore:", categories)
-    st.write(f"You selected: **{chosen_category}**")
+# AI Success Stories
+elif page == "📖 AI Success Stories":
+    st.markdown("<div class='subtitle'>📖 Learn from AI-Powered Achievements</div>", unsafe_allow_html=True)
+    
+    stories = [
+        ("💡 **Elon Musk & AI**", "Using AI to innovate Tesla & SpaceX."),
+        ("🏀 **AI in Sports**", "AI-driven analytics transforming athletes."),
+        ("📚 **AI in Media**", "How AI is changing entertainment & journalism."),
+        ("🚀 **AI & Business**", "Entrepreneurs using AI to scale success.")
+    ]
+    
+    for name, story in stories:
+        st.markdown(f"<div class='box'><b>{name}</b><br>{story}</div>", unsafe_allow_html=True)
 
-# Learning Goals
-elif page == "🎯 Learning Goals":
-    st.header("🎯 Set Your Learning Goals")
-    goal = st.text_input("📝 Enter your learning goal:")
-    deadline = st.date_input("📅 Set a deadline:")
+# AI Goal Setter
+elif page == "🎯 AI Goal Setter":
+    st.markdown("<div class='subtitle'>🎯 AI-Assisted Goal Setting</div>", unsafe_allow_html=True)
+    
+    goal = st.text_input("📝 Your Goal:")
+    deadline = st.date_input("📅 Set a Deadline:")
+    
     if st.button("Save Goal"):
-        st.success(f"✅ Goal '{goal}' set for {deadline}!")
+        st.success(f"🎯 Goal '{goal}' set for {deadline}!")
 
-# Progress Tracker with Animated Balloons
-elif page == "📊 Progress Tracker":
-    st.header("📊 Track Your Learning Progress")
-    progress = st.slider("How much progress have you made in your skill (0-100%)?", 0, 100, 50)
-    st.write(f"You're {progress}% done! Keep going! 🚀")
+# AI Reflection Hub
+elif page == "📝 AI Reflection Hub":
+    st.markdown("<div class='subtitle'>📝 AI-Powered Reflection & Growth</div>", unsafe_allow_html=True)
     
-    # Create a button to trigger balloon animation
-    if st.button("🎈 Celebrate Progress!"):
-        st.write("🎉 Balloons are rising to celebrate your progress!")
-        time.sleep(1)
-        fig, ax = plt.subplots()
-        ax.set_xlim(0, 1)
-        ax.set_ylim(0, 1)
-        balloons = np.random.rand(5, 2)
-        scatter = ax.scatter(balloons[:, 0], balloons[:, 1], s=200, c='red', alpha=0.6)
-        
-        for _ in range(20):  # Move balloons upwards
-            balloons[:, 1] += 0.05
-            balloons[balloons[:, 1] > 1, 1] = 0  # Reset balloons at the top
-            scatter.set_offsets(balloons)
-            plt.pause(0.1)
-        
-        st.pyplot(fig)
+    journal_entry = st.text_area("📖 Share your thoughts & insights:")
+    
+    if st.button("Save Reflection"):
+        st.success("📝 Reflection saved! Keep progressing.")
 
-# Daily Challenges
-elif page == "💡 Daily Challenges":
-    st.header("💡 Take a Daily Learning Challenge")
-    challenges = [
-        "Write a 500-word article on a topic of your choice.",
-        "Code a simple calculator in Python.",
-        "Give a 2-minute speech on an interesting fact.",
-        "Design a creative social media post in Canva.",
-        "Read a book summary and take notes."
-    ]
-    st.write(random.choice(challenges))
-
-# Resource Library
-elif page == "📚 Resource Library":
-    st.header("📚 Explore Learning Resources")
-    resources = {
-        "Coding": "[FreeCodeCamp](https://www.freecodecamp.org/)",
-        "Writing": "[Grammarly Blog](https://www.grammarly.com/blog/)",
-        "Public Speaking": "[TED Talks](https://www.ted.com/talks)",
-        "Graphic Design": "[Canva](https://www.canva.com/)",
-        "Finance": "[Investopedia](https://www.investopedia.com/)"
-    }
-    for skill, link in resources.items():
-        st.markdown(f"✅ [{skill}]({link})")
-
-# Discussion Forum
-elif page == "💬 Discussion Forum":
-    st.header("💬 Share Your Learning Journey")
-    discussion = st.text_area("📝 What's something new you've learned recently?")
-    if st.button("Post"):
-        st.success("✅ Your response has been shared!")
+# Footer
+st.markdown("---")
+st.markdown("🔥 *Stay Inspired with AI, Stay Focused!* 🚀")
