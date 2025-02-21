@@ -1,130 +1,117 @@
 import streamlit as st
+import random
+import time
 import matplotlib.pyplot as plt
+import numpy as np
+
+# Custom Styling
+st.markdown("""
+    <style>
+        .main {background-color: #f4f4f4; padding: 20px; border-radius: 10px;}
+        .title {color: #ff6347; text-align: center; font-size: 40px; font-weight: bold;}
+        .subtitle {color: #4682b4; text-align: center; font-size: 20px;}
+        .quote-box {background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0px 4px 6px rgba(0,0,0,0.1);}
+        .goal-box {background: #dff0d8; padding: 20px; border-radius: 8px;}
+        .home-container {text-align: center; padding: 40px; background: linear-gradient(to right, #ff7e5f, #feb47b); border-radius: 12px; color: white;}
+        .home-title {font-size: 35px; font-weight: bold; margin-bottom: 10px;}
+        .home-subtext {font-size: 18px; margin-bottom: 20px;}
+    </style>
+""", unsafe_allow_html=True)
 
 # App Title
-st.title("🚀 Growth Mindset Challenge")
+st.markdown("<div class='title'>🌟 Daily Motivation Hub</div>", unsafe_allow_html=True)
 
 # Sidebar for Navigation
 st.sidebar.header("📌 Quick Navigation")
 page = st.sidebar.radio("Go to:", [
-    "🏡 Home", "📊 Progress Tracker", "📝 Daily Challenge", "💡 Tips for Growth",
-    "📖 Success Stories", "🎯 Goal Setting", "🤔 Self-Reflection", "🧠 Brain Exercises"
+    "🏡 Home", "📊 Progress Graph", "💬 Daily Quote", "📖 Success Stories", "🎯 Goal Planner",
+    "📝 Journal", "🎵 Motivational Music", "📺 Inspirational Videos"
 ])
 
 # Home Page
 if page == "🏡 Home":
-    st.header("Welcome to the Growth Mindset Challenge! 🎯")
     st.markdown("""
-    ### Why Adopt a Growth Mindset?
-    ✅ **Embrace Challenges**: View obstacles as opportunities to learn rather than setbacks.  
-    ✅ **Learn from Mistakes**: Mistakes help you improve.  
-    ✅ **Persist Through Difficulties**: Stay determined!  
-    ✅ **Celebrate Effort**: Focus on growth, not just results.  
-    ✅ **Stay Curious**: Always be open to learning.  
-    """)
-    st.image("https://media.istockphoto.com/id/1973623637/photo/mindset-loading-bar-concept.webp?a=1&b=1&s=612x612&w=0&k=20&c=_IrFcWJW6qoDNKpKgSNT4rY78RxoQYJo9kkPPXh7cFc=", use_container_width=True)
-
-# Progress Tracker
-elif page == "📊 Progress Tracker":
-    st.header("📊 Your Growth Progress")
+        <div class='home-container'>
+            <div class='home-title'>Welcome to Daily Motivation Hub 🚀</div>
+            <div class='home-subtext'>Fuel your passion, overcome obstacles, and stay inspired every day.</div>
+            <div class='home-subtext'>✨ Start your journey towards greatness now! ✨</div>
+        </div>
+    """, unsafe_allow_html=True)
     
-    days = st.slider("How many days have you been practicing a Growth Mindset?", 1, 30, 5)
-    effort = st.slider("How much effort do you put in (1-10)?", 1, 10, 7)
+    st.image("https://media.istockphoto.com/id/1282618663/photo/positivity-and-motivation.webp", use_container_width=True)
+    
+    st.markdown("""
+        <div class='quote-box'>
+        ✅ **Boost Productivity**: A positive mindset leads to better performance.  
+        ✅ **Overcome Challenges**: Face obstacles with confidence.  
+        ✅ **Stay Inspired**: Keep pushing towards your dreams.  
+        ✅ **Achieve Your Goals**: Motivation drives success!  
+        </div>
+    """, unsafe_allow_html=True)
 
-    st.session_state["days"] = days  
-
+# Progress Graph with Balloons Effect
+elif page == "📊 Progress Graph":
+    st.markdown("<div class='subtitle'>📊 Your Progress Over Time</div>", unsafe_allow_html=True)
+    
+    x = np.arange(1, 11)
+    y = np.random.randint(5, 100, size=10)
+    
     fig, ax = plt.subplots()
-    ax.bar(["Days Practiced", "Effort Level"], [days, effort], color=["blue", "green"])
-    ax.set_ylabel("Level")
+    ax.plot(x, y, marker='o', linestyle='-', color='blue')
+    ax.set_xlabel("Days")
+    ax.set_ylabel("Motivation Level")
     st.pyplot(fig)
-
-# Daily Challenge
-elif page == "📝 Daily Challenge":
-    st.header("📝 Today's Growth Mindset Challenge")
     
-    days = st.session_state.get("days", 1)
+    if st.button("Click the Graph for Celebration!"):
+        st.balloons()
 
-    challenges = [
-        "🔹 Identify one mistake you made today and what you learned from it.",
-        "🔹 Try something new that challenges you.",
-        "🔹 Replace a negative thought with a positive one.",
-        "🔹 Teach a new skill to a friend.",
-        "🔹 Read about someone who overcame obstacles and got successful.",
-        "🔹 Write down three things you're grateful for today."
-    ]
-
-    st.write("💡 **Challenge for Today:**", challenges[days % len(challenges)])
-
-# Tips for Growth
-elif page == "💡 Tips for Growth":
-    st.header("💡 Daily Growth Tips")
+# Daily Quote
+elif page == "💬 Daily Quote":
+    st.markdown("<div class='subtitle'>💬 Today's Motivational Quote</div>", unsafe_allow_html=True)
     
-    tips = [
-        "🔥 **Learn from Feedback** – Constructive criticism helps you improve.",
-        "🔥 **Be Persistent** – Hard work leads to success.",
-        "🔥 **Surround Yourself with Positive People** – Learn from those with a growth mindset.",
-        "🔥 **Stay Curious** – Ask questions and keep learning.",
-        "🔥 **Break Big Goals into Small Steps** – Focus on progress, not perfection.",
-        "🔥 **Celebrate Small Wins** – Every step forward counts!",
-        "🔥 **Develop a Learning Habit** – Read books, watch tutorials, and improve every day."
+    quotes = [
+        "Believe you can and you're halfway there. – Theodore Roosevelt",
+        "Your limitation—it's only your imagination.",
+        "Push yourself, because no one else is going to do it for you.",
+        "Great things never come from comfort zones.",
+        "Dream it. Wish it. Do it.",
+        "Success doesn’t just find you. You have to go out and get it."
     ]
-
-    days = st.session_state.get("days", 1)
-    st.markdown(f"💡 **Tip for Today:** {tips[days % len(tips)]}")
+    st.markdown(f"<div class='quote-box'><b>{random.choice(quotes)}</b></div>", unsafe_allow_html=True)
 
 # Success Stories
 elif page == "📖 Success Stories":
-    st.header("📖 Real-Life Growth Mindset Stories")
+    st.markdown("<div class='subtitle'>📖 Inspirational Success Stories</div>", unsafe_allow_html=True)
     
     stories = [
-        ("💪 **Thomas Edison**", "Failed over 1,000 times before inventing the light bulb."),
-        ("🌍 **Oprah Winfrey**", "Was fired from her first TV job but never gave up."),
-        ("🎶 **Eminem**", "Rejected multiple times before becoming a rap legend."),
-        ("🏀 **Michael Jordan**", "Cut from his high school basketball team, but became a legend."),
-        ("📚 **J.K. Rowling**", "Harry Potter was rejected by 12 publishers before success.")
+        ("💪 **Nick Vujicic**", "Born without limbs, became a world-renowned motivational speaker."),
+        ("📚 **J.K. Rowling**", "Rejected multiple times before publishing Harry Potter."),
+        ("🏀 **Michael Jordan**", "Cut from his high school basketball team, but became an NBA legend."),
+        ("🚀 **Elon Musk**", "Faced failures but built Tesla & SpaceX into global giants.")
     ]
     
     for name, story in stories:
-        st.subheader(name)
-        st.write(story)
+        st.markdown(f"<div class='quote-box'><b>{name}</b><br>{story}</div>", unsafe_allow_html=True)
 
-# Goal Setting
-elif page == "🎯 Goal Setting":
-    st.header("🎯 Set Your Goals")
-
+# Goal Planner
+elif page == "🎯 Goal Planner":
+    st.markdown("<div class='subtitle'>🎯 Set Your Goals</div>", unsafe_allow_html=True)
+    
     goal = st.text_input("📝 Write your goal:")
     deadline = st.date_input("📅 Set a deadline:")
-
+    
     if st.button("Save Goal"):
         st.success(f"🎯 Goal '{goal}' set for {deadline}!")
 
-# Self-Reflection
-elif page == "🤔 Self-Reflection":
-    st.header("🤔 Daily Self-Reflection")
-
-    journal = st.text_area("📖 Write about your day, your challenges, and what you learned:")
+# Journal
+elif page == "📝 Journal":
+    st.markdown("<div class='subtitle'>📝 Daily Reflection Journal</div>", unsafe_allow_html=True)
     
-    if st.button("Save Reflection"):
-        st.success("📝 Reflection saved! Keep learning and growing.")
-
-# Brain Exercises
-elif page == "🧠 Brain Exercises":
-    st.header("🧠 Daily Brain Challenge")
-
-    riddles = [
-        ("🤔 **I speak without a mouth and hear without ears. Who am I?**", "An echo"),
-        ("🔍 **The more you take, the more you leave behind. What am I?**", "Footsteps"),
-        ("🎭 **I have keys but open no locks. What am I?**", "A piano"),
-        ("💡 **What has to be broken before you can use it?**", "An egg")
-    ]
+    journal_entry = st.text_area("📖 Write about your thoughts and achievements today:")
     
-    days = st.session_state.get("days", 1)
-    question, answer = riddles[days % len(riddles)]
-
-    st.write(question)
-    if st.button("Show Answer"):
-        st.write(f"✅ **Answer:** {answer}")
+    if st.button("Save Journal Entry"):
+        st.success("📝 Journal entry saved! Keep reflecting and growing.")
 
 # Footer
 st.markdown("---")
-st.markdown("🌱 *Developed with ❤️ using Streamlit. Keep Growing!*")
+st.markdown("🚀 *Stay Inspired, Stay Motivated!* 🌟")
