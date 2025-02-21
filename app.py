@@ -4,95 +4,86 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # App Title
-st.set_page_config(page_title="Mindset Growth Lab: Unlock Your Potential", page_icon="🧠")
+st.set_page_config(page_title="Mindset Growth Lab", page_icon="🧠")
 
 # Sidebar for Navigation
-st.sidebar.header("🚀 Explore & Elevate")
+st.sidebar.header("🚀 Mindset Boost")
 page = st.sidebar.radio("Jump to:", [
-    "🏡 Home", "🎯 Success Roadmap", "💡 Daily Inspiration", "📚 Legendary Stories",
-    "📈 Master Your Skills", "🧠 Mindset Growth Lab", "🤝 Community & Networking", "🎮 Brain Boosters"
+    "🏡 Home", "💡 Daily Affirmations", "🧠 Mindset Quiz", "📊 Growth Tracker", "🔥 Challenge Yourself"
 ])
 
 # Home Page
 if page == "🏡 Home":
-    st.title("🔥 Future Leaders Hub: Empower, Innovate & Grow")
-    st.header("Welcome to Future Leaders Hub! 🌍✨")
+    st.title("🧠 Mindset Growth Lab")
+    st.header("Unlock the Power of a Growth Mindset! 🚀")
     st.markdown("""
-    ### Why Join the Movement?
-    🔥 **Fuel Your Ambition**: Daily wisdom to keep you inspired.  
-    🚀 **Develop Winning Habits**: Small actions lead to massive results.  
-    🎯 **Achieve & Dominate Goals**: Turn ideas into reality.  
-    🧠 **Adopt a Growth Mindset**: Keep evolving & leading!  
+    🔥 **Shift Your Thinking**: Rewire your brain for success.  
+    💡 **Embrace Challenges**: Learn from failures & keep pushing forward.  
+    🚀 **Develop Grit & Resilience**: Small steps lead to massive success.  
     """)
-    st.image("https://blog.iawomen.com/wp-content/uploads/2024/01/Depositphotos_682225278_S.jpg", use_container_width=True)
-    st.success("Today is YOUR day! Take charge and make an impact! 🌟")
+
+    st.image("https://miro.medium.com/v2/resize:fit:1400/format:webp/1*qfh-TpOCaE_o_4sTAyoVhQ.png", use_container_width=True)
+
+    st.success("Every day is a chance to grow! Keep going! 🌱")
+
+# Daily Affirmations Page
+elif page == "💡 Daily Affirmations":
+    st.header("💡 Positive Mindset Affirmations")
     
-    # Add a motivational quote of the day
-    quotes = [
-        "Your limitation—it’s only your imagination!", 
-        "Push yourself, because no one else will do it for you.", 
-        "Dream it. Believe it. Build it.", 
-        "Success doesn’t just find you. You have to go out and get it!"
+    affirmations = [
+        "I am capable of achieving greatness! 🚀",
+        "Challenges help me grow stronger. 💪",
+        "Every failure is a lesson towards success. 🎯",
+        "I embrace learning and improvement daily. 🌱"
     ]
-    st.info(f"💡 **Quote of the Day:** {random.choice(quotes)}")
+    
+    st.info(f"✨ **Your Affirmation for Today:** {random.choice(affirmations)}")
 
-# Mindset Growth Lab Page
-elif page == "🧠 Mindset Growth Lab":
-    st.header("🧠 Mindset Growth Lab: Unlock Your Full Potential")
-    st.markdown("""
-    ✅ **Daily Mindset Challenge** – Improve your thinking with small daily exercises.  
-    ✅ **Mindset Reflection Journal** – Track your thoughts & personal growth.  
-    ✅ **Reframe Negative Thoughts** – Convert negative thoughts into positive affirmations.  
-    ✅ **Growth Tracker Graph** – Visualize your mindset progress over time.  
-    """)
+# Mindset Quiz Page
+elif page == "🧠 Mindset Quiz":
+    st.header("🧠 Growth vs. Fixed Mindset Quiz")
+    st.markdown("**Answer the following questions to check your mindset!**")
+
+    questions = [
+        "1️⃣ When I fail, I... (A) Give up | (B) Learn from it",
+        "2️⃣ Challenges are... (A) Frustrating | (B) Opportunities",
+        "3️⃣ Effort is... (A) Pointless | (B) Key to success",
+        "4️⃣ Criticism is... (A) An attack | (B) Helpful feedback"
+    ]
+
+    for q in questions:
+        st.markdown(q)
     
-    # Reframe Negative Thoughts
-    st.subheader("🔄 Reframe Your Negative Thoughts")
-    negative_thought = st.text_input("Write a negative thought you're struggling with:")
-    if negative_thought:
-        positive_reframes = [
-            "Every challenge is an opportunity to grow!", 
-            "I am learning and improving every day!", 
-            "Mistakes help me become better!", 
-            "I am capable and strong!"
-        ]
-        st.success(f"💡 **Reframed Thought:** {random.choice(positive_reframes)}")
-    
-    # Growth Tracker Graph
-    st.subheader("📊 Mindset Strength Growth Tracker")
-    mindset_areas = ["Self-Belief", "Resilience", "Optimism", "Discipline", "Focus"]
-    growth_scores = np.random.randint(50, 100, size=len(mindset_areas))
-    
+    st.success("If most of your answers are (B), you're developing a **Growth Mindset!** 🌟")
+
+# Growth Tracker Page
+elif page == "📊 Growth Tracker":
+    st.header("📊 Track Your Mindset Growth")
+
+    categories = ["Resilience", "Confidence", "Problem-Solving", "Adaptability"]
+    progress = np.random.randint(50, 100, size=len(categories))
+
     fig, ax = plt.subplots()
-    ax.bar(mindset_areas, growth_scores, color=['blue', 'green', 'orange', 'red', 'purple'])
+    ax.bar(categories, progress, color=['blue', 'green', 'red', 'purple'])
     ax.set_title("Mindset Growth Progress")
-    ax.set_ylabel("Growth Score (%)")
+    ax.set_ylabel("Growth (%)")
     ax.set_ylim(0, 100)
-    
-    st.pyplot(fig)
-    
-    st.success("Keep strengthening your mindset—progress is key to success! 🚀")
 
-# Master Your Skills Page
-elif page == "📈 Master Your Skills":
-    st.header("📈 Elevate Your Skills & Track Progress")
-    st.markdown("""
-    🔥 **Sharpen Your Expertise**: Learn, practice, and grow.  
-    📊 **Measure Your Growth**: Track skill development over time.  
-    """)
-    
-    # Add a graph to visualize skill progress
-    skills = ["Leadership", "Creativity", "Discipline", "Networking", "Resilience"]
-    progress = np.random.randint(50, 100, size=len(skills))
-    
-    fig, ax = plt.subplots()
-    ax.bar(skills, progress, color=['blue', 'green', 'orange', 'red', 'purple'])
-    ax.set_title("Skill Development Progress")
-    ax.set_ylabel("Progress (%)")
-    ax.set_ylim(0, 100)
-    
     st.pyplot(fig)
-    
-    st.success("Keep building your skills—growth is a continuous journey! 🚀")
+    st.success("Keep growing! Every step counts! 🌱")
 
- 
+# Challenge Yourself Page
+elif page == "🔥 Challenge Yourself":
+    st.header("🔥 Growth Mindset Challenges")
+    
+    challenges = [
+        "📖 Read about someone who overcame adversity.",
+        "🚀 Try something new that scares you!",
+        "🎯 Reframe a negative thought into a positive one.",
+        "💡 Spend 10 minutes reflecting on a past success."
+    ]
+    
+    st.info(f"💪 **Today's Challenge:** {random.choice(challenges)}")
+
+st.sidebar.success("Embrace the Growth Mindset! 🚀")
+
