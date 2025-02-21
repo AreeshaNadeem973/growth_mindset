@@ -1,124 +1,181 @@
 import streamlit as st
+import pandas as pd
+import os
+import json
 import random
-from datetime import date
+from io import BytesIO
 
-# Set Page Configuration
-st.set_page_config(page_title="🚀 Peak Performance Hub", page_icon="🔥", layout="wide")
+# Load or initialize data
+def load_data():
+    if os.path.exists("data.json"):
+        with open("data.json", "r") as f:
+            return json.load(f)
+    return {"challenges": [], "journal": []}
 
-# Sidebar Navigation
-st.sidebar.title("📌 Navigation")
-page = st.sidebar.radio("Go to:", [
-    "🏡 Home", "📅 Habit Tracker", "💡 Daily Motivation", "📖 Success Stories",
-    "🎯 Goal Setting", "📝 Productivity Hacks", "🤔 Self-Reflection", "🧠 Growth Mindset"
-])
+def save_data(data):
+    with open("data.json", "w") as f:
+        json.dump(data, f, indent=4)
+
+data = load_data()
+
+
+
+# Streamlit App
+st.set_page_config(page_title="Growth Mindset Challenge", layout="wide")
+st.title("🚀 Growth Mindset Challenge!")
+st.sidebar.title("Navigation")
+page = st.sidebar.radio("Go to", ["Home", "Daily Challenge", "Quiz", "Journal & Reflection", "File Converter"])
+
+
 
 # Home Page
-if page == "🏡 Home":
-    st.markdown("# 🚀 Welcome to Peak Performance Hub!")
-    st.image("https://source.unsplash.com/800x400/?motivation,success", use_container_width=True)
-    st.markdown(
-        """
-        ### Why Focus on Peak Performance?
-        ✅ **Unlock Your Potential**: Stay motivated every day.
-        ✅ **Build Powerful Habits**: Small steps lead to success.
-        ✅ **Set & Achieve Goals**: Make your dreams a reality.
-        ✅ **Develop a Growth Mindset**: Keep evolving and improving!
-        """
-    )
+if page == "Home":
+    st.header("Welcome to the Growth Mindset Challenge!")
+    st.write("A growth mindset is the belief that intelligence and abilities can be developed through dedication and hard work.")
     
-    # Quote of the Day
-    quotes = [
-        "The only way to do great work is to love what you do. - Steve Jobs",
-        "Success is not final, failure is not fatal: it is the courage to continue that counts. - Winston Churchill",
-        "Believe you can and you're halfway there. - Theodore Roosevelt",
-        "Do what you can, with what you have, where you are. - Theodore Roosevelt",
-        "Opportunities don't happen, you create them. - Chris Grosser"
-    ]
-    st.success(f"💡 **Quote of the Day:** {random.choice(quotes)}")
-
-# Habit Tracker
-elif page == "📅 Habit Tracker":
-    st.markdown("# 📅 Track Your Habits")
-    habits = ["Exercise", "Read", "Meditate", "Hydration", "Healthy Eating"]
-    for habit in habits:
-        st.checkbox(f"Did you {habit.lower()} today?")
-    if st.button("Save Progress"):
-        st.success("Progress Saved! Keep going! 💪")
-
-# Daily Motivation
-elif page == "💡 Daily Motivation":
-    st.markdown("# 💡 Daily Motivation")
-    st.image("https://source.unsplash.com/800x400/?success,inspiration", use_container_width=True)
-    st.write("### Stay Inspired Every Day!")
-    st.info(f"💬 **Today's Motivation:** {random.choice(quotes)}")
+    st.image("https://blog.iawomen.com/wp-content/uploads/2024/01/Depositphotos_682225278_S.jpg")
     
-# Success Stories
-elif page == "📖 Success Stories":
-    st.markdown("# 📖 Inspiring Success Stories")
-    st.image("https://source.unsplash.com/800x400/?achievement,goal", use_container_width=True)
-    stories = [
-        ("💡 **Elon Musk**", "Revolutionized industries with Tesla, SpaceX, and Neuralink."),
-        ("📚 **J.K. Rowling**", "Overcame rejection to publish Harry Potter, inspiring millions."),
-        ("🏀 **Michael Jordan**", "Cut from his high school basketball team but became a legend."),
-        ("🌍 **Nelson Mandela**", "Fought for justice and changed a nation."),
-        ("🎶 **Ed Sheeran**", "From busking in streets to global music icon.")
-    ]
-    for name, story in stories:
-        st.subheader(name)
-        st.write(story)
-        st.markdown("---")
-
-# Goal Setting
-elif page == "🎯 Goal Setting":
-    st.markdown("# 🎯 Set Your Goals")
-    st.image("https://source.unsplash.com/800x400/?goal,success", use_container_width=True)
-    goal = st.text_input("Enter your goal:")
-    steps = st.text_area("Steps to achieve your goal:")
-    if st.button("Save Goal"):
-        st.success("Goal saved successfully! 🚀")
-
-# Productivity Hacks
-elif page == "📝 Productivity Hacks":
-    st.markdown("# 📝 Boost Your Productivity")
-    tips = [
-        "🕒 **Time Blocking** – Schedule focused time for tasks.",
-        "📋 **Prioritize** – Use the Eisenhower Matrix to manage tasks.",
-        "📵 **Limit Distractions** – Reduce social media usage.",
-        "💤 **Get Enough Sleep** – A well-rested mind is productive.",
-        "📖 **Continuous Learning** – Keep growing and adapting."
-    ]
-    st.info(f"💡 **Productivity Tip:** {random.choice(tips)}")
-
-# Self-Reflection
-elif page == "🤔 Self-Reflection":
-    st.markdown("# 🤔 Daily Self-Reflection")
-    st.write("Reflect on your day to gain insights and improve tomorrow.")
-    mood = st.select_slider("How was your mood today?", options=["😔", "😐", "🙂", "😊", "😃"])
-    accomplishments = st.text_area("What did you accomplish today?")
-    challenges = st.text_area("What challenges did you face?")
-    lessons = st.text_area("What did you learn today?")
-    if st.button("Save Reflection"):
-        st.success("Reflection saved! Keep growing! 🌱")
-
-# Growth Mindset
-elif page == "🧠 Growth Mindset":
-    st.markdown("# 🧠 Develop a Growth Mindset")
-    st.image("https://source.unsplash.com/800x400/?learning,mindset", use_container_width=True)
-    st.markdown(
-        """
-        ### Key Growth Mindset Principles:
-        1️⃣ **Embrace Challenges** – See obstacles as opportunities.
-        2️⃣ **Learn from Setbacks** – Mistakes help you grow.
-        3️⃣ **Effort Leads to Mastery** – Keep improving daily.
-        4️⃣ **Seek Feedback** – Use criticism to improve.
-        5️⃣ **Stay Inspired** – Learn from the success of others.
-        """
-    )
+    st.subheader("Why Growth Mindset Matters?")
+    st.write("A growth mindset helps you embrace challenges, learn from criticism, and persist in the face of setbacks. It encourages continuous learning and resilience.")
     
-    if st.button("Accept the Growth Mindset Challenge"):
-        st.success("Great! Keep learning and growing! 🌱")
+    st.subheader("Benefits of a Growth Mindset")
+    st.write("- *Embracing Challenges:* See difficulties as opportunities for growth.")
+    st.write("- *Learning from Mistakes:* Understand that mistakes are part of the learning process.")
+    st.write("- *Developing Resilience:* Stay committed to your goals despite obstacles.")
+    st.write("- *Fostering Creativity:* Encourages innovative problem-solving skills.")
+    
+    st.subheader("How to Cultivate a Growth Mindset?")
+    st.write("- *Set Learning Goals:* Focus on acquiring new skills instead of just results.")
+    st.write("- *Practice Self-Reflection:* Regularly analyze your progress and areas for improvement.")
+    st.write("- *Seek Constructive Feedback:* Use feedback to enhance your learning.")
+    st.write("- *Stay Positive:* Keep an optimistic approach towards learning and growth.")
+    
+    st.subheader("Inspirational Quote")
+    st.write("\"Success is not the result of talent alone, but of effort, persistence, and a willingness to learn.\" - Carol Dweck")
 
-# Footer
-st.markdown("---")
-st.markdown("Built with ❤️ using Streamlit | 🚀 Peak Performance Hub")
 
+
+# Daily Challenge
+elif page == "Daily Challenge":
+    st.header("🌟 Today's Growth Mindset Challenge")
+    
+    st.write("Embracing a growth mindset means consistently challenging yourself to improve and learn. Each day, take on a new challenge to foster resilience and self-improvement.")
+    
+    challenges = [
+        "Write down three things you learned today and how they can help you grow.",
+        "Share a mistake you made recently, what you learned from it, and how you'll avoid it in the future.",
+        "Set a clear and measurable goal for self-improvement this week. Outline steps to achieve it.",
+        "Encourage someone else to adopt a growth mindset by sharing an inspiring story or helpful advice.",
+        "Reflect on a difficult situation you faced and how adopting a growth mindset helped you overcome it.",
+        "Read about a successful person who embodies a growth mindset and summarize key takeaways.",
+        "Try something outside your comfort zone and document your experience and feelings."
+    ]
+    
+    challenge = random.choice(challenges)
+    st.subheader("✨ Your Challenge Today:")
+    st.write(challenge)
+    
+    response = st.text_area("How will you complete this challenge? Share your thoughts and plan.")
+    
+    if st.button("Submit Response"):
+        data["challenges"].append({"challenge": challenge, "response": response})
+        save_data(data)
+        st.success("🎉 Your response has been saved! Keep pushing yourself towards growth!")
+    
+    st.info("💡 Remember: Growth comes from stepping out of your comfort zone. Take this challenge seriously and embrace the process!")
+
+
+
+# Quiz Section
+elif page == "Quiz":
+    st.header("🧠 Growth Mindset Quiz")
+    quiz_questions = [
+        {"question": "What is a key trait of a growth mindset?", "options": ["Avoiding challenges", "Embracing challenges", "Giving up easily"], "answer": "Embracing challenges"},
+        {"question": "How should you view mistakes?", "options": ["As failures", "As learning opportunities", "As things to avoid"], "answer": "As learning opportunities"},
+        {"question": "What is the best way to deal with setbacks?", "options": ["Give up", "Learn from them", "Ignore them"], "answer": "Learn from them"},
+        {"question": "What is a good way to develop a growth mindset?", "options": ["Stick to what you know", "Try new challenges", "Avoid feedback"], "answer": "Try new challenges"},
+        {"question": "How should you react to constructive criticism?", "options": ["Ignore it", "Use it to improve", "Take it personally"], "answer": "Use it to improve"},
+        {"question": "Which of these is a characteristic of a fixed mindset?", "options": ["Believing abilities can grow", "Avoiding failure", "Seeking challenges"], "answer": "Avoiding failure"},
+        {"question": "Why is persistence important in a growth mindset?", "options": ["It helps overcome obstacles", "It guarantees success", "It is unnecessary"], "answer": "It helps overcome obstacles"}
+    ]
+    
+    score = 0
+    for q in quiz_questions:
+        st.write(q["question"])
+        option = st.radio("Choose an answer:", q["options"], key=q["question"])
+        if option == q["answer"]:
+            score += 1
+    
+    if st.button("Submit Quiz"):
+        st.write(f"Your score: {score}/{len(quiz_questions)}")
+
+
+
+# Journal & Reflection
+elif page == "Journal & Reflection":
+    st.header("📖 Personal Journal")
+    st.subheader("Daily Reflection")
+    st.write("Take a moment to reflect on your growth mindset journey.")
+    journal_entry = st.text_area("Write about your experiences, challenges, and successes today:")
+    if st.button("Save Entry"):
+        if journal_entry.strip():
+            data["journal"].append(journal_entry)
+            save_data(data)
+            st.success("Your journal entry has been saved!")
+        else:
+            st.error("Please write something before saving.")
+
+    st.subheader("📜 Past Entries")
+    if data["journal"]:
+        for i, entry in enumerate(reversed(data["journal"])):
+            st.write(f"*Entry {len(data['journal']) - i}:* {entry}")
+    else:
+        st.write("No journal entries yet. Start writing today!")
+
+
+# File Converter
+elif page == "File Converter":
+    st.header("📂 CSV & Excel File Converter")
+    upload_Files = st.file_uploader("Upload your files (CSV or Excel):", type=["csv", "xlsx"], accept_multiple_files=True)
+
+    # Upload files
+    if upload_Files:
+        for file in upload_Files:
+            file_extension = os.path.splitext(file.name)[-1].lower()
+            if file_extension == ".csv":
+                df = pd.read_csv(file)
+            elif file_extension == ".xlsx":
+                df = pd.read_excel(file)
+            else:
+                st.error(f"Unsupported File type:{file_extension}")
+                continue
+            st.write(f"*File Name*: {file.name}")
+            st.write(f"*File Size*: {file.size/1024} KB")
+            st.dataframe(df.head())
+
+            # Data visualization
+            if st.checkbox(f"Show Visualization for {file.name}"):
+                st.bar_chart(df.select_dtypes(include='number').iloc[:, :2])
+            conversion_type = st.radio(f"Convert {file.name} to:", ["CSV", "Excel"], key=file.name)
+
+            # Convert File CSV, Excel 
+            if st.button(f"Convert {file.name}"):
+                buffer = BytesIO()
+                if conversion_type == "CSV":
+                    df.to_csv(buffer, index=False)
+                    file_name = file.name.replace(file_extension, ".csv")
+                    mime_type = "text/csv"
+                else:
+                    df.to_excel(buffer, index=False, engine='openpyxl')  # Save as Excel using openpyxl
+                    file_name = file.name.replace(file_extension, ".xlsx")
+                    mime_type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                buffer.seek(0)
+
+                # Download file
+                st.download_button(
+                    label=f"Download {file.name} as {conversion_type}",
+                    data=buffer,
+                    file_name=file_name,
+                    mime=mime_type
+                )
+st.success("🎉All features loaded successfully! Enjoy your Growth Mindset journey!")
