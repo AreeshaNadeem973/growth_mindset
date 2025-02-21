@@ -1,86 +1,124 @@
 import streamlit as st
-import random
 import matplotlib.pyplot as plt
 import numpy as np
+import time
+from datetime import date
+import random
 
 # App Title
-st.set_page_config(page_title="Mindset Growth Hub", page_icon="🌱")
+st.set_page_config(page_title="Success & Growth Hub", page_icon="🌟")
+st.title("🌟 Success & Growth Hub")
 
-# Sidebar for Navigation (Updated Navbar Names)
-st.sidebar.header("🌿 Mindset Navigator")
-page = st.sidebar.radio("Jump to:", [
-    "🏡 Home", "💡 Growth Affirmations", "🧠 Mindset Challenges", "📊 Progress Tracker", "🚀 Power Habits"
+# Sidebar for Navigation
+st.sidebar.header("📌 Explore Topics")
+page = st.sidebar.radio("Navigate to:", [
+    "🏡 Home", "🔄 Daily Habits", "🌱 Growth Mindset", "🧘 Mental Wellness",
+    "🎯 Goal Mastery", "💡 Productivity Hacks", "📚 Learning & Skills", "💰 Financial Growth"
 ])
 
 # Home Page
 if page == "🏡 Home":
-    st.title("Grow Your Mindset, Change Your Life")
-    st.header("Unlock Your Full Potential! 🚀")
+    st.header("Welcome to Your Success & Growth Hub! 🚀")
     st.markdown("""
-    🌿 **Shift Your Thinking**: Develop a resilient, positive mindset.  
-    💡 **Learn from Setbacks**: Every failure is a step to success.  
-    🔥 **Embrace Challenges**: Growth happens outside your comfort zone.  
-    🎯 **Take Action**: Small consistent steps lead to big success.
+    ### Why Focus on Personal Growth?
+    ✅ **Daily Improvement**: Small changes lead to big success.  
+    ✅ **Mental Clarity**: A strong mind leads to a strong life.  
+    ✅ **Productivity Boost**: Work smarter, not harder.  
+    ✅ **Financial Wisdom**: Secure your future with smart decisions.  
+    """)
+    st.image("https://m.media-amazon.com/images/I/51JYYBZTjaL._SL500_.jpg", use_container_width=True)
+    st.success("Success is built daily! Keep pushing forward! 🚀")
+    
+    # Motivational Quote
+    quotes = [
+        "Your only limit is your mind.",
+        "Success is the sum of small efforts, repeated daily.",
+        "Believe in yourself and you are halfway there.",
+        "Growth is the result of persistence and learning."
+    ]
+    st.info(f"💡 **Quote of the Day:** {random.choice(quotes)}")
+
+# Daily Habits
+elif page == "🔄 Daily Habits":
+    st.header("🔄 Build Strong Daily Habits")
+    habits = ["Exercise", "Read", "Meditate", "Healthy Eating", "Plan Your Day"]
+    
+    for habit in habits:
+        st.checkbox(f"Did you {habit.lower()} today?")
+    
+    if st.button("Save Progress"):
+        st.success("Great job! Consistency is key! 🚀")
+    
+# Growth Mindset
+elif page == "🌱 Growth Mindset":
+    st.header("🌱 Develop a Growth Mindset")
+    st.markdown("""
+    A growth mindset is the belief that you can develop abilities through dedication and hard work.
+    
+    ### Growth Mindset Tips:
+    1. Embrace challenges
+    2. Learn from criticism
+    3. Celebrate effort, not just results
+    4. Be inspired by others’ success
     """)
     
-    st.image("https://miro.medium.com/v2/resize:fit:1400/format:webp/1*qfh-TpOCaE_o_4sTAyoVhQ.png", use_container_width=True)
+# Mental Wellness
+elif page == "🧘 Mental Wellness":
+    st.header("🧘 Improve Your Mental Wellness")
+    st.markdown("""
+    Your mind is your greatest asset. Take care of it. 
     
-    st.success("Every challenge is a new opportunity to grow! Keep evolving! 🌱")
-
-# Growth Affirmations Page
-elif page == "💡 Growth Affirmations":
-    st.header("💡 Daily Affirmations for a Strong Mindset")
-    affirmations = [
-        "I am constantly growing and evolving. 🌿",
-        "Every challenge strengthens me. 💪",
-        "I believe in my ability to succeed. 🚀",
-        "Obstacles are just opportunities in disguise. 🎯",
-        "I attract positivity and growth in my life. 🌟",
-        "Success is built with persistence and belief. 💖"
-    ]
-    st.info(f"✨ **Today's Affirmation:** {random.choice(affirmations)}")
-    st.markdown("**Tip:** Repeat your affirmation 3 times in front of a mirror for maximum impact! 💡")
-
-# Mindset Challenges Page
-elif page == "🧠 Mindset Challenges":
-    st.header("🧠 Challenge Yourself to Grow")
-    challenges = [
-        "📖 Read about someone who overcame failure and succeeded.",
-        "🚀 Try something new that pushes your limits!",
-        "🎯 Reframe a negative thought into a positive one.",
-        "💡 Spend 5 minutes visualizing your ideal future.",
-        "📝 Write down three things you’re grateful for today.",
-        "🤝 Reach out to someone who inspires you and ask for advice."
-    ]
-    st.info(f"🔥 **Your Challenge Today:** {random.choice(challenges)}")
-    st.markdown("**Extra Task:** Keep a journal and track how each challenge impacts your mindset over time. 📓")
-
-# Progress Tracker Page
-elif page == "📊 Progress Tracker":
-    st.header("📊 Measure Your Mindset Growth")
-    categories = ["Resilience", "Optimism", "Problem-Solving", "Self-Discipline", "Confidence"]
-    progress = np.random.randint(50, 100, size=len(categories))
+    ✅ Practice mindfulness and meditation.  
+    ✅ Avoid burnout by balancing work and rest.  
+    ✅ Engage in hobbies that relax and recharge you.  
+    """)
     
-    fig, ax = plt.subplots()
-    ax.bar(categories, progress, color=['blue', 'green', 'red', 'purple', 'orange'])
-    ax.set_title("Mindset Growth Progress")
-    ax.set_ylabel("Growth (%)")
-    ax.set_ylim(0, 100)
+# Goal Mastery
+elif page == "🎯 Goal Mastery":
+    st.header("🎯 Master the Art of Goal Setting")
+    goal = st.text_input("Set a new goal:")
+    if goal:
+        st.write(f"Your goal: {goal}")
     
-    st.pyplot(fig)
-    st.success("Small improvements every day lead to massive success! 🌟")
-    st.markdown("**Tip:** Review your progress weekly and set small, achievable goals! 🚀")
+    if st.button("Save Goal"):
+        st.success("Goal saved successfully! Stay committed! 🚀")
 
-# Power Habits Page
-elif page == "🚀 Power Habits":
-    st.header("🚀 Build Habits That Strengthen Your Mindset")
-    habits = [
-        "📌 Start your day with gratitude.",
-        "🧘‍♂️ Meditate for 5-10 minutes daily.",
-        "📚 Read or listen to personal growth content.",
-        "✍️ Journal your thoughts & progress.",
-        "🏋️ Exercise to keep both your body and mind healthy.",
-        "🎯 Set and track daily goals to build discipline."
+# Productivity Hacks
+elif page == "💡 Productivity Hacks":
+    st.header("💡 Boost Your Productivity")
+    tips = [
+        "🕒 Use the Pomodoro technique for better focus.",
+        "📋 Prioritize tasks using the Eisenhower Matrix.",
+        "📵 Reduce distractions by setting app limits.",
+        "📖 Continuous learning enhances efficiency."
     ]
-    st.info(f"💪 **Try This Habit Today:** {random.choice(habits)}")
-    st.markdown("**Did You Know?** It takes around 21 days to build a habit. Stay consistent! 🔄")
+    st.write(f"💡 **Tip for Today:** {random.choice(tips)}")
+    
+# Learning & Skills
+elif page == "📚 Learning & Skills":
+    st.header("📚 Keep Learning & Growing")
+    st.markdown("""
+    🎓 Learn something new every day! 
+    
+    ✅ Read books & articles.  
+    ✅ Take online courses.  
+    ✅ Practice critical thinking.  
+    ✅ Engage in discussions with experts.
+    """)
+    
+# Financial Growth
+elif page == "💰 Financial Growth":
+    st.header("💰 Develop Smart Financial Habits")
+    st.markdown("""
+    Secure your financial future with these steps:  
+    
+    ✅ Save at least 10% of your income.  
+    ✅ Invest wisely for long-term benefits.  
+    ✅ Track your spending and cut unnecessary costs.  
+    ✅ Learn about financial literacy.  
+    """)
+    
+# Footer
+st.markdown("---")
+st.markdown("Built with ❤️ using Streamlit | © 2025 Success & Growth Hub")
+
