@@ -18,22 +18,22 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # App Title
-st.markdown("<div class='title'>🌟 Ultimate Motivation Hub</div>", unsafe_allow_html=True)
+st.markdown("<div class='title'>🤖 AI-Powered Success Hub</div>", unsafe_allow_html=True)
 
 # Sidebar for Navigation
 st.sidebar.header("📌 Navigate")
 page = st.sidebar.radio("Choose a section:", [
-    "🏡 Home", "📊 Progress Tracker", "💬 Daily Inspiration", "📖 Iconic Success Stories", "🎯 Personal Goals",
-    "📝 Reflect & Grow", "🎶 Uplifting Music", "📺 Must-Watch Videos"
+    "🏡 Home", "📊 AI Progress Tracker", "💬 AI Daily Insights", "📖 AI Success Stories", "🎯 AI Goal Setter",
+    "📝 AI Reflection Hub", "🎶 AI Music Generator", "📺 AI Video Recommender"
 ])
 
 # Home Page
 if page == "🏡 Home":
     st.markdown("""
         <div class='home-container'>
-            <div class='home-title'>Welcome to Ultimate Motivation Hub 🚀</div>
-            <div class='home-subtext'>Elevate your mindset, overcome hurdles, and thrive in life.</div>
-            <div class='home-subtext'>✨ Embark on your path to greatness today! ✨</div>
+            <div class='home-title'>Welcome to AI-Powered Success Hub 🚀</div>
+            <div class='home-subtext'>Harness AI to elevate your mindset, overcome hurdles, and thrive in life.</div>
+            <div class='home-subtext'>✨ Let AI guide your journey to greatness! ✨</div>
         </div>
     """, unsafe_allow_html=True)
     
@@ -41,16 +41,16 @@ if page == "🏡 Home":
     
     st.markdown("""
         <div class='box'>
-        ✅ **Enhance Productivity**: A strong mindset boosts efficiency.  
-        ✅ **Tackle Challenges Head-On**: Face every hurdle with confidence.  
-        ✅ **Stay Encouraged**: Daily motivation keeps you going.  
-        ✅ **Crush Your Goals**: Consistency leads to success!  
+        ✅ **Enhance Productivity**: AI-driven insights boost efficiency.  
+        ✅ **Tackle Challenges Smartly**: Let AI help you navigate hurdles.  
+        ✅ **Stay Inspired**: AI-generated motivation keeps you going.  
+        ✅ **Achieve Your Goals**: AI optimizes your path to success!  
         </div>
     """, unsafe_allow_html=True)
 
-# Progress Tracker with Balloons Effect
-elif page == "📊 Progress Tracker":
-    st.markdown("<div class='subtitle'>📊 Track Your Progress</div>", unsafe_allow_html=True)
+# AI Progress Tracker with Balloons Effect
+elif page == "📊 AI Progress Tracker":
+    st.markdown("<div class='subtitle'>📊 Track Your AI-Optimized Progress</div>", unsafe_allow_html=True)
     
     x = np.arange(1, 11)
     y = np.random.randint(10, 100, size=10)
@@ -64,9 +64,9 @@ elif page == "📊 Progress Tracker":
     if st.button("Celebrate Progress! 🎈"):
         st.balloons()
 
-# Daily Inspiration
-elif page == "💬 Daily Inspiration":
-    st.markdown("<div class='subtitle'>💬 Get Inspired Today</div>", unsafe_allow_html=True)
+# AI Daily Insights
+elif page == "💬 AI Daily Insights":
+    st.markdown("<div class='subtitle'>💬 Get AI-Powered Inspiration</div>", unsafe_allow_html=True)
     
     quotes = [
         "Your potential is limitless!", 
@@ -78,23 +78,23 @@ elif page == "💬 Daily Inspiration":
     ]
     st.markdown(f"<div class='box'><b>{random.choice(quotes)}</b></div>", unsafe_allow_html=True)
 
-# Iconic Success Stories
-elif page == "📖 Iconic Success Stories":
-    st.markdown("<div class='subtitle'>📖 Learn from the Best</div>", unsafe_allow_html=True)
+# AI Success Stories
+elif page == "📖 AI Success Stories":
+    st.markdown("<div class='subtitle'>📖 Learn from AI-Powered Achievements</div>", unsafe_allow_html=True)
     
     stories = [
-        ("💡 **Elon Musk**", "From failures to leading Tesla & SpaceX."),
-        ("🏀 **Michael Jordan**", "Overcame rejection to become an NBA legend."),
-        ("📚 **Oprah Winfrey**", "From adversity to media empire."),
-        ("🚀 **Jeff Bezos**", "Built Amazon from a garage startup to a giant.")
+        ("💡 **Elon Musk & AI**", "Using AI to innovate Tesla & SpaceX."),
+        ("🏀 **AI in Sports**", "AI-driven analytics transforming athletes."),
+        ("📚 **AI in Media**", "How AI is changing entertainment & journalism."),
+        ("🚀 **AI & Business**", "Entrepreneurs using AI to scale success.")
     ]
     
     for name, story in stories:
         st.markdown(f"<div class='box'><b>{name}</b><br>{story}</div>", unsafe_allow_html=True)
 
-# Personal Goals
-elif page == "🎯 Personal Goals":
-    st.markdown("<div class='subtitle'>🎯 Define Your Goals</div>", unsafe_allow_html=True)
+# AI Goal Setter
+elif page == "🎯 AI Goal Setter":
+    st.markdown("<div class='subtitle'>🎯 AI-Assisted Goal Setting</div>", unsafe_allow_html=True)
     
     goal = st.text_input("📝 Your Goal:")
     deadline = st.date_input("📅 Set a Deadline:")
@@ -102,9 +102,9 @@ elif page == "🎯 Personal Goals":
     if st.button("Save Goal"):
         st.success(f"🎯 Goal '{goal}' set for {deadline}!")
 
-# Reflect & Grow
-elif page == "📝 Reflect & Grow":
-    st.markdown("<div class='subtitle'>📝 Your Daily Reflection</div>", unsafe_allow_html=True)
+# AI Reflection Hub
+elif page == "📝 AI Reflection Hub":
+    st.markdown("<div class='subtitle'>📝 AI-Powered Reflection & Growth</div>", unsafe_allow_html=True)
     
     journal_entry = st.text_area("📖 Share your thoughts & insights:")
     
@@ -112,8 +112,8 @@ elif page == "📝 Reflect & Grow":
         st.success("📝 Reflection saved! Keep progressing.")
 
 # Interactive Checkbox Feature
-st.markdown("### ✅ Mark Your Achievements")
-achievements = ["Completed a daily challenge", "Read a success story", "Set a new goal", "Reflected on progress"]
+st.markdown("### ✅ Mark Your AI-Driven Achievements")
+achievements = ["Completed a daily challenge", "Read an AI success story", "Set a new AI-powered goal", "Reflected on AI-driven progress"]
 checkbox_states = {}
 
 for achievement in achievements:
@@ -121,4 +121,6 @@ for achievement in achievements:
 
 # Footer
 st.markdown("---")
-st.markdown("🔥 *Stay Motivated, Stay Focused!* 🚀")
+st.markdown("🔥 *Stay Inspired with AI, Stay Focused!* 🚀")
+
+    
