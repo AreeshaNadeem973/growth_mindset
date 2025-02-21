@@ -10,7 +10,6 @@ st.markdown("""
         .main {background-color: #f4f4f4; padding: 20px; border-radius: 10px;}
         .title {color: #ff4500; text-align: center; font-size: 42px; font-weight: bold;}
         .subtitle {color: #2e8b57; text-align: center; font-size: 22px;}
-        .box {background: #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 6px rgba(0,0,0,0.1); text-align: center;}
         .home-container {text-align: center; padding: 40px; background: linear-gradient(to right, #ff9a9e, #fad0c4); border-radius: 12px; color: white;}
         .home-title {font-size: 40px; font-weight: bold; margin-bottom: 10px;}
         .home-subtext {font-size: 20px; margin-bottom: 20px;}
@@ -41,11 +40,11 @@ if page == "🏡 Home":
     st.image("https://www.success.com/wp-content/uploads/legacy/sites/default/files/new3.jpg", use_container_width=True)
     
     st.markdown("""
-        <div class='box'>
-        ✅ **Track Your Progress**: Stay consistent with daily habits.  
-        ✅ **Stay Motivated**: Get fresh daily motivation and success tips.  
-        ✅ **Set Goals**: Define and achieve smart personal goals.  
-        ✅ **Challenge Your Mind**: Engage in brain-boosting activities.  
+        <div class='home-container'>
+            <p style='font-size: 22px; text-align: center;'>✅ Track Your Progress & Stay Consistent</p>
+            <p style='font-size: 22px; text-align: center;'>✅ Get Fresh Daily Motivation & Success Tips</p>
+            <p style='font-size: 22px; text-align: center;'>✅ Set & Achieve Smart Personal Goals</p>
+            <p style='font-size: 22px; text-align: center;'>✅ Engage in Brain-Boosting Activities</p>
         </div>
     """, unsafe_allow_html=True)
 
