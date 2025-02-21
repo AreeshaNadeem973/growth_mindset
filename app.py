@@ -48,7 +48,7 @@ elif page == "📖 Skill Categories":
     if chosen_category:
         st.subheader(chosen_category)
         st.write(categories[chosen_category][0])
-        st.image(categories[chosen_category][1], caption=chosen_category, use_column_width=True)
+        st.image(categories[chosen_category][1], use_column_width=True)
 
 # Learning Goals
 elif page == "🎯 Learning Goals":
@@ -97,14 +97,14 @@ elif page == "💡 Daily Challenges":
 elif page == "📚 Resource Library":
     st.header("📚 Explore Learning Resources")
     resources = {
-        "Coding": "[FreeCodeCamp](https://www.freecodecamp.org/)",
-        "Writing": "[Grammarly Blog](https://www.grammarly.com/blog/)",
-        "Public Speaking": "[TED Talks](https://www.ted.com/talks)",
-        "Graphic Design": "[Canva](https://www.canva.com/)",
-        "Finance": "[Investopedia](https://www.investopedia.com/)"
+        "Coding": "https://www.freecodecamp.org/",
+        "Writing": "https://www.grammarly.com/blog/",
+        "Public Speaking": "https://www.ted.com/talks",
+        "Graphic Design": "https://www.canva.com/",
+        "Finance": "https://www.investopedia.com/"
     }
     for skill, link in resources.items():
-        st.markdown(f"✅ [{skill}]({link})")
+        st.markdown(f"✅ [{skill}]({link})", unsafe_allow_html=True)
 
 # Discussion Forum
 elif page == "💬 Discussion Forum":
@@ -112,7 +112,3 @@ elif page == "💬 Discussion Forum":
     discussion = st.text_area("📝 What's something new you've learned recently?")
     if st.button("Post"):
         st.success("✅ Your response has been shared!")
-
-
-
-   
