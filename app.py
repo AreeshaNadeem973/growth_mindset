@@ -21,7 +21,7 @@ page = st.sidebar.radio("Choose a section:", [
     "📚 Resource Library", "💬 Discussion Forum"
 ])
 
-# Home Page
+# Home Page (Welcome Message Only Here)
 if page == "🏡 Home":
     st.markdown("""
         <div class='main-container'>
@@ -35,16 +35,16 @@ if page == "🏡 Home":
 elif page == "📖 Skill Categories":
     st.header("📖 Explore Different Skills")
     categories = {
-        "Coding": "Coding is an essential skill that helps you build websites, applications, and automate tasks.",
-        "Writing": "Writing improves communication skills and is essential for storytelling and professional growth.",
-        "Public Speaking": "Public speaking boosts confidence and helps you communicate ideas effectively.",
-        "Graphic Design": "Graphic design enables you to create visually appealing content for branding and marketing.",
-        "Finance": "Financial literacy is key to managing personal finances and making smart investments."
+        "Coding": ("Master programming languages and build projects.", "https://www.python.org/static/community_logos/python-logo.png"),
+        "Writing": ("Enhance your writing skills for blogs, books, and more.", "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Pencil_icon.svg/1024px-Pencil_icon.svg.png"),
+        "Public Speaking": ("Improve your confidence in speaking to audiences.", "https://upload.wikimedia.org/wikipedia/commons/8/8e/PublicSpeaking.jpg"),
+        "Graphic Design": ("Create stunning visuals and designs.", "https://upload.wikimedia.org/wikipedia/commons/6/6a/Graphic_Design_Tools.jpg"),
+        "Finance": ("Learn about managing money and investments.", "https://upload.wikimedia.org/wikipedia/commons/1/1a/Finance.png")
     }
-    
     chosen_category = st.selectbox("Select a skill to explore:", list(categories.keys()))
-    st.write(f"**{chosen_category}**: {categories[chosen_category]}")
-    st.image(f"https://source.unsplash.com/400x300/?{chosen_category}", caption=chosen_category)
+    st.write(f"### {chosen_category}")
+    st.write(categories[chosen_category][0])
+    st.image(categories[chosen_category][1], use_column_width=True)
 
 # Learning Goals
 elif page == "🎯 Learning Goals":
@@ -54,64 +54,35 @@ elif page == "🎯 Learning Goals":
     if st.button("Save Goal"):
         st.success(f"✅ Goal '{goal}' set for {deadline}!")
 
-# Progress Tracker
+# Progress Tracker with Balloons
 elif page == "📊 Progress Tracker":
     st.header("📊 Track Your Learning Progress")
-    progress = st.slider("How much progress have you made in your skill (0-100%)?", 0, 100, 50)
+    progress = st.slider("How much progress have you made? (0-100%)", 0, 100, 50)
     st.write(f"You're {progress}% done! Keep going! 🚀")
-    
     if st.button("🎈 Celebrate Progress!"):
         st.balloons()
 
-# Daily Challenges with Interactive Features
+# Daily Challenges with Quiz
 elif page == "💡 Daily Challenges":
     st.header("💡 Take a Daily Learning Challenge")
-    
     challenge_categories = {
         "Coding": [
-            "Write a Python script that prints Fibonacci numbers.",
-            "Build a simple calculator using Python.",
-            "Create a to-do list app with a GUI framework."
+            ("What does 'print' do in Python?", ["Displays output", "Reads input", "Runs a loop"], "Displays output"),
+            ("Which symbol is used for comments in Python?", ["//", "#", "/* */"], "#")
         ],
         "Writing": [
-            "Write a 500-word article on AI in daily life.",
-            "Summarize a TED talk in 200 words.",
-            "Write a short story based on a random prompt."
-        ],
-        "Public Speaking": [
-            "Record a 2-minute speech on an inspiring topic.",
-            "Practice storytelling for 5 minutes.",
-            "Explain a concept in 60 seconds without filler words."
-        ],
-        "Graphic Design": [
-            "Create a social media post using Canva.",
-            "Design a simple logo for a fictional brand.",
-            "Make a poster promoting environmental awareness."
-        ],
-        "Finance": [
-            "Make a budget plan for a month.",
-            "Read about stock market basics and write a summary.",
-            "Track your expenses for the next 3 days."
+            ("What is the main purpose of an essay?", ["To entertain", "To inform", "To confuse"], "To inform")
         ]
     }
-    
     category = st.selectbox("Select a challenge category:", list(challenge_categories.keys()))
-    
-    if st.button("Get Challenge"):
-        challenge = random.choice(challenge_categories[category])
-        st.write(f"### Your Challenge: {challenge}")
-    
-    st.write("\n---\n")
-    
-    st.subheader("📝 Submit Your Challenge Work")
-    work_submission = st.text_area("Describe your work or submit code:")
-    uploaded_file = st.file_uploader("Upload proof (image, text, or document)")
-    
-    if st.button("Submit Challenge"):
-        if work_submission or uploaded_file:
-            st.success("✅ Your challenge submission has been received! Keep learning!")
+    challenge = random.choice(challenge_categories[category])
+    st.write(f"### {challenge[0]}")
+    answer = st.radio("Choose an answer:", challenge[1])
+    if st.button("Submit Answer"):
+        if answer == challenge[2]:
+            st.success("🎉 Correct!")
         else:
-            st.warning("⚠️ Please provide a description or upload a file before submitting.")
+            st.error("❌ Incorrect. Try again!")
 
 # Resource Library
 elif page == "📚 Resource Library":
