@@ -1,56 +1,102 @@
 import streamlit as st
-import matplotlib.pyplot as plt
-import numpy as np
-import time
-from datetime import date
 import random
 
 # App Title
-st.set_page_config(page_title="Rise & Thrive: Unlock Your Potential", page_icon="🌟")
-st.title("🌟 Rise & Thrive: Unlock Your Potential")
+st.set_page_config(page_title="Future Leaders Hub: Unlock Your Potential", page_icon="🔥")
+st.title("🔥 Future Leaders Hub: Empower, Innovate & Grow")
 
 # Sidebar for Navigation
-st.sidebar.header("📌 Quick Navigation")
-age_group = st.sidebar.selectbox("Select Your Age Group:", ["Kids", "Teens", "Adults", "Seniors"])
-page = st.sidebar.radio("Go to:", [
-    "🏡 Home", "📅 Habit Tracker", "💭 Daily Motivation", "📖 Inspirational Stories",
-    "🎯 Goal Setting", "📝 Productivity Tips", "🤔 Self-Reflection", "🧠 Brain Teasers", "🧠 Growth Mindset"
+st.sidebar.header("🚀 Explore & Elevate")
+page = st.sidebar.radio("Jump to:", [
+    "🏡 Home", "🎯 Success Roadmap", "💡 Daily Inspiration", "📚 Legendary Stories",
+    "📈 Master Your Skills", "🚀 Peak Productivity", "🤝 Community & Networking", "🎮 Brain Boosters"
 ])
 
 # Home Page
 if page == "🏡 Home":
-    st.header(f"Welcome to Rise & Thrive, {age_group}! 🚀")
+    st.header("Welcome to Future Leaders Hub! 🌍✨")
     st.markdown("""
-    ### Why Focus on Productivity & Motivation?
-    ✅ **Stay Inspired**: Start each day with positive energy.  
-    ✅ **Build Consistent Habits**: Small steps lead to big success.  
-    ✅ **Set and Achieve Goals**: Turn your dreams into reality.  
-    ✅ **Develop a Growth Mindset**: Keep learning and improving!  
+    ### Why Join the Movement?
+    🔥 **Fuel Your Ambition**: Daily wisdom to keep you inspired.  
+    🚀 **Develop Winning Habits**: Small actions lead to massive results.  
+    🎯 **Achieve & Dominate Goals**: Turn ideas into reality.  
+    🧠 **Adopt a Growth Mindset**: Keep evolving & leading!  
     """)
     st.image("https://blog.iawomen.com/wp-content/uploads/2024/01/Depositphotos_682225278_S.jpg", use_container_width=True)
-    st.success("Today is a new beginning! Make the most of it! 🚀")
+    st.success("Today is YOUR day! Take charge and make an impact! 🌟")
     
-    # Add a motivational quote of the day based on age group
-    quotes = {
-        "Kids": [
-            "You are braver than you believe, stronger than you seem, and smarter than you think. - A.A. Milne",
-            "Mistakes are proof that you are trying!",
-            "Believe in yourself and magic will happen!"
-        ],
-        "Teens": [
-            "Success is not final, failure is not fatal: it is the courage to continue that counts. - Winston Churchill",
-            "Don't be afraid to give up the good to go for the great. - John D. Rockefeller",
-            "Dream big, work hard, stay focused!"
-        ],
-        "Adults": [
-            "The only way to do great work is to love what you do. - Steve Jobs",
-            "Believe you can and you're halfway there. - Theodore Roosevelt",
-            "The future belongs to those who believe in the beauty of their dreams. - Eleanor Roosevelt"
-        ],
-        "Seniors": [
-            "It’s never too late to be what you might have been. - George Eliot",
-            "Do not regret growing older. It is a privilege denied to many.",
-            "Keep your mind young, and your heart will follow!"
-        ]
-    }
-    st.info(f"💡 **Quote of the Day:** {random.choice(quotes[age_group])}")
+    # Add a motivational quote of the day
+    quotes = [
+        "Your limitation—it’s only your imagination!", 
+        "Push yourself, because no one else will do it for you.", 
+        "Dream it. Believe it. Build it.", 
+        "Success doesn’t just find you. You have to go out and get it!"
+    ]
+    st.info(f"💡 **Quote of the Day:** {random.choice(quotes)}")
+
+# Success Roadmap
+elif page == "🎯 Success Roadmap":
+    st.header("🎯 Your Roadmap to Success")
+    st.markdown("""
+    - **Set Clear Goals** 🎯
+    - **Develop a Powerful Routine** ⏰
+    - **Stay Consistent & Adapt** 🔄
+    - **Track Your Progress** 📊
+    """)
+
+# Daily Inspiration
+elif page == "💡 Daily Inspiration":
+    st.header("💡 Get Inspired Daily!")
+    inspirations = [
+        "Believe in yourself and your abilities!", 
+        "Every challenge is an opportunity to grow.", 
+        "You are stronger than you think.", 
+        "Take one step at a time and never stop learning!"
+    ]
+    st.success(f"🌟 {random.choice(inspirations)}")
+
+# Legendary Stories
+elif page == "📚 Legendary Stories":
+    st.header("📚 Learn from Legends")
+    stories = [
+        "💡 **Elon Musk** - Innovating industries with Tesla & SpaceX.",
+        "📖 **Oprah Winfrey** - Rising from struggles to global influence.",
+        "🚀 **Steve Jobs** - Revolutionizing technology with Apple.",
+        "🏆 **Serena Williams** - Dominating tennis with resilience & power."
+    ]
+    for story in stories:
+        st.write(story)
+
+# Master Your Skills
+elif page == "📈 Master Your Skills":
+    st.header("📈 Sharpen Your Skills")
+    skills = ["Public Speaking", "Problem-Solving", "Leadership", "Time Management"]
+    for skill in skills:
+        st.checkbox(f"Work on {skill} today?")
+
+# Peak Productivity
+elif page == "🚀 Peak Productivity":
+    st.header("🚀 Maximize Your Productivity")
+    st.markdown("""
+    - **Use Time Blocks** ⏳
+    - **Avoid Multitasking** ❌
+    - **Take Regular Breaks** ☕
+    - **Prioritize Your Tasks** ✅
+    """)
+
+# Community & Networking
+elif page == "🤝 Community & Networking":
+    st.header("🤝 Connect with Like-Minded People")
+    st.write("Network with future leaders and build strong relationships!")
+    name = st.text_input("Your Name:")
+    if st.button("Join the Community"):
+        st.success(f"Welcome to the Future Leaders Network, {name}!")
+
+# Brain Boosters
+elif page == "🎮 Brain Boosters":
+    st.header("🎮 Train Your Brain")
+    questions = [
+        "What has to be broken before you can use it? (Hint: Breakfast Item)",
+        "The more of me you take, the more you leave behind. What am I?"
+    ]
+    st.write(random.choice(questions))
