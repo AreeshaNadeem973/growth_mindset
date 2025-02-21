@@ -4,18 +4,18 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # App Title
-st.set_page_config(page_title="Future Leaders Hub: Unlock Your Potential", page_icon="🔥")
-st.title("🔥 Future Leaders Hub: Empower, Innovate & Grow")
+st.set_page_config(page_title="Mindset Growth Lab: Unlock Your Potential", page_icon="🧠")
 
 # Sidebar for Navigation
 st.sidebar.header("🚀 Explore & Elevate")
 page = st.sidebar.radio("Jump to:", [
     "🏡 Home", "🎯 Success Roadmap", "💡 Daily Inspiration", "📚 Legendary Stories",
-    "📈 Master Your Skills", "🚀 Peak Productivity", "🤝 Community & Networking", "🎮 Brain Boosters"
+    "📈 Master Your Skills", "🧠 Mindset Growth Lab", "🤝 Community & Networking", "🎮 Brain Boosters"
 ])
 
 # Home Page
 if page == "🏡 Home":
+    st.title("🔥 Future Leaders Hub: Empower, Innovate & Grow")
     st.header("Welcome to Future Leaders Hub! 🌍✨")
     st.markdown("""
     ### Why Join the Movement?
@@ -36,42 +36,42 @@ if page == "🏡 Home":
     ]
     st.info(f"💡 **Quote of the Day:** {random.choice(quotes)}")
 
-# Success Roadmap Page
-elif page == "🎯 Success Roadmap":
-    st.header("🎯 Your Roadmap to Success")
+# Mindset Growth Lab Page
+elif page == "🧠 Mindset Growth Lab":
+    st.header("🧠 Mindset Growth Lab: Unlock Your Full Potential")
     st.markdown("""
-    ✅ **Set Clear Goals**: Define your vision & take actionable steps.  
-    🚀 **Stay Consistent**: Small efforts every day lead to massive achievements.  
-    🏆 **Learn from Failures**: Turn setbacks into stepping stones.  
+    ✅ **Daily Mindset Challenge** – Improve your thinking with small daily exercises.  
+    ✅ **Mindset Reflection Journal** – Track your thoughts & personal growth.  
+    ✅ **Reframe Negative Thoughts** – Convert negative thoughts into positive affirmations.  
+    ✅ **Growth Tracker Graph** – Visualize your mindset progress over time.  
     """)
-    st.success("Your journey to greatness starts NOW!")
-
-# Daily Inspiration Page
-elif page == "💡 Daily Inspiration":
-    st.header("💡 Stay Inspired Every Day")
-    quotes = [
-        "Success is not final, failure is not fatal: it is the courage to continue that counts.",
-        "Great things never come from comfort zones.",
-        "Do something today that your future self will thank you for.",
-        "Opportunities don’t happen. You create them."
-    ]
-    st.info(f"🌟 **Today's Inspiration:** {random.choice(quotes)}")
-    st.success("Take a step forward today!")
-
-# Legendary Stories Page
-elif page == "📚 Legendary Stories":
-    st.header("📚 Learn from Legends")
-    stories = [
-        ("💡 Elon Musk", "Started multiple companies and changed industries."),
-        ("📚 J.K. Rowling", "Rejected 12 times before publishing Harry Potter."),
-        ("🏀 Michael Jordan", "Was cut from his high school team but became an icon."),
-        ("🌍 Nelson Mandela", "Spent 27 years in prison and changed a nation."),
-        ("🎶 Ed Sheeran", "Slept on sofas while pursuing music, now a global icon.")
-    ]
-    for name, story in stories:
-        st.subheader(name)
-        st.write(story)
-    st.success("Be inspired and create your own success story!")
+    
+    # Reframe Negative Thoughts
+    st.subheader("🔄 Reframe Your Negative Thoughts")
+    negative_thought = st.text_input("Write a negative thought you're struggling with:")
+    if negative_thought:
+        positive_reframes = [
+            "Every challenge is an opportunity to grow!", 
+            "I am learning and improving every day!", 
+            "Mistakes help me become better!", 
+            "I am capable and strong!"
+        ]
+        st.success(f"💡 **Reframed Thought:** {random.choice(positive_reframes)}")
+    
+    # Growth Tracker Graph
+    st.subheader("📊 Mindset Strength Growth Tracker")
+    mindset_areas = ["Self-Belief", "Resilience", "Optimism", "Discipline", "Focus"]
+    growth_scores = np.random.randint(50, 100, size=len(mindset_areas))
+    
+    fig, ax = plt.subplots()
+    ax.bar(mindset_areas, growth_scores, color=['blue', 'green', 'orange', 'red', 'purple'])
+    ax.set_title("Mindset Growth Progress")
+    ax.set_ylabel("Growth Score (%)")
+    ax.set_ylim(0, 100)
+    
+    st.pyplot(fig)
+    
+    st.success("Keep strengthening your mindset—progress is key to success! 🚀")
 
 # Master Your Skills Page
 elif page == "📈 Master Your Skills":
@@ -95,45 +95,4 @@ elif page == "📈 Master Your Skills":
     
     st.success("Keep building your skills—growth is a continuous journey! 🚀")
 
-# Peak Productivity Page
-elif page == "🚀 Peak Productivity":
-    st.header("🚀 Unlock Your Peak Productivity")
-    st.markdown("""
-    📋 **Prioritize Tasks**: Stay organized and efficient.  
-    🕒 **Time Management**: Work smarter, not harder.  
-    🎯 **Focus & Discipline**: Remove distractions and stay in the zone.  
-    """)
-    st.success("Maximize your potential every day!")
-
-# Community & Networking Page
-elif page == "🤝 Community & Networking":
-    st.header("🤝 Connect with Like-Minded Leaders")
-    st.markdown("""
-    🌍 **Expand Your Network**: Meet inspiring people.  
-    💡 **Exchange Ideas**: Learn from different perspectives.  
-    🎯 **Collaboration**: Work together towards success.  
-    """)
-    st.success("Build relationships that fuel your growth!")
-
-# Brain Boosters Page
-elif page == "🎮 Brain Boosters":
-    st.header("🎮 Train Your Mind")
-    puzzles = [
-        ("🤔 What has keys but can't open locks?", "A piano"),
-        ("🔍 What has to be broken before you can use it?", "An egg"),
-        ("🎭 The more you take, the more you leave behind. What is it?", "Footsteps"),
-        ("❓ I speak without a mouth and hear without ears. What am I?", "An echo")
-    ]
-    question, answer = random.choice(puzzles)
-    st.write(question)
-    user_answer = st.text_input("Your answer:")
-    if st.button("Check Answer"):
-        if user_answer.lower() == answer.lower():
-            st.success("Correct! Well done!")
-        else:
-            st.error(f"Not quite. The correct answer is: {answer}")
-    st.success("Keep challenging your brain every day!")
-
-# Footer
-st.markdown("---")
-st.markdown("Built with ❤️ using Streamlit | © 2025 Future Leaders Hub")
+ 
