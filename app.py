@@ -63,7 +63,6 @@ elif page == "📖 Book Collection":
                 st.write(f"**Category:** {book['category']}")
                 if st.button(f"📖 Read More", key=book['title']):
                     webbrowser.open_new_tab(book["read_url"])
-                    st.balloons()
     
 # Reading Progress Page
 elif page == "📊 Reading Progress":
@@ -73,8 +72,6 @@ elif page == "📊 Reading Progress":
     ax.pie(progress, labels=book_titles, autopct='%1.1f%%', startangle=140, colors=['#FF5733', '#33FF57', '#3357FF', '#F3FF33', '#FF33A8', '#33FFF5'])
     ax.set_title("Reading Progress Distribution")
     st.pyplot(fig)
-    if st.button("🎉 Celebrate Progress"):
-        st.balloons()
 
 # Reviews & Thoughts Page
 elif page == "📝 Reviews & Thoughts":
@@ -94,3 +91,4 @@ elif page == "📅 Reading Goals":
 # Footer
 st.markdown("---")
 st.markdown("Built with ❤️ using Streamlit | © 2025 Motivational Book Hub")
+
