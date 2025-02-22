@@ -4,7 +4,6 @@ import pandas as pd
 import numpy as np
 from datetime import datetime, timedelta
 import random
-from wordcloud import WordCloud
 
 # App Title and Configuration
 st.set_page_config(page_title="BookWorm's Haven", page_icon="📚", layout="wide")
@@ -187,14 +186,11 @@ elif page == "Literary Quotes":
     st.markdown('</div>', unsafe_allow_html=True)
     
     st.markdown('<div class="content-box">', unsafe_allow_html=True)
-    st.subheader("Quote Cloud")
-    all_quotes = " ".join([q["quote"] for q in quotes])
-    wordcloud = WordCloud(width=800, height=400, background_color='white').generate(all_quotes)
-    
-    fig, ax = plt.subplots(figsize=(10, 5))
-    ax.imshow(wordcloud, interpolation='bilinear')
-    ax.axis('off')
-    st.pyplot(fig)
+    st.subheader("Quote Collection")
+    for quote in quotes:
+        st.write(f'"{quote["quote"]}"')
+        st.write(f'- {quote["author"]}, {quote["book"]}')
+        st.markdown("---")
     st.markdown('</div>', unsafe_allow_html=True)
 
 # Reading Stats Page
@@ -247,6 +243,8 @@ elif page == "Reading Stats":
 # Footer
 st.markdown("---")
 st.markdown("📚 Dive into new worlds, one page at a time. © 2023 BookWorm's Haven")
+
+
 
 
 
