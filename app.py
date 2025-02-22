@@ -8,9 +8,12 @@ st.title("📚 Welcome to Motivational Book Hub")
 
 # Sidebar Navigation
 st.sidebar.header("📌 Quick Navigation")
-page = st.sidebar.radio("Go to:", [
-    "🏡 Home", "📖 Book Collection", "📊 Reading Progress", "📝 Reviews & Thoughts", "📅 Reading Goals"
-])
+if "current_book" in st.session_state:
+    page = "📖 Reading"
+else:
+    page = st.sidebar.radio("Go to:", [
+        "🏡 Home", "📖 Book Collection", "📊 Reading Progress", "📝 Reviews & Thoughts", "📅 Reading Goals"
+    ])
 
 # Book Data
 books = [
@@ -46,19 +49,19 @@ elif page == "📖 Book Collection":
             st.write(f"**Author:** {book['author']}")
             if st.button("📖 Read Now"):
                 st.session_state["current_book"] = book["title"]
-                st.experimental_rerun()
+                st.rerun()
 
 # Dynamic Book Reading Page
-if "current_book" in st.session_state:
+elif page == "📖 Reading":
     for book in books:
-        if book["title"] == st.session_state["current_book"]:
+        if book["title"] == st.session_state.get("current_book"):
             st.header(f"📖 Reading: {book['title']}")
             st.image(book["image_url"], width=200)
             st.subheader(f"By {book['author']}")
             st.write(book["content"])
             if st.button("⬅ Back to Collection"):
                 del st.session_state["current_book"]
-                st.experimental_rerun()
+                st.rerun()
 
 # Reading Progress Page
 elif page == "📊 Reading Progress":
@@ -89,3 +92,4 @@ elif page == "📅 Reading Goals":
 # Footer
 st.markdown("---")
 st.markdown("Built with ❤️ using Streamlit | © 2025 Motivational Book Hub")
+
