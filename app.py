@@ -4,89 +4,101 @@ import numpy as np
 import random
 
 # App Title
-st.set_page_config(page_title="Future Tech Trends: AI, Space, and Innovation", page_icon="🚀")
-st.title("🚀 Future Tech Trends: AI, Space, and Innovation")
+st.set_page_config(page_title="Reading & Literature Hub", page_icon="📚")
+st.title("📚 Welcome to Reading & Literature Hub")
 
 # Sidebar Navigation
 st.sidebar.header("📌 Quick Navigation")
 page = st.sidebar.radio("Go to:", [
-    "🏡 Home", "🤖 AI Innovations", "🚀 Space Exploration", "📡 Emerging Tech", "📊 Data & Trends"
+    "🏡 Home", "📖 Reading Tracker", "📚 Book Recommendations", "📝 Book Reviews", "📊 Reading Statistics",
+    "🧠 Reading Challenges", "📅 Reading Goals"
 ])
 
 # Home Page
 if page == "🏡 Home":
-    st.header("🚀 Welcome to Future Tech Trends!")
-    st.image("https://images.pexels.com/photos/586528/pexels-photo-586528.jpeg", use_container_width=True)
+    st.header("📚 Welcome to Reading & Literature Hub")
+    st.image("https://images.pexels.com/photos/415071/pexels-photo-415071.jpeg", width=300)  # Smaller Image
     st.markdown("""
-    ### Explore the Technologies Shaping Our Future
-    ✅ **Artificial Intelligence Breakthroughs** 🤖  
-    ✅ **Space Missions & Colonization** 🚀  
-    ✅ **Emerging Technologies & Future Innovations** 📡  
+    ### Discover, Track, and Enjoy Books!
+    ✅ **Track Your Reading Progress** 📖  
+    ✅ **Get Personalized Book Recommendations** 📚  
+    ✅ **Share and Read Reviews** 📝  
+    ✅ **Set Reading Goals & Challenges** 🎯  
+    
     """)
-    st.success("Stay ahead of the future with cutting-edge insights! 🚀")
+    st.success("Start your reading journey today! 📖")
 
-# AI Innovations
-elif page == "🤖 AI Innovations":
-    st.header("🤖 Latest in AI & Machine Learning")
-    ai_trends = ["Generative AI", "Quantum Computing", "AI in Healthcare", "Autonomous Vehicles"]
-    for trend in ai_trends:
-        st.checkbox(f"Interested in {trend}?")
-    
-    if st.button("Save Preferences"):
-        st.success("Your AI interests are saved! 🤖")
-    
-    # AI Investment Growth Chart
-    years = np.arange(2015, 2025)
-    investment = np.random.randint(50, 300, size=len(years))
+# Reading Tracker
+elif page == "📖 Reading Tracker":
+    st.header("📖 Track Your Reading")
+    books = ["The Alchemist", "Atomic Habits", "1984", "The Power of Now"]
+    for book in books:
+        st.checkbox(f"Finished reading '{book}'?")
+    if st.button("Save Progress"):
+        st.success("Great job! Keep reading!")
+        st.balloons()
+
+    # Weekly Reading Progress Graph
+    progress = np.random.randint(0, 7, size=len(books))
     fig, ax = plt.subplots()
-    ax.plot(years, investment, marker='o', linestyle='-', color='blue')
-    ax.set_title("AI Investment Growth Over the Years")
-    ax.set_ylabel("Investment (Billion $)")
+    ax.bar(books, progress, color=['#FF5733', '#33FF57', '#3357FF', '#F3FF33'])
+    ax.set_title("Weekly Reading Progress")
+    ax.set_ylabel("Days Read")
+    ax.set_ylim(0, 7)
     st.pyplot(fig)
 
-# Space Exploration
-elif page == "🚀 Space Exploration":
-    st.header("🚀 The Future of Space Travel")
-    missions = ["Mars Colonization", "Moon Base", "Space Tourism", "Deep Space Exploration"]
-    for mission in missions:
-        st.checkbox(f"Excited for {mission}?")
+# Book Recommendations
+elif page == "📚 Book Recommendations":
+    st.header("📚 Personalized Book Recommendations")
+    genres = ["Fiction", "Self-Help", "Mystery", "Sci-Fi", "Biography"]
+    selected_genre = st.selectbox("Choose a genre:", genres)
     
-    # Space Missions Timeline Graph
-    missions_years = [2025, 2030, 2040, 2050]
-    milestones = [2, 5, 8, 12]
+    recommendations = {
+        "Fiction": ["The Great Gatsby", "Pride and Prejudice"],
+        "Self-Help": ["Atomic Habits", "The 5 AM Club"],
+        "Mystery": ["Gone Girl", "The Girl with the Dragon Tattoo"],
+        "Sci-Fi": ["Dune", "Neuromancer"],
+        "Biography": ["Steve Jobs", "Becoming"]
+    }
+    st.write("📚 Recommended Books:")
+    for book in recommendations[selected_genre]:
+        st.write(f"- {book}")
+
+# Book Reviews
+elif page == "📝 Book Reviews":
+    st.header("📝 Share & Read Reviews")
+    book = st.text_input("Book Name:")
+    review = st.text_area("Your Review:")
+    if st.button("Submit Review"):
+        st.success("Review submitted successfully!")
+
+# Reading Statistics
+elif page == "📊 Reading Statistics":
+    st.header("📊 Your Reading Trends")
+    days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    reading_hours = np.random.randint(0, 3, size=7)
     fig, ax = plt.subplots()
-    ax.bar(missions_years, milestones, color=['red', 'green', 'blue', 'purple'])
-    ax.set_title("Upcoming Space Missions Timeline")
-    ax.set_ylabel("Mission Count")
+    ax.plot(days, reading_hours, marker='o', linestyle='-', color='purple')
+    ax.set_title("Weekly Reading Hours")
+    ax.set_ylabel("Hours Read")
+    ax.set_ylim(0, 3)
     st.pyplot(fig)
 
-# Emerging Tech
-elif page == "📡 Emerging Tech":
-    st.header("📡 Technologies Reshaping the World")
-    tech = ["5G & Beyond", "Blockchain", "AR/VR", "Biotechnology"]
-    for t in tech:
-        st.checkbox(f"Following {t}?")
-    
-    # Tech Growth Pie Chart
-    labels = ["5G & IoT", "AI & Automation", "Blockchain", "AR/VR"]
-    sizes = [30, 25, 20, 25]
-    colors = ["blue", "orange", "green", "red"]
-    fig, ax = plt.subplots()
-    ax.pie(sizes, labels=labels, autopct='%1.1f%%', colors=colors, startangle=140)
-    ax.set_title("Tech Adoption Rates")
-    ax.axis('equal')
-    st.pyplot(fig)
+# Reading Challenges
+elif page == "🧠 Reading Challenges":
+    st.header("🧠 Take a Reading Challenge!")
+    challenge_types = ["7-Day Challenge", "Monthly Reading Marathon", "Genre Exploration"]
+    selected_challenge = st.selectbox("Pick a challenge:", challenge_types)
+    st.write(f"📖 You have chosen: **{selected_challenge}**")
+    st.success("Challenge accepted! Happy Reading!")
 
-# Data & Trends
-elif page == "📊 Data & Trends":
-    st.header("📊 Future Tech Market Trends")
-    sectors = ["AI", "Space", "Quantum Computing", "Renewable Energy"]
-    market_values = np.random.randint(100, 1000, size=len(sectors))
-    fig, ax = plt.subplots()
-    ax.barh(sectors, market_values, color='cyan')
-    ax.set_title("Projected Market Value in 2030 ($B)")
-    st.pyplot(fig)
+# Reading Goals
+elif page == "📅 Reading Goals":
+    st.header("📅 Set Your Reading Goals")
+    goal = st.text_input("Set a Reading Goal (e.g., Read 20 books this year)")
+    if st.button("Save Goal"):
+        st.success("Goal saved successfully! Keep reading!")
 
 # Footer
 st.markdown("---")
-st.markdown("Built with ❤️ using Streamlit | © 2025 Future Tech Trends")
+st.markdown("Built with ❤️ using Streamlit | © 2025 Reading & Literature Hub")
