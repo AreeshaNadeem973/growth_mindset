@@ -1,101 +1,115 @@
 import streamlit as st
 import matplotlib.pyplot as plt
 import numpy as np
-import time
-from datetime import date
 import random
 
-# App Title and Configuration
-st.set_page_config(page_title="Growth Mindset Challenge", page_icon="🌟")
-st.title("🌟 Growth Mindset Challenge")
+# App Title
+st.set_page_config(page_title="Next-Gen Power", page_icon="🚀")
+st.title("Next-Gen Power: Mindset, Innovation & Success")
 
-# Sidebar: Quick Navigation
+# Initialize session state for navigation
+if "page" not in st.session_state:
+    st.session_state.page = "🏡 Home"
+
+# Sidebar Navigation
 st.sidebar.header("📌 Quick Navigation")
-page = st.sidebar.radio("Go to:", [
-    "🏡 Home", 
-    "📅 Habit Tracker", 
-    "💭 Daily Motivation", 
-    "📚 Inspirational Stories",
-    "🎯 Goal Setting", 
-    "📝 Productivity Tips", 
-    "🤔 Self-Reflection", 
-    "🧠 Brain Teasers", 
-    "🧠 Growth Mindset", 
-    "🌱 Mindfulness & Meditation", 
-    "🏋️ Fitness & Health", 
-    "🧛 Skill Development", 
-    "📚 Journaling & Gratitude", 
-    "🌟 Community & Sharing"
+st.session_state.page = st.sidebar.radio("Go to:", [
+    "🏡 Home", "📚 Transform Your Mindset", "📊 Your Growth Journey",
+    "📝 Share Your Insights", "📅 Set Your Vision", "⚡ Daily Challenge"
 ])
 
+# Book Data
+books = [
+    {"title": "Atomic Habits", "author": "James Clear", "image_url": "https://images-na.ssl-images-amazon.com/images/I/91bYsX41DVL.jpg", "category": "Self-Improvement", "description": "A practical guide to building good habits and breaking bad ones.", "video": "https://www.youtube.com/watch?v=PZ7lDrwYdZc"},
+    {"title": "The 5 AM Club", "author": "Robin Sharma", "image_url": "https://images-na.ssl-images-amazon.com/images/I/71zytzrg6lL.jpg", "category": "Productivity", "description": "Discover the morning routine that can change your life.", "video": "https://www.youtube.com/watch?v=OehutI6K1b8"},
+    {"title": "Mindset: The New Psychology of Success", "author": "Carol S. Dweck", "image_url": "https://bukharibooks.com/wp-content/uploads/2019/07/mindset-2.png", "category": "Psychology", "description": "Understand how a growth mindset leads to success.", "video": "https://www.youtube.com/watch?v=KUWn_TJTrnU"}
+]
+
+book_titles = [book["title"] for book in books]
+categories = list(set(book["category"] for book in books))
+
+# Daily Challenges
+challenges = [
+    "Spend 5 minutes visualizing your success.",
+    "Write down 3 things you're grateful for today.",
+    "Take a 30-minute learning break from social media.",
+    "Practice deep breathing for 5 minutes.",
+    "Read 10 pages of a book today."
+]
+
+def get_book_recommendation():
+    return random.choice(books)
+
 # Home Page
-if page == "🏡 Home":
-    st.header("Welcome to Your Growth Journey!")
-    st.image("https://m.media-amazon.com/images/I/51JYYBZTjaL._SL500_.jpg", use_container_width=True)
-    st.success("Today is a new opportunity! Make the most of it! 🚀")
+if st.session_state.page == "🏡 Home":
+    st.header("🚀 Welcome to Next-Gen Power")
+    st.image("https://images.pexels.com/photos/415071/pexels-photo-415071.jpeg", use_container_width=True)
+    st.markdown("""
+    ### Unlock Your Full Potential with Knowledge!
+    ✅ **Master the Art of Success** 📖  
+    ✅ **Track Your Personal Growth** 📊  
+    ✅ **Join a Community of Innovators** 💡  
+    """)
+    st.success("Start your journey to greatness today! 🚀")
     
-    # Weekly Motivation Graph
-    days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-    motivation_levels = np.random.randint(60, 100, size=7)
+    recommended_book = get_book_recommendation()
+    st.subheader("📖 AI-Based Book Recommendation")
+    st.write(f"**{recommended_book['title']}** by {recommended_book['author']}")
+    st.image(recommended_book["image_url"], width=150)
+    st.write(f"📚 {recommended_book['description']}")
+    st.video(recommended_book["video"])
+
+# Book Collection Page
+elif st.session_state.page == "📚 Transform Your Mindset":
+    st.header("📚 Transform Your Mindset with Powerful Reads")
+    selected_category = st.selectbox("Choose a Category:", ["All"] + categories)
+    
+    filtered_books = books if selected_category == "All" else [book for book in books if book["category"] == selected_category]
+    
+    for book in filtered_books:
+        with st.container():
+            col1, col2 = st.columns([1, 3])
+            with col1:
+                st.image(book["image_url"], width=120)
+            with col2:
+                st.subheader(book["title"])
+                st.write(f"**Author:** {book['author']}")
+                st.write(f"**Category:** {book['category']}")
+                st.write(f"📖 {book['description']}")
+                st.video(book["video"])
+
+# Growth Journey Page
+elif st.session_state.page == "📊 Your Growth Journey":
+    st.header("📊 Your Growth Journey")
+    progress = np.random.randint(0, 100, size=len(book_titles))
     fig, ax = plt.subplots()
-    ax.plot(days, motivation_levels, marker='o', linestyle='-', color='blue')
-    ax.set_title("Weekly Motivation Trend")
-    ax.set_ylabel("Motivation Level (%)")
-    ax.set_ylim(0, 100)
+    ax.pie(progress, labels=book_titles, autopct='%1.1f%%', startangle=140, colors=['#FF5733', '#33FF57', '#3357FF', '#F3FF33', '#FF33A8', '#33FFF5'])
+    ax.set_title("Your Reading Progress")
     st.pyplot(fig)
 
-# Mindfulness & Meditation Page
-elif page == "🌱 Mindfulness & Meditation":
-    st.header("🌱 Mindfulness & Meditation")
-    st.write("Relax and focus with guided meditation.")
-    if st.button("Start 5-Minute Meditation"):
-        with st.empty():
-            for secs in range(5*60, 0, -1):
-                mm, ss = secs // 60, secs % 60
-                st.metric("Time Remaining", f"{mm:02d}:{ss:02d}")
-                time.sleep(1)
-        st.success("Great job! Keep practicing mindfulness.")
+# Reviews & Thoughts Page
+elif st.session_state.page == "📝 Share Your Insights":
+    st.header("📝 Share Your Insights & Reflections")
+    book = st.selectbox("Select a Book", book_titles)
+    review = st.text_area("What did you learn?")
+    if st.button("Submit Your Reflection"):
+        st.success("Your thoughts have been saved!")
 
-# Fitness & Health Page
-elif page == "🏋️ Fitness & Health":
-    st.header("🏋️ Fitness & Health")
-    exercises = ["Push-ups", "Squats", "Jumping Jacks", "Plank", "Burpees"]
-    st.write("Daily Workout Plan:")
-    for exercise in exercises:
-        st.checkbox(f"Did you complete {exercise.lower()} today?")
-    if st.button("Save Workout Log"):
-        st.success("Awesome! Keep up the healthy habits!")
-        st.balloons()
+# Vision & Goals Page
+elif st.session_state.page == "📅 Set Your Vision":
+    st.header("📅 Set Your Vision for Success")
+    goal = st.text_input("What’s your next goal?")
+    if st.button("Save Your Goal"):
+        st.success("Your vision is now set! Keep growing!")
 
-# Skill Development Page
-elif page == "🧛 Skill Development":
-    st.header("🧛 Skill Development")
-    skills = ["Coding", "Public Speaking", "Writing", "Time Management", "Creativity"]
-    selected_skill = st.selectbox("Choose a skill to improve:", skills)
-    st.write(f"Great choice! Here are some resources for {selected_skill}:")
-    st.write("- Online courses")
-    st.write("- Practice exercises")
-    st.write("- Daily challenges")
-    if st.button("Track Progress"):
-        st.success(f"Your {selected_skill} learning journey has begun!")
-
-# Journaling & Gratitude Page
-elif page == "📚 Journaling & Gratitude":
-    st.header("📚 Daily Journaling & Gratitude")
-    journal_entry = st.text_area("Write about your day:")
-    gratitude = st.text_input("What are you grateful for today?")
-    if st.button("Save Entry"):
-        st.success("Your journal entry has been saved!")
-
-# Community & Sharing Page
-elif page == "🌟 Community & Sharing":
-    st.header("🌟 Share Your Progress & Inspire Others!")
-    user_story = st.text_area("Share your motivation story:")
-    if st.button("Submit Story"):
-        st.success("Thank you for sharing! Your story might inspire someone today!")
-        st.balloons()
+# Daily Challenge Page
+elif st.session_state.page == "⚡ Daily Challenge":
+    st.header("⚡ Your Daily Challenge")
+    challenge = random.choice(challenges)
+    st.subheader(challenge)
+    if st.button("🔄 New Challenge"):
+        st.experimental_rerun()
 
 # Footer
 st.markdown("---")
-st.markdown("Built with ❤️ using Streamlit | © 2025 Growth Mindset Challenge")
-
+st.markdown("🚀 Built for Future Leaders | © 2025 Next-Gen Power")
