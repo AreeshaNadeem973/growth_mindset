@@ -3,108 +3,81 @@ import matplotlib.pyplot as plt
 import numpy as np
 import random
 
-# App Configuration
+# App Title
 st.set_page_config(page_title="Book Lovers Hub", page_icon="📚")
+st.title("📚 Welcome to Book Lovers Hub")
 
-# Sidebar Navigation
-st.sidebar.header("📖 Navigate")
+# Sidebar for Navigation
+st.sidebar.header("📌 Quick Navigation")
 page = st.sidebar.radio("Go to:", [
-    "🏡 Home", "📚 Book Collection", "📖 Reading Progress", "✍️ Book Reviews",
-    "📅 Reading Goals", "🧠 Literary Trivia", "🔍 Discover New Books"
+    "🏡 Home", "📖 Book Reviews", "📚 Reading Tracker", "📅 Book Goals", "📝 Writing Corner", "📊 Reading Stats"
 ])
 
 # Home Page
 if page == "🏡 Home":
-    st.title("📚 Welcome to Book Lovers Hub")
-    st.image("https://images.pexels.com/photos/159866/books-bookstore-book-reading-159866.jpeg", width=400)
+    st.header("Discover, Read, and Share Your Love for Books! 📖")
+    st.image("https://images.pexels.com/photos/159866/books-bookstore-book-reading-159866.jpeg", width=300)
     
     st.markdown("""
-    ### Why Join?
-    - 📖 **Discover & track books**
-    - 📝 **Review & share thoughts**
-    - 🎯 **Set & achieve reading goals**
-    - 🧠 **Challenge your literary knowledge**
+    ### Why Join Book Lovers Hub?
+    ✅ **Explore New Books**: Find and review amazing books.  
+    ✅ **Track Your Reading**: Keep a log of books you've read.  
+    ✅ **Set Book Goals**: Challenge yourself to read more.  
+    ✅ **Join the Community**: Share thoughts and reviews.  
     """)
-    
-    quotes = [
-        "A reader lives a thousand lives before he dies. - George R.R. Martin",
-        "Reading is essential for those who seek to rise above the ordinary. - Jim Rohn",
-        "Books are uniquely portable magic. - Stephen King"
-    ]
-    st.info(f"💡 **Quote of the Day:** {random.choice(quotes)}")
+    st.success("Start your reading journey today! 📖✨")
 
-# Book Collection
-elif page == "📚 Book Collection":
-    st.header("📚 Your Personal Book Collection")
-    books = ["To Kill a Mockingbird", "1984", "The Great Gatsby", "Pride and Prejudice"]
-    selected_book = st.selectbox("Choose a book to explore:", books)
-    
-    st.write(f"📖 **Selected Book:** {selected_book}")
-    st.image("https://source.unsplash.com/200x300/?book", width=150)
-
-# Reading Progress
-elif page == "📖 Reading Progress":
-    st.header("📖 Track Your Reading Progress")
-    progress = st.slider("How much have you read this week?", 0, 100, 50)
-    
-    fig, ax = plt.subplots()
-    ax.bar(["Progress"], [progress], color='blue')
-    ax.set_ylim(0, 100)
-    ax.set_ylabel("% Completed")
-    st.pyplot(fig)
-
-# Book Reviews
-elif page == "✍️ Book Reviews":
-    st.header("✍️ Share Your Book Reviews")
-    book = st.text_input("Book Title:")
-    review = st.text_area("Your Review:")
-    rating = st.slider("Rate the book (1-5 stars):", 1, 5, 3)
+# Book Reviews Page
+elif page == "📖 Book Reviews":
+    st.header("📖 Book Reviews")
+    books = ["Atomic Habits", "The Alchemist", "Deep Work", "Sapiens"]
+    selected_book = st.selectbox("Choose a book to review:", books)
+    review = st.text_area("Write your review here:")
     if st.button("Submit Review"):
-        st.success("Review Submitted! 📖")
+        st.success(f"Thank you for reviewing {selected_book}!")
 
-# Reading Goals
-elif page == "📅 Reading Goals":
-    st.header("📅 Set Your Reading Goals")
-    goal = st.number_input("How many books do you want to read this year?", min_value=1, max_value=100, value=12)
-    completed = st.number_input("How many books have you read so far?", min_value=0, max_value=goal, value=3)
+# Reading Tracker Page
+elif page == "📚 Reading Tracker":
+    st.header("📚 Track Your Reading Progress")
+    books = ["The Power of Habit", "Thinking, Fast and Slow", "1984", "The 5 AM Club"]
+    progress = {book: random.randint(10, 100) for book in books}
     
-    progress = (completed / goal) * 100
     fig, ax = plt.subplots()
-    ax.pie([progress, 100 - progress], labels=["Completed", "Remaining"], colors=["green", "gray"], autopct='%1.1f%%')
+    ax.bar(progress.keys(), progress.values(), color=['red', 'blue', 'green', 'purple'])
+    ax.set_title("Reading Progress (%)")
+    ax.set_ylabel("Completion")
     st.pyplot(fig)
 
-# Literary Trivia
-elif page == "🧠 Literary Trivia":
-    st.header("🧠 Test Your Book Knowledge")
-    trivia = [
-        ("Who wrote 'Pride and Prejudice'?", "Jane Austen"),
-        ("What is the first book in the Harry Potter series?", "Harry Potter and the Sorcerer's Stone"),
-    ]
-    question, answer = random.choice(trivia)
-    st.write(question)
-    user_answer = st.text_input("Your Answer:")
+# Book Goals Page
+elif page == "📅 Book Goals":
+    st.header("📅 Set Your Reading Goals")
+    goal = st.text_input("How many books do you want to read this year?")
+    if goal:
+        st.write(f"📚 Your Target: {goal} books this year!")
     
-    if st.button("Check Answer"):
-        if user_answer.lower() == answer.lower():
-            st.success("Correct! 🎉")
-        else:
-            st.error(f"Wrong! The correct answer is: {answer}")
+    if st.button("Save Goal"):
+        st.success("Goal saved successfully! Keep reading!")
 
-# Discover New Books
-elif page == "🔍 Discover New Books":
-    st.header("🔍 Find Your Next Read")
-    genres = ["Fantasy", "Science Fiction", "Mystery", "Historical Fiction"]
-    selected_genre = st.selectbox("Select a genre:", genres)
-    st.write(f"📚 **Books in {selected_genre}:**")
+# Writing Corner Page
+elif page == "📝 Writing Corner":
+    st.header("📝 Express Yourself Through Writing")
+    story = st.text_area("Start writing your story or book idea:")
+    if st.button("Save Story"):
+        st.success("Story saved! Keep writing and creating!")
     
-    recommendations = {
-        "Fantasy": ["Harry Potter", "The Hobbit"],
-        "Science Fiction": ["Dune", "The Martian"],
-        "Mystery": ["Sherlock Holmes", "Gone Girl"],
-        "Historical Fiction": ["The Book Thief", "All the Light We Cannot See"]
-    }
-    st.write(recommendations[selected_genre])
+# Reading Stats Page
+elif page == "📊 Reading Stats":
+    st.header("📊 Your Reading Statistics")
+    
+    books_read = np.random.randint(5, 50, size=12)
+    months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    
+    fig, ax = plt.subplots()
+    ax.plot(months, books_read, marker='o', linestyle='-', color='blue')
+    ax.set_title("Books Read Over the Year")
+    ax.set_ylabel("Books Read")
+    ax.set_xlabel("Months")
+    st.pyplot(fig)
 
-# Footer
 st.markdown("---")
 st.markdown("Built with ❤️ using Streamlit | © 2025 Book Lovers Hub")
