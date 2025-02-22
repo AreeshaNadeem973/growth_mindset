@@ -16,7 +16,7 @@ page = st.sidebar.radio("Go to:", [
 # Home Page
 if page == "🏡 Home":
     st.header("📚 Welcome to Motivational Book Hub")
-    st.image("https://images.pexels.com/photos/415071/pexels-photo-415071.jpeg", use_container_width=True)  # Updated Image Size
+    st.image("https://images.pexels.com/photos/415071/pexels-photo-415071.jpeg", width=500)  # Updated Image Size
     st.markdown("""
     ### Explore & Grow with Motivational Books!
     ✅ **Read Life-Changing Books** 📖  
@@ -29,7 +29,7 @@ if page == "🏡 Home":
 elif page == "📖 Book Collection":
     st.header("📚 Explore Motivational Books")
     books = [
-        {"title": "Atomic Habits", "url": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fpsychiatryresource.com%2Fbookreviews%2Fatomic-habits-review&psig=AOvVaw1VSBl10wdn0NsajsATZZPL&ust=1740303775557000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCJDYkPn-1osDFQAAAAAdAAAAABAE", "image": https://www.google.com/url?sa=i&url=https%3A%2F%2Fpsychiatryresource.com%2Fbookreviews%2Fatomic-habits-review&psig=AOvVaw1VSBl10wdn0NsajsATZZPL&ust=1740303775557000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCJDYkPn-1osDFQAAAAAdAAAAABAE"},
+        {"title": "Atomic Habits", "url": "https://example.com/atomic-habits", "image": "https://psychiatryresource.com/assets/images/atomic-habits-review.jpg"},
         {"title": "The 5 AM Club", "url": "https://example.com/5am-club", "image": "https://images.pexels.com/photos/1261730/pexels-photo-1261730.jpeg"},
         {"title": "The Power of Now", "url": "https://example.com/power-of-now", "image": "https://images.pexels.com/photos/46274/books-education-school-literature-46274.jpeg"},
         {"title": "Think and Grow Rich", "url": "https://example.com/think-grow-rich", "image": "https://images.pexels.com/photos/159866/books-bookstore-book-reading-159866.jpeg"},
@@ -41,19 +41,9 @@ elif page == "📖 Book Collection":
     for index, book in enumerate(books):
         with cols[index % 2]:
             st.image(book["image"], use_container_width=True)
-            if st.button(f"📖 Read {book['title']}", key=book['title']):
-                st.session_state["selected_book"] = book
-                st.experimental_rerun()
-
-# Dynamic Book Reading Page
-if "selected_book" in st.session_state:
-    book = st.session_state["selected_book"]
-    st.header(f"📖 {book['title']}")
-    st.image(book["image"], use_container_width=True)
-    st.markdown(f"[Read Now]({book['url']})")
-    if st.button("🔙 Back to Collection"):
-        del st.session_state["selected_book"]
-        st.experimental_rerun()
+            if st.button(f"📖 Read {book['title']}"):
+                st.write(f"Opening {book['title']}...")
+                st.markdown(f"[Read Now]({book['url']})")
 
 # Reading Progress Page
 elif page == "📊 Reading Progress":
