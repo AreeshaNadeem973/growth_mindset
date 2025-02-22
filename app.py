@@ -1,103 +1,130 @@
 import streamlit as st
 import matplotlib.pyplot as plt
-import pandas as pd
 import numpy as np
-from datetime import datetime, timedelta
+import time
 import random
 
-# App Title and Configuration
-st.set_page_config(page_title="BookWorm's Haven", page_icon="📚", layout="wide")
-
-# Custom CSS for improved design
-st.markdown("""
-    <style>
-    .stApp {
-        background-color: #FAF3E0;
-        background-attachment: fixed;
-        background-size: cover;
-    }
-    .stButton>button {
-        background-color: #1E3F5A;
-        color: white;
-        border-radius: 20px;
-        border: 2px solid #FFD700;
-    }
-    .stTextInput>div>div>input {
-        border-radius: 20px;
-    }
-    .book-cover {
-        width: 120px;
-        height: 180px;
-        object-fit: cover;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
-    .content-box {
-        background-color: rgba(255, 255, 255, 0.9);
-        padding: 20px;
-        border-radius: 10px;
-        margin-bottom: 20px;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-    </style>
-    """, unsafe_allow_html=True)
+# App Title
+st.set_page_config(page_title="Book Lovers Hub", page_icon="📚")
+st.title("📚 Book Lovers Hub")
 
 # Sidebar for Navigation
-st.sidebar.title("📚 BookWorm's Haven")
-page = st.sidebar.radio("Explore:", ["Home", "Reading Challenge", "Book Discovery", "Literary Quotes", "Reading Stats"])
+st.sidebar.header("📌 Quick Navigation")
+page = st.sidebar.radio("Go to:", [
+    "🏡 Home", "📅 Reading Tracker", "💡 Book Recommendations", "📖 Author Spotlights",
+    "📝 Book Reviews", "📚 Reading Challenges", "🤔 Literary Quiz", "📜 Classic Literature"
+])
 
 # Home Page
-if page == "Home":
-    st.title("📖 Welcome to BookWorm's Haven")
-    st.subheader("Your Personal Library & Reading Companion")
+if page == "🏡 Home":
+    st.header("Welcome to the Ultimate Book Lovers Hub! 📖✨")
     
-    col1, col2 = st.columns([2, 1])
-    
-    with col1:
-        st.markdown('<div class="content-box">', unsafe_allow_html=True)
-        st.subheader("📖 Currently Reading")
-        current_book = {
-            "title": "The Midnight Library",
-            "author": "Matt Haig",
-            "progress": 65,
-            "cover": "https://images-na.ssl-images-amazon.com/images/I/81YzHKeWq7L.jpg"
-        }
-        st.image(current_book["cover"], width=150)
-        st.write(f"**{current_book['title']}**")
-        st.write(f"By {current_book['author']}")
-        st.progress(current_book['progress'])
-        st.write(f"{current_book['progress']}% completed")
-        st.markdown('</div>', unsafe_allow_html=True)
-        
-    with col2:
-        st.markdown('<div class="content-box">', unsafe_allow_html=True)
-        st.subheader("📊 Quick Stats")
-        col_x, col_y, col_z = st.columns(3)
-        books_read = random.randint(20, 40)
-        col_x.metric("Books Read", books_read, f"+{random.randint(1, 3)} this month")
-        col_y.metric("Pages Read", books_read * random.randint(200, 400), f"+{random.randint(50, 200)} this week")
-        col_z.metric("Reading Streak", f"{random.randint(5, 30)} days", f"+{random.randint(1, 7)} days")
-        st.markdown('</div>', unsafe_allow_html=True)
-        
-    st.markdown('<div class="content-box">', unsafe_allow_html=True)
-    st.subheader("✨ Recommended Reads")
-    next_books = [
-        {"title": "Dune", "author": "Frank Herbert", "cover": "https://images-na.ssl-images-amazon.com/images/I/81ym3QUd3KL.jpg"},
-        {"title": "Project Hail Mary", "author": "Andy Weir", "cover": "https://images-na.ssl-images-amazon.com/images/I/91Bd7P8UwxL.jpg"}
-    ]
-    col_a, col_b = st.columns(2)
-    for i, book in enumerate(next_books):
-        with [col_a, col_b][i]:
-            st.image(book["cover"], width=120)
-            st.write(f"**{book['title']}**")
-            st.write(f"By {book['author']}")
-    st.markdown('</div>', unsafe_allow_html=True)
+    st.image("https://images.unsplash.com/photo-1512820790803-83ca734da794", use_container_width=True)
 
-# Other pages remain unchanged
+    st.markdown("""
+    ### Why Reading Matters?
+    ✅ **Expand Your Knowledge**: Books open new worlds.  
+    ✅ **Improve Focus & Imagination**: A daily reading habit boosts creativity.  
+    ✅ **Enhance Vocabulary**: Every book teaches something new.  
+    ✅ **Relax & Unwind**: Nothing beats a good story!  
+    """)
+    st.success("Every book is a new adventure! Start reading today! 📚")
+
+# Reading Tracker
+elif page == "📅 Reading Tracker":
+    st.header("📅 Track Your Reading Progress")
+    books = ["Fiction", "Non-Fiction", "Self-Help", "Science Fiction", "Fantasy"]
+
+    for book in books:
+        st.checkbox(f"Did you read a {book.lower()} book today?")
+    
+    if st.button("Save Progress"):
+        st.success("Great job! Keep up the reading habit!")
+        st.balloons()
+
+    # Weekly Reading Progress Graph
+    weekly_progress = {book: random.randint(0, 7) for book in books}
+    fig, ax = plt.subplots()
+    ax.bar(weekly_progress.keys(), weekly_progress.values(), color='blue')
+    ax.set_title("Weekly Reading Progress")
+    ax.set_ylabel("Days Read")
+    ax.set_ylim(0, 7)
+    st.pyplot(fig)
+
+# Book Recommendations
+elif page == "💡 Book Recommendations":
+    st.header("💡 Must-Read Books")
+    recommendations = [
+        "📖 *To Kill a Mockingbird* - Harper Lee",
+        "📖 *1984* - George Orwell",
+        "📖 *The Great Gatsby* - F. Scott Fitzgerald",
+        "📖 *Atomic Habits* - James Clear",
+        "📖 *The Hobbit* - J.R.R. Tolkien"
+    ]
+    st.info(f"📚 **Today's Recommendation:** {random.choice(recommendations)}")
+
+# Author Spotlights
+elif page == "📖 Author Spotlights":
+    st.header("📖 Meet Iconic Authors")
+    authors = [
+        ("✍️ **J.K. Rowling**", "Created the magical world of Harry Potter."),
+        ("📚 **George Orwell**", "Wrote thought-provoking books like *1984* and *Animal Farm*."),
+        ("🖊 **Agatha Christie**", "The queen of mystery novels with classics like *Murder on the Orient Express*.")
+    ]
+    for name, bio in authors:
+        st.subheader(name)
+        st.write(bio)
+
+# Book Reviews
+elif page == "📝 Book Reviews":
+    st.header("📝 Share Your Book Reviews")
+    book_title = st.text_input("Book Title:")
+    review = st.text_area("Write your review:")
+    
+    if st.button("Submit Review"):
+        st.success("Review submitted successfully!")
+
+# Reading Challenges
+elif page == "📚 Reading Challenges":
+    st.header("📚 Join a Reading Challenge")
+    challenges = [
+        "📅 **30-Day Reading Challenge** - Read 15 minutes daily.",
+        "📚 **Genre Exploration** - Read one book from 5 different genres.",
+        "🕰 **Classic Challenge** - Read at least 3 classic novels this year."
+    ]
+    st.write(f"🔥 **Today's Challenge:** {random.choice(challenges)}")
+
+# Literary Quiz
+elif page == "🤔 Literary Quiz":
+    st.header("🤔 Test Your Book Knowledge!")
+    quizzes = [
+        ("📖 Who wrote *Pride and Prejudice*?", "Jane Austen"),
+        ("📚 What is the first book in *The Lord of the Rings* trilogy?", "The Fellowship of the Ring"),
+        ("📜 Which Shakespeare play features the characters Rosencrantz and Guildenstern?", "Hamlet")
+    ]
+    question, answer = quizzes[random.randint(0, len(quizzes) - 1)]
+    st.write(question)
+    user_answer = st.text_input("Your answer:")
+    
+    if st.button("Check Answer"):
+        if user_answer.lower() == answer.lower():
+            st.success("Correct! Well done!")
+            st.balloons()
+        else:
+            st.error(f"Not quite. The correct answer is: {answer}")
+
+# Classic Literature
+elif page == "📜 Classic Literature":
+    st.header("📜 Timeless Literary Classics")
+    classics = [
+        "📘 *Moby-Dick* - Herman Melville",
+        "📕 *Crime and Punishment* - Fyodor Dostoevsky",
+        "📗 *Pride and Prejudice* - Jane Austen",
+        "📙 *Great Expectations* - Charles Dickens"
+    ]
+    st.info(f"📖 **Classic Recommendation:** {random.choice(classics)}")
 
 # Footer
 st.markdown("---")
-st.markdown("📚 Dive into new worlds, one page at a time. © 2025 BookWorm's Haven")
-
-
+st.markdown("Built with ❤️ using Streamlit | © 2025 Book Lovers Hub")
 
