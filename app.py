@@ -1,7 +1,6 @@
 import streamlit as st
 import matplotlib.pyplot as plt
 import numpy as np
-import json
 
 # App Title
 st.set_page_config(page_title="Motivational Book Hub", page_icon="📚")
@@ -10,25 +9,24 @@ st.title("📚 Welcome to Motivational Book Hub")
 # Sidebar Navigation
 st.sidebar.header("📌 Quick Navigation")
 page = st.sidebar.radio("Go to:", [
-    "🏡 Home", "📚 Book Collection", "📊 Reading Progress", "📝 Reviews & Thoughts", "📅 Reading Goals"
+    "🏡 Home", "📖 Book Collection", "📊 Reading Progress", "📝 Reviews & Thoughts", "📅 Reading Goals"
 ])
 
 # Home Page
 if page == "🏡 Home":
     st.header("📚 Welcome to Motivational Book Hub")
-    st.image("https://images.pexels.com/photos/415071/pexels-photo-415071.jpeg", use_column_width=True)
+    st.image("https://images.pexels.com/photos/415071/pexels-photo-415071.jpeg", use_container_width=True)
     st.markdown("""
     ### Explore & Grow with Motivational Books!
-    ✅ **Read Life-Changing Books** 📚  
+    ✅ **Read Life-Changing Books** 📖  
     ✅ **Track Your Reading Progress** 📊  
     ✅ **Share Your Thoughts & Reviews** 📝  
     """)
     st.success("Start your journey to success today! 🚀")
 
 # Book Collection Page
-elif page == "📚 Book Collection":
+elif page == "📖 Book Collection":
     st.header("📚 Explore Motivational & Life-Changing Books")
-    
     books = [
         {"title": "Atomic Habits", "author": "James Clear", "image_url": "https://images-na.ssl-images-amazon.com/images/I/91bYsX41DVL.jpg"},
         {"title": "The 5 AM Club", "author": "Robin Sharma", "image_url": "https://images-na.ssl-images-amazon.com/images/I/71zytzrg6lL.jpg"},
@@ -41,9 +39,10 @@ elif page == "📚 Book Collection":
     cols = st.columns(2)
     for index, book in enumerate(books):
         with cols[index % 2]:
-            st.image(book["image_url"], use_column_width=True)
-            if st.button(f"📚 Read {book['title']}", key=index):
+            st.image(book["image_url"], use_container_width=True)
+            if st.button(f"📖 Read {book['title']}", key=index):
                 st.write(f"Opening {book['title']}...")
+                st.markdown(f"[Read Now](#)")
 
 # Reading Progress Page
 elif page == "📊 Reading Progress":
