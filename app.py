@@ -1,4 +1,3 @@
-
 import streamlit as st
 import matplotlib.pyplot as plt
 import numpy as np
@@ -34,13 +33,14 @@ elif page == "📖 Book Collection":
         {"title": "The Power of Now", "author": "Eckhart Tolle", "image_url": "https://images-na.ssl-images-amazon.com/images/I/81bgwbXcT3L.jpg"},
         {"title": "Mindset: The New Psychology of Success", "author": "Carol S. Dweck", "image_url": "https://images-na.ssl-images-amazon.com/images/I/81rZ7G0cNxL.jpg"},
         {"title": "The Subtle Art of Not Giving a F*ck", "author": "Mark Manson", "image_url": "https://images-na.ssl-images-amazon.com/images/I/71QKQ9mwV7L.jpg"},
-        {"title": "Awaken the Giant Within", "author": "Tony Robbins", "image_url": "https://images-na.ssl-images-amazon.com/images/I/81tEgsxpNZS.jpg"}
+        {"title": "Awaken the Giant Within", "author": "Tony Robbins", "image_url": "https://images-na.ssl-images-amazon.com/images/I/81tEgsxpNZS.jpg"},
+        {"title": "Think and Grow Rich", "author": "Napoleon Hill", "image_url": "https://images-na.ssl-images-amazon.com/images/I/71UypkUjStL.jpg"}
     ]
     
     cols = st.columns(3)
     for index, book in enumerate(books):
         with cols[index % 3]:
-            st.image(book["image_url"], width=150)
+            st.image(book["image_url"], width=130)
             if st.button(f"📖 Read {book['title']}", key=index):
                 st.write(f"Opening {book['title']}...")
                 st.markdown(f"[Read Now](#)")
@@ -74,4 +74,3 @@ elif page == "📅 Reading Goals":
 # Footer
 st.markdown("---")
 st.markdown("Built with ❤️ using Streamlit | © 2025 Motivational Book Hub")
-
