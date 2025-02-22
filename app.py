@@ -12,7 +12,6 @@ st.set_page_config(page_title="BookWorm's Haven", page_icon="📚", layout="wide
 st.markdown("""
     <style>
     .stApp {
-        background-image: url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
         background-attachment: fixed;
         background-size: cover;
     }
