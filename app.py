@@ -1,92 +1,112 @@
 import streamlit as st
 import matplotlib.pyplot as plt
 import numpy as np
-import time
-from datetime import date
+import datetime
 import random
 
-# App Configuration
-st.set_page_config(page_title="Growth Mindset Challenge", page_icon="🌟", layout="wide")
+# App Title
+st.set_page_config(page_title="Next-Gen Power", page_icon="🚀")
+st.title("Next-Gen Power: Mindset, Innovation & Success")
 
-# Dark Mode Toggle
-dark_mode = st.sidebar.toggle("🌙 Dark Mode")
-st.markdown("""
-    <style>
-        body {
-            background-color: #0e1117;
-            color: white;
-        }
-    </style>
-    """, unsafe_allow_html=True) if dark_mode else None
+# Initialize session state for navigation
+if "page" not in st.session_state:
+    st.session_state.page = "🏡 Home"
+if "current_book" not in st.session_state:
+    st.session_state.current_book = None
+if "completed_books" not in st.session_state:
+    st.session_state.completed_books = []
 
-# Points & Badges System
-st.sidebar.header("🎖️ Your Progress")
-points = st.sidebar.number_input("Current Points", min_value=0, value=st.session_state.get('points', 0), step=1)
-st.session_state.points = points
-badges = ["Beginner", "Learner", "Achiever", "Master"]
-st.sidebar.write(f"🏅 Badge: {badges[min(points//10, len(badges)-1)]}")
-
-# Navigation
-page = st.sidebar.radio("📌 Navigate to:", [
-    "🏡 Home", "📅 Habit Tracker", "💭 Daily Motivation",
-    "📖 Inspirational Stories", "🎯 Goal Setting", "📝 Productivity Tips",
-    "🤔 Self-Reflection", "🧠 Brain Teasers", "🧠 Growth Mindset", "🌍 Community"
+# Sidebar Navigation
+st.sidebar.header("📌 Quick Navigation")
+st.session_state.page = st.sidebar.radio("Go to:", [
+    "🏡 Home", "📚 Transform Your Mindset", "📊 Your Growth Journey", "📝 Share Your Insights",
+    "📅 Set Your Vision", "🎯 Daily Challenge", "🎥 Video Inspirations", "🧠 AI Book Suggestions", "💬 Community Discussion", "🏆 Achievements & Badges"
 ])
 
+# Book Data
+books = [
+    {"title": "Atomic Habits", "author": "James Clear", "category": "Self-Improvement"},
+    {"title": "The 5 AM Club", "author": "Robin Sharma", "category": "Productivity"},
+    {"title": "Mindset: The New Psychology of Success", "author": "Carol S. Dweck", "category": "Psychology"},
+    {"title": "The Subtle Art of Not Giving a F*ck", "author": "Mark Manson", "category": "Self-Help"},
+    {"title": "Awaken the Giant Within", "author": "Tony Robbins", "category": "Motivation"},
+    {"title": "Think and Grow Rich", "author": "Napoleon Hill", "category": "Wealth"}
+]
+
 # Home Page
-if page == "🏡 Home":
-    st.title("🌟 Welcome to Growth Mindset Challenge!")
-    st.image("https://m.media-amazon.com/images/I/51JYYBZTjaL._SL500_.jpg", use_container_width=True)
-    st.success("Today is a new beginning! Make the most of it! 🚀")
+if st.session_state.page == "🏡 Home":
+    st.header("🚀 Welcome to Next-Gen Power")
+    st.image("https://images.pexels.com/photos/415071/pexels-photo-415071.jpeg", use_container_width=True)
+    st.markdown("""
+    ### Unlock Your Full Potential with Knowledge!
+    ✅ **Master the Art of Success** 📖  
+    ✅ **Track Your Personal Growth** 📊  
+    ✅ **Join a Community of Innovators** 💡  
+    """)
+    st.success("Start your journey to greatness today! 🚀")
 
-    # Quote of the Day
-    quotes = [
-        "The only way to do great work is to love what you do. - Steve Jobs",
-        "Believe you can and you're halfway there. - Theodore Roosevelt",
-        "Success is not final, failure is not fatal: it is the courage to continue that counts. - Winston Churchill",
-        "The future belongs to those who believe in the beauty of their dreams. - Eleanor Roosevelt"
+# Daily Challenge
+elif st.session_state.page == "🎯 Daily Challenge":
+    st.header("🎯 Your Daily Challenge")
+    challenges = [
+        "Write down 3 things you're grateful for today.",
+        "Spend 30 minutes reading a new book.",
+        "Wake up 1 hour earlier and plan your day.",
+        "Reach out to a mentor or inspiring person.",
+        "Limit social media usage to 30 minutes.",
     ]
-    st.info(f"💡 **Quote of the Day:** {random.choice(quotes)}")
+    challenge_of_the_day = random.choice(challenges)
+    st.subheader(f"🔥 Today's Challenge: {challenge_of_the_day}")
+    if st.button("I Completed This! ✅"):
+        st.success("Awesome! Keep the momentum going! 🚀")
 
-    # Motivation Trend Graph
-    days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-    motivation_levels = np.random.randint(60, 100, size=7)
+# Video Inspirations
+elif st.session_state.page == "🎥 Video Inspirations":
+    st.header("🎥 Get Inspired with Success Stories")
+    videos = [
+        {"title": "How to Train Your Mind for Success", "url": "https://www.youtube.com/watch?v=2XUFptF7hRU"},
+        {"title": "The Power of a Growth Mindset", "url": "https://www.youtube.com/watch?v=KUWn_TJTrnU"},
+        {"title": "Atomic Habits: The Power of Small Wins", "url": "https://www.youtube.com/watch?v=U_nzqnXWvSo"}
+    ]
+    for video in videos:
+        st.subheader(video["title"])
+        st.video(video["url"])
+
+# AI Book Suggestions
+elif st.session_state.page == "🧠 AI Book Suggestions":
+    st.header("🧠 Personalized Book Recommendations")
+    user_interest = st.selectbox("Select an interest:", ["Productivity", "Self-Help", "Psychology", "Wealth", "Motivation"])
+    suggestions = [book["title"] for book in books if book["category"] == user_interest]
+    if suggestions:
+        st.success(f"📚 Recommended for you: {random.choice(suggestions)}")
+    else:
+        st.warning("No books found in this category.")
+
+# Community Discussion
+elif st.session_state.page == "💬 Community Discussion":
+    st.header("💬 Join the Conversation")
+    discussion_topic = st.text_area("What’s on your mind?")
+    if st.button("Post"):
+        st.success("Your discussion has been shared!")
+
+# Achievements & Badges
+elif st.session_state.page == "🏆 Achievements & Badges":
+    st.header("🏆 Your Achievements")
+    if len(st.session_state.completed_books) > 0:
+        st.success(f"You've completed {len(st.session_state.completed_books)} books! 🎉")
+    else:
+        st.info("Start reading to unlock achievements!")
+    
+# Reading Progress (Existing Page)
+elif st.session_state.page == "📊 Your Growth Journey":
+    st.header("📊 Your Growth Journey")
+    progress = np.random.randint(0, 100, size=len(books))
     fig, ax = plt.subplots()
-    ax.plot(days, motivation_levels, marker='o', linestyle='-', color='blue')
-    ax.set_title("Weekly Motivation Trend")
-    ax.set_ylabel("Motivation Level (%)")
-    ax.set_ylim(0, 100)
+    ax.pie(progress, labels=[book["title"] for book in books], autopct='%1.1f%%', startangle=140)
+    ax.set_title("Your Reading Progress")
     st.pyplot(fig)
 
-# AI-Based Book & Video Recommendations
-elif page == "🧠 Growth Mindset":
-    st.header("🧠 Growth Mindset Challenge")
-    books = [
-        "Mindset - Carol S. Dweck",
-        "Atomic Habits - James Clear",
-        "Grit - Angela Duckworth",
-        "The Power of Now - Eckhart Tolle",
-    ]
-    videos = [
-        "https://www.youtube.com/watch?v=KUWn_TJTrnU",  # Growth Mindset Video
-        "https://www.youtube.com/watch?v=Z-zNHHpXoMM"   # Atomic Habits Summary
-    ]
-    st.write(f"📚 **Recommended Book:** {random.choice(books)}")
-    st.write(f"🎥 **Watch this video:** [Click here]({random.choice(videos)})")
-
-# Community Page
-elif page == "🌍 Community":
-    st.header("🌍 Community Sharing")
-    st.write("Share your progress, insights, and challenges with others!")
-    user_story = st.text_area("Share your story or tip:")
-    if st.button("Post to Community"):
-        st.success("✅ Shared successfully! Inspire others! ✨")
-
-# Leaderboard
-st.sidebar.header("🏆 Leaderboard")
-leaderboard = {"Alice": 120, "Bob": 90, "Charlie": 80, "You": points}
-sorted_leaderboard = sorted(leaderboard.items(), key=lambda x: x[1], reverse=True)
-st.sidebar.table(sorted_leaderboard)
-
+# Footer
 st.markdown("---")
-st.markdown("Built with ❤️ using Streamlit | © 2025 Growth Mindset Challenge")
+st.markdown("🚀 Built for Future Leaders | © 2025 Next-Gen Power")
+
