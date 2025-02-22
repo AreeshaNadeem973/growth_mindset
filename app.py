@@ -1,113 +1,94 @@
 import streamlit as st
+import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
-import random
 
 # App Title
 st.set_page_config(page_title="Motivational Books Hub", page_icon="📚")
-st.title("📚 Welcome to Motivational Books Hub")
+st.title("📚 Motivational Books Hub")
 
 # Sidebar Navigation
 st.sidebar.header("📌 Quick Navigation")
 page = st.sidebar.radio("Go to:", [
-    "🏡 Home", "📖 Book Categories", "📚 Top Motivational Books", "📊 Reading Progress",
-    "📝 Daily Book Quotes", "🎯 Reading Challenges", "🧠 Brain-Boosting Reads"
+    "🏡 Home", "📖 Book Collection", "📊 Reading Progress", "💡 Daily Inspiration", "🎯 Reading Challenges"
 ])
+
+# Sample Books Data
+books = [
+    {"title": "Atomic Habits", "author": "James Clear", "image": "https://m.media-amazon.com/images/I/81wgcld4wxL.jpg", "link": "https://www.amazon.com/dp/0735211299"},
+    {"title": "The 5 AM Club", "author": "Robin Sharma", "image": "https://m.media-amazon.com/images/I/71ZY0tB-aBL.jpg", "link": "https://www.amazon.com/dp/1443456624"},
+    {"title": "Can't Hurt Me", "author": "David Goggins", "image": "https://m.media-amazon.com/images/I/61IJiYp9RAL.jpg", "link": "https://www.amazon.com/dp/1544507852"},
+    {"title": "The Power of Now", "author": "Eckhart Tolle", "image": "https://m.media-amazon.com/images/I/71mHaU4VwFL.jpg", "link": "https://www.amazon.com/dp/1577314808"}
+]
 
 # Home Page
 if page == "🏡 Home":
-    st.header("🚀 Ignite Your Motivation Through Books!")
-    st.image("https://images.pexels.com/photos/417062/pexels-photo-417062.jpeg", use_container_width=True)
+    st.header("Welcome to Your Motivational Reading Hub! 📖✨")
+    st.image("https://images.pexels.com/photos/415071/pexels-photo-415071.jpeg", use_container_width=True)
     st.markdown("""
-    ### Why Read Motivational Books?
-    ✅ **Gain Inspiration** – Learn from the best minds.  
-    ✅ **Develop Success Habits** – Transform your mindset.  
-    ✅ **Improve Productivity** – Apply life-changing principles.  
-    ✅ **Stay Focused** – Achieve your dreams with powerful insights!  
+    ### Explore, Learn, and Stay Inspired!
+    ✅ **Discover top motivational books** 📚  
+    ✅ **Track your reading progress** 📊  
+    ✅ **Daily quotes to keep you inspired** 💡  
+    ✅ **Set reading goals and take on challenges** 🎯  
     """)
-    st.success("Start your reading journey today! 🚀")
+    st.success("Start your journey today! 🚀")
 
-# Book Categories
-elif page == "📖 Book Categories":
-    st.header("📖 Explore Different Motivational Book Genres")
-    categories = ["Self-Help", "Business & Success", "Mindset & Growth", "Biographies", "Spiritual & Well-being"]
-    selected_category = st.selectbox("Choose a category:", categories)
-    
-    books = {
-        "Self-Help": ["Atomic Habits", "The 5 AM Club"],
-        "Business & Success": ["Rich Dad Poor Dad", "The Lean Startup"],
-        "Mindset & Growth": ["Mindset: The New Psychology of Success", "Grit"],
-        "Biographies": ["Steve Jobs", "Elon Musk: Tesla, SpaceX, and the Quest for a Fantastic Future"],
-        "Spiritual & Well-being": ["The Power of Now", "The Untethered Soul"]
-    }
-    
-    st.write("📚 Recommended Books:")
-    for book in books[selected_category]:
-        st.write(f"- {book}")
+# Book Collection Page
+elif page == "📖 Book Collection":
+    st.header("📖 Explore Motivational Books")
+    cols = st.columns(2)
+    for idx, book in enumerate(books):
+        with cols[idx % 2]:
+            st.image(book['image'], width=150)
+            st.write(f"**{book['title']}** by {book['author']}")
+            if st.button(f"📖 Read {book['title']}", key=book['title']):
+                st.markdown(f"[Read Now]({book['link']})")
 
-# Top Motivational Books
-elif page == "📚 Top Motivational Books":
-    st.header("🌟 Must-Read Motivational Books")
-    st.write("Here are some of the best books to inspire and empower you:")
-    books = [
-        "Atomic Habits - James Clear",
-        "The 7 Habits of Highly Effective People - Stephen Covey",
-        "The Power of Now - Eckhart Tolle",
-        "Think and Grow Rich - Napoleon Hill",
-        "The Magic of Thinking Big - David J. Schwartz"
-    ]
-    for book in books:
-        st.markdown(f"📖 **{book}**")
-
-# Reading Progress Graph
+# Reading Progress Page
 elif page == "📊 Reading Progress":
     st.header("📊 Track Your Reading Progress")
-    books = ["Atomic Habits", "The 7 Habits", "The Power of Now", "Think & Grow Rich"]
-    progress = np.random.randint(20, 100, size=len(books))
-    fig, ax = plt.subplots()
-    ax.barh(books, progress, color=['#FF5733', '#33FF57', '#3357FF', '#F3FF33'])
-    ax.set_xlabel("Reading Progress (%)")
-    ax.set_title("Your Book Completion Progress")
-    st.pyplot(fig)
-
-# Daily Book Quotes
-elif page == "📝 Daily Book Quotes":
-    st.header("📜 Inspirational Quotes from Motivational Books")
-    quotes = [
-        "The secret of getting ahead is getting started. – Mark Twain",
-        "Your time is limited, so don’t waste it living someone else’s life. – Steve Jobs",
-        "Do what you can, with what you have, where you are. – Theodore Roosevelt",
-        "Success is not final, failure is not fatal: It is the courage to continue that counts. – Winston Churchill"
-    ]
-    st.success(f"💡 **Quote of the Day:** {random.choice(quotes)}")
-
-# Reading Challenges
-elif page == "🎯 Reading Challenges":
-    st.header("🎯 Set Your Reading Challenge")
-    target_books = st.number_input("How many books do you aim to read this month?", min_value=1, max_value=20, value=4)
-    completed_books = st.slider("Books Completed So Far", 0, target_books, 0)
+    pages_read = st.slider("How many pages have you read today?", 0, 300, 50)
+    st.write(f"You've read **{pages_read} pages** today! Keep going! 📖")
+    
+    # Generate Random Weekly Progress Data
+    days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    progress = np.random.randint(10, 50, size=7)
     
     fig, ax = plt.subplots()
-    ax.pie([completed_books, target_books - completed_books], labels=["Completed", "Remaining"], autopct='%1.1f%%', colors=['#4CAF50', '#FFC107'])
-    ax.set_title("Your Reading Challenge Progress")
+    ax.bar(days, progress, color=['blue', 'green', 'orange', 'red', 'purple', 'yellow', 'cyan'])
+    ax.set_title("Weekly Reading Progress")
+    ax.set_ylabel("Pages Read")
+    ax.set_ylim(0, 50)
     st.pyplot(fig)
 
-    if completed_books >= target_books:
-        st.success("Congratulations! You've achieved your reading goal! 🎉")
-    else:
-        st.info(f"Keep going! {target_books - completed_books} books left to reach your goal! 📚")
-
-# Brain-Boosting Reads
-elif page == "🧠 Brain-Boosting Reads":
-    st.header("🧠 Books to Sharpen Your Mind")
-    books = [
-        "Deep Work - Cal Newport",
-        "The Art of Thinking Clearly - Rolf Dobelli",
-        "A Mind for Numbers - Barbara Oakley",
-        "Super Thinking - Gabriel Weinberg & Lauren McCann"
+# Daily Inspiration Page
+elif page == "💡 Daily Inspiration":
+    st.header("💡 Daily Book Wisdom")
+    quotes = [
+        "A reader lives a thousand lives before he dies. - George R.R. Martin",
+        "The more that you read, the more things you will know. - Dr. Seuss",
+        "Reading is essential for those who seek to rise above the ordinary. - Jim Rohn",
+        "Once you learn to read, you will be forever free. - Frederick Douglass"
     ]
-    for book in books:
-        st.markdown(f"📖 **{book}**")
+    st.success(f"📖 **Quote of the Day:** {np.random.choice(quotes)}")
+
+# Reading Challenges Page
+elif page == "🎯 Reading Challenges":
+    st.header("🎯 Set and Achieve Reading Goals!")
+    goal_pages = st.number_input("Set your daily reading goal (pages):", min_value=10, max_value=300, value=50)
+    completed_pages = st.number_input("Pages you read today:", min_value=0, max_value=300, value=0)
+    
+    # Pie Chart for Progress
+    fig, ax = plt.subplots()
+    ax.pie([completed_pages, max(0, goal_pages - completed_pages)], labels=["Read", "Remaining"], autopct='%1.1f%%', colors=["green", "gray"])
+    ax.set_title("Reading Goal Progress")
+    st.pyplot(fig)
+    
+    if completed_pages >= goal_pages:
+        st.success("🎉 Congrats! You've met your goal today!")
+    else:
+        st.warning("Keep going! You're getting closer to your goal!")
 
 # Footer
 st.markdown("---")
