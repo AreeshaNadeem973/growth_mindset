@@ -12,6 +12,16 @@ page = st.sidebar.radio("Go to:", [
     "🏡 Home", "📖 Book Collection", "📊 Reading Progress", "📝 Reviews & Thoughts", "📅 Reading Goals"
 ])
 
+# Book Data
+books = [
+    {"title": "Atomic Habits", "author": "James Clear", "image_url": "https://images-na.ssl-images-amazon.com/images/I/91bYsX41DVL.jpg", "content": "This is the content of Atomic Habits..."},
+    {"title": "The 5 AM Club", "author": "Robin Sharma", "image_url": "https://images-na.ssl-images-amazon.com/images/I/71zytzrg6lL.jpg", "content": "This is the content of The 5 AM Club..."},
+    {"title": "Mindset: The New Psychology of Success", "author": "Carol S. Dweck", "image_url": "https://bukharibooks.com/wp-content/uploads/2019/07/mindset-2.png", "content": "This is the content of Mindset..."},
+    {"title": "The Subtle Art of Not Giving a F*ck", "author": "Mark Manson", "image_url": "https://images-na.ssl-images-amazon.com/images/I/71QKQ9mwV7L.jpg", "content": "This is the content of The Subtle Art of Not Giving a F*ck..."},
+    {"title": "Awaken the Giant Within", "author": "Tony Robbins", "image_url": "https://images-na.ssl-images-amazon.com/images/I/81tEgsxpNZS.jpg", "content": "This is the content of Awaken the Giant Within..."},
+    {"title": "Think and Grow Rich", "author": "Napoleon Hill", "image_url": "https://images-na.ssl-images-amazon.com/images/I/71UypkUjStL.jpg", "content": "This is the content of Think and Grow Rich..."}
+]
+
 # Home Page
 if page == "🏡 Home":
     st.header("📚 Welcome to Motivational Book Hub")
@@ -27,32 +37,36 @@ if page == "🏡 Home":
 # Book Collection Page
 elif page == "📖 Book Collection":
     st.header("📚 Explore Motivational & Life-Changing Books")
-    books = [
-        {"title": "Atomic Habits", "author": "James Clear", "image_url": "https://images-na.ssl-images-amazon.com/images/I/91bYsX41DVL.jpg", "content": "Atomic Habits is a comprehensive guide on how tiny changes can yield remarkable results."},
-        {"title": "The 5 AM Club", "author": "Robin Sharma", "image_url": "https://images-na.ssl-images-amazon.com/images/I/71zytzrg6lL.jpg", "content": "The 5 AM Club shows how waking up early can transform your productivity and mindset."},
-        {"title": "Mindset: The New Psychology of Success", "author": "Carol S. Dweck", "image_url": "https://bukharibooks.com/wp-content/uploads/2019/07/mindset-2.png", "content": "Mindset explores the differences between a fixed mindset and a growth mindset, and how they impact success."},
-        {"title": "The Subtle Art of Not Giving a F*ck", "author": "Mark Manson", "image_url": "https://images-na.ssl-images-amazon.com/images/I/71QKQ9mwV7L.jpg", "content": "This book provides a counterintuitive approach to living a better life by embracing limitations."},
-        {"title": "Awaken the Giant Within", "author": "Tony Robbins", "image_url": "https://images-na.ssl-images-amazon.com/images/I/81tEgsxpNZS.jpg", "content": "Tony Robbins shares powerful strategies for personal transformation and success."},
-        {"title": "Think and Grow Rich", "author": "Napoleon Hill", "image_url": "https://images-na.ssl-images-amazon.com/images/I/71UypkUjStL.jpg", "content": "This classic book explains the philosophy behind success and wealth-building."}
-    ]
-    
-    selected_book = st.selectbox("Choose a book to read:", [book["title"] for book in books])
+    selected_book = st.selectbox("Select a book to read:", [book["title"] for book in books])
     
     for book in books:
-        if selected_book == book["title"]:
+        if book["title"] == selected_book:
             st.image(book["image_url"], width=200)
             st.subheader(book["title"])
             st.write(f"**Author:** {book['author']}")
+            if st.button("📖 Read Now"):
+                st.session_state["current_book"] = book["title"]
+                st.experimental_rerun()
+
+# Dynamic Book Reading Page
+if "current_book" in st.session_state:
+    for book in books:
+        if book["title"] == st.session_state["current_book"]:
+            st.header(f"📖 Reading: {book['title']}")
+            st.image(book["image_url"], width=200)
+            st.subheader(f"By {book['author']}")
             st.write(book["content"])
-            break
+            if st.button("⬅ Back to Collection"):
+                del st.session_state["current_book"]
+                st.experimental_rerun()
 
 # Reading Progress Page
 elif page == "📊 Reading Progress":
     st.header("📊 Track Your Reading Progress")
-    books = ["Atomic Habits", "The 5 AM Club", "The Power of Now", "Think and Grow Rich"]
-    progress = np.random.randint(0, 100, size=len(books))
+    book_titles = [book["title"] for book in books]
+    progress = np.random.randint(0, 100, size=len(book_titles))
     fig, ax = plt.subplots()
-    ax.barh(books, progress, color=['#FF5733', '#33FF57', '#3357FF', '#F3FF33'])
+    ax.barh(book_titles, progress, color=['#FF5733', '#33FF57', '#3357FF', '#F3FF33'])
     ax.set_title("Reading Progress (%)")
     ax.set_xlabel("Completion %")
     st.pyplot(fig)
@@ -60,7 +74,7 @@ elif page == "📊 Reading Progress":
 # Reviews & Thoughts Page
 elif page == "📝 Reviews & Thoughts":
     st.header("📝 Share Your Thoughts on Books")
-    book = st.selectbox("Select a Book", ["Atomic Habits", "The 5 AM Club", "The Power of Now", "Think and Grow Rich"])
+    book = st.selectbox("Select a Book", book_titles)
     review = st.text_area("Write your review:")
     if st.button("Submit Review"):
         st.success("Review submitted successfully!")
