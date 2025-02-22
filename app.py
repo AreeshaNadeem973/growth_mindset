@@ -107,3 +107,4 @@ elif st.session_state.page == "📅 Set Your Vision":
 st.markdown("---")
 st.markdown("🚀 Built for Future Leaders | © 2025 Next-Gen Power")
 
+
