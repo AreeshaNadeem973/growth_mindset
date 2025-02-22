@@ -1,3 +1,4 @@
+
 import streamlit as st
 import matplotlib.pyplot as plt
 import numpy as np
@@ -26,6 +27,8 @@ books = [
     {"title": "Think and Grow Rich", "author": "Napoleon Hill", "image_url": "https://images-na.ssl-images-amazon.com/images/I/71UypkUjStL.jpg", "read_url": "https://www.naphill.org/think-and-grow-rich/"}
 ]
 
+book_titles = [book["title"] for book in books]  # Ensure book_titles is always defined
+
 # Home Page
 if page == "🏡 Home":
     st.header("📚 Welcome to Motivational Book Hub")
@@ -53,7 +56,6 @@ elif page == "📖 Book Collection":
 # Reading Progress Page
 elif page == "📊 Reading Progress":
     st.header("📊 Track Your Reading Progress")
-    book_titles = [book["title"] for book in books]
     progress = np.random.randint(0, 100, size=len(book_titles))
     fig, ax = plt.subplots()
     ax.barh(book_titles, progress, color=['#FF5733', '#33FF57', '#3357FF', '#F3FF33'])
