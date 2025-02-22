@@ -15,7 +15,7 @@ page = st.sidebar.radio("Go to:", [
 
 # Home Page
 if page == "🏡 Home":
-
+    st.header("📚 Welcome to Motivational Book Hub")
     st.image("https://images.pexels.com/photos/415071/pexels-photo-415071.jpeg", width=500)  # Updated Image Size
     st.markdown("""
     ### Explore & Grow with Motivational Books!
