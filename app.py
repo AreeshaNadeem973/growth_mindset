@@ -37,7 +37,11 @@ books = [
     {"title": "Think and Grow Rich", "author": "Napoleon Hill", "category": "Wealth"}
 ]
 
-# Transform Your Mindset
+# Navigation Logic
+if st.session_state.page == "🏡 Home":
+    st.header("🚀 Welcome to Next-Gen Power")
+    st.markdown("Start your journey to success today!")
+
 elif st.session_state.page == "📚 Transform Your Mindset":
     st.header("📚 Transform Your Mindset with Powerful Reads")
     selected_category = st.selectbox("Choose a Category:", ["All"] + list(set(book["category"] for book in books)))
@@ -56,7 +60,6 @@ elif st.session_state.page == "📚 Transform Your Mindset":
                     st.session_state.page = "📖 Reading"  # Set the new page
                     st.rerun()
 
-# Your Growth Journey
 elif st.session_state.page == "📊 Your Growth Journey":
     st.header("📊 Your Growth Journey")
     progress = np.random.randint(0, 100, size=len(books))
@@ -71,7 +74,6 @@ elif st.session_state.page == "📊 Your Growth Journey":
     if st.button("Save Reflection"):
         st.success("Your reflection has been saved!")
 
-# Share Your Insights
 elif st.session_state.page == "📝 Share Your Insights":
     st.header("📝 Share Your Insights & Reflections")
     book = st.selectbox("Select a Book", [book["title"] for book in books])
@@ -86,7 +88,6 @@ elif st.session_state.page == "📝 Share Your Insights":
         for insight in st.session_state.insights:
             st.write(f"**{insight['book']}:** {insight['review']}")
 
-# Set Your Vision
 elif st.session_state.page == "📅 Set Your Vision":
     st.header("📅 Set Your Vision for Success")
     goal = st.text_input("What’s your next goal?")
