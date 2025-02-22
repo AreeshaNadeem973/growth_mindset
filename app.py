@@ -17,10 +17,16 @@ st.session_state.page = st.sidebar.radio("Go to:", [
 ])
 
 # Book Data
+   ])
+
+# Book Data
 books = [
-    {"title": "Atomic Habits", "author": "James Clear", "category": "Self-Improvement", "description": "Build good habits and break bad ones."},
-    {"title": "The 5 AM Club", "author": "Robin Sharma", "category": "Productivity", "description": "Master your morning routine."},
-    {"title": "Mindset", "author": "Carol S. Dweck", "category": "Psychology", "description": "Growth mindset for success."},
+    {"title": "Atomic Habits", "author": "James Clear", "image_url": "https://images-na.ssl-images-amazon.com/images/I/91bYsX41DVL.jpg", "category": "Self-Improvement", "description": "A practical guide to building good habits and breaking bad ones."},
+    {"title": "The 5 AM Club", "author": "Robin Sharma", "image_url": "https://images-na.ssl-images-amazon.com/images/I/71zytzrg6lL.jpg", "category": "Productivity", "description": "Discover the morning routine that can change your life."},
+    {"title": "Mindset: The New Psychology of Success", "author": "Carol S. Dweck", "image_url": "https://bukharibooks.com/wp-content/uploads/2019/07/mindset-2.png", "category": "Psychology", "description": "Understand how a growth mindset leads to success."},
+    {"title": "The Subtle Art of Not Giving a F*ck", "author": "Mark Manson", "image_url": "https://images-na.ssl-images-amazon.com/images/I/71QKQ9mwV7L.jpg", "category": "Self-Help", "description": "A counterintuitive approach to living a good life."},
+    {"title": "Awaken the Giant Within", "author": "Tony Robbins", "image_url": "https://images-na.ssl-images-amazon.com/images/I/81tEgsxpNZS.jpg", "category": "Motivation", "description": "Unleash your full potential with Tony Robbins' strategies."},
+    {"title": "Think and Grow Rich", "author": "Napoleon Hill", "image_url": "https://images-na.ssl-images-amazon.com/images/I/71UypkUjStL.jpg", "category": "Wealth", "description": "Timeless principles of success and wealth-building."}
 ]
 book_titles = [book["title"] for book in books]
 
