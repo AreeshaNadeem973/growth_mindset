@@ -30,7 +30,7 @@ elif page == "📖 Book Collection":
     books = [
         {"title": "Atomic Habits", "author": "James Clear", "image_url": "https://images-na.ssl-images-amazon.com/images/I/91bYsX41DVL.jpg"},
         {"title": "The 5 AM Club", "author": "Robin Sharma", "image_url": "https://images-na.ssl-images-amazon.com/images/I/71zytzrg6lL.jpg"},
-        {"title": "The Power of Now", "author": "Eckhart Tolle", "image_url": "https://images-na.ssl-images-amazon.com/images/I/81bgwbXcT3L.jpg"},
+        {"title": "The Power of Now", "author": "Eckhart Tolle", "image_url": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FThe_Power_of_Now&psig=AOvVaw22K59Jcr4d9bEybrYTeJ3c&ust=1740305262161000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCID_8LqE14sDFQAAAAAdAAAAABAE"},
         {"title": "Mindset: The New Psychology of Success", "author": "Carol S. Dweck", "image_url": "https://images-na.ssl-images-amazon.com/images/I/81rZ7G0cNxL.jpg"},
         {"title": "The Subtle Art of Not Giving a F*ck", "author": "Mark Manson", "image_url": "https://images-na.ssl-images-amazon.com/images/I/71QKQ9mwV7L.jpg"},
         {"title": "Awaken the Giant Within", "author": "Tony Robbins", "image_url": "https://images-na.ssl-images-amazon.com/images/I/81tEgsxpNZS.jpg"},
