@@ -4,7 +4,7 @@ import numpy as np
 
 # App Title
 st.set_page_config(page_title="Motivational Book Hub", page_icon="📚")
-st.title("📚 Welcome to Motivational Book Hub")
+
 
 # Sidebar Navigation
 st.sidebar.header("📌 Quick Navigation")
