@@ -1,8 +1,6 @@
 import streamlit as st
 import matplotlib.pyplot as plt
 import numpy as np
-import datetime
-import random
 
 # App Title
 st.set_page_config(page_title="Next-Gen Power", page_icon="🚀")
@@ -11,27 +9,26 @@ st.title("Next-Gen Power: Mindset, Innovation & Success")
 # Initialize session state for navigation
 if "page" not in st.session_state:
     st.session_state.page = "🏡 Home"
-if "current_book" not in st.session_state:
-    st.session_state.current_book = None
-if "completed_books" not in st.session_state:
-    st.session_state.completed_books = []
 
 # Sidebar Navigation
 st.sidebar.header("📌 Quick Navigation")
-st.session_state.page = st.sidebar.radio("Go to:", [
-    "🏡 Home", "📚 Transform Your Mindset", "📊 Your Growth Journey", "📝 Share Your Insights",
-    "📅 Set Your Vision", "🎯 Daily Challenge", "🎥 Video Inspirations", "🧠 AI Book Suggestions", "💬 Community Discussion", "🏆 Achievements & Badges"
-])
+if "current_book" in st.session_state:
+    st.session_state.page = "📖 Reading"
+else:
+    st.session_state.page = st.sidebar.radio("Go to:", [
+        "🏡 Home", "📚 Transform Your Mindset", "📊 Your Growth Journey", "📝 Share Your Insights", "📅 Set Your Vision",
+        "🏆 Personal Growth Challenges", "💡 Daily Productivity Tips", "🌍 Community Forum"
+    ])
 
 # Book Data
 books = [
-    {"title": "Atomic Habits", "author": "James Clear", "category": "Self-Improvement"},
-    {"title": "The 5 AM Club", "author": "Robin Sharma", "category": "Productivity"},
-    {"title": "Mindset: The New Psychology of Success", "author": "Carol S. Dweck", "category": "Psychology"},
-    {"title": "The Subtle Art of Not Giving a F*ck", "author": "Mark Manson", "category": "Self-Help"},
-    {"title": "Awaken the Giant Within", "author": "Tony Robbins", "category": "Motivation"},
-    {"title": "Think and Grow Rich", "author": "Napoleon Hill", "category": "Wealth"}
+    {"title": "Atomic Habits", "author": "James Clear", "image_url": "https://images-na.ssl-images-amazon.com/images/I/91bYsX41DVL.jpg", "category": "Self-Improvement", "description": "A practical guide to building good habits and breaking bad ones."},
+    {"title": "The 5 AM Club", "author": "Robin Sharma", "image_url": "https://images-na.ssl-images-amazon.com/images/I/71zytzrg6lL.jpg", "category": "Productivity", "description": "Discover the morning routine that can change your life."},
+    {"title": "Mindset: The New Psychology of Success", "author": "Carol S. Dweck", "image_url": "https://bukharibooks.com/wp-content/uploads/2019/07/mindset-2.png", "category": "Psychology", "description": "Understand how a growth mindset leads to success."}
 ]
+
+book_titles = [book["title"] for book in books]
+categories = list(set(book["category"] for book in books))
 
 # Home Page
 if st.session_state.page == "🏡 Home":
@@ -45,68 +42,48 @@ if st.session_state.page == "🏡 Home":
     """)
     st.success("Start your journey to greatness today! 🚀")
 
-# Daily Challenge
-elif st.session_state.page == "🎯 Daily Challenge":
-    st.header("🎯 Your Daily Challenge")
-    challenges = [
-        "Write down 3 things you're grateful for today.",
-        "Spend 30 minutes reading a new book.",
-        "Wake up 1 hour earlier and plan your day.",
-        "Reach out to a mentor or inspiring person.",
-        "Limit social media usage to 30 minutes.",
+# Book Collection Page
+elif st.session_state.page == "📚 Transform Your Mindset":
+    st.header("📚 Transform Your Mindset with Powerful Reads")
+    selected_category = st.selectbox("Choose a Category:", ["All"] + categories)
+    filtered_books = books if selected_category == "All" else [book for book in books if book["category"] == selected_category]
+    for book in filtered_books:
+        with st.container():
+            col1, col2 = st.columns([1, 3])
+            with col1:
+                st.image(book["image_url"], width=120)
+            with col2:
+                st.subheader(book["title"])
+                st.write(f"**Author:** {book['author']}")
+                st.write(f"📖 {book['description']}")
+
+# Personal Growth Challenges Page
+elif st.session_state.page == "🏆 Personal Growth Challenges":
+    st.header("🏆 Personal Growth Challenges")
+    st.write("Push your limits with these challenges!")
+    challenges = ["Read a book in 7 days", "Practice gratitude daily", "Eliminate distractions for 48 hours"]
+    for challenge in challenges:
+        st.checkbox(challenge)
+
+# Daily Productivity Tips Page
+elif st.session_state.page == "💡 Daily Productivity Tips":
+    st.header("💡 Daily Productivity Tips")
+    tips = [
+        "Start your day with a clear goal",
+        "Take short breaks to boost focus",
+        "Avoid multitasking for better efficiency"
     ]
-    challenge_of_the_day = random.choice(challenges)
-    st.subheader(f"🔥 Today's Challenge: {challenge_of_the_day}")
-    if st.button("I Completed This! ✅"):
-        st.success("Awesome! Keep the momentum going! 🚀")
+    st.write(np.random.choice(tips))
 
-# Video Inspirations
-elif st.session_state.page == "🎥 Video Inspirations":
-    st.header("🎥 Get Inspired with Success Stories")
-    videos = [
-        {"title": "How to Train Your Mind for Success", "url": "https://www.youtube.com/watch?v=2XUFptF7hRU"},
-        {"title": "The Power of a Growth Mindset", "url": "https://www.youtube.com/watch?v=KUWn_TJTrnU"},
-        {"title": "Atomic Habits: The Power of Small Wins", "url": "https://www.youtube.com/watch?v=U_nzqnXWvSo"}
-    ]
-    for video in videos:
-        st.subheader(video["title"])
-        st.video(video["url"])
-
-# AI Book Suggestions
-elif st.session_state.page == "🧠 AI Book Suggestions":
-    st.header("🧠 Personalized Book Recommendations")
-    user_interest = st.selectbox("Select an interest:", ["Productivity", "Self-Help", "Psychology", "Wealth", "Motivation"])
-    suggestions = [book["title"] for book in books if book["category"] == user_interest]
-    if suggestions:
-        st.success(f"📚 Recommended for you: {random.choice(suggestions)}")
-    else:
-        st.warning("No books found in this category.")
-
-# Community Discussion
-elif st.session_state.page == "💬 Community Discussion":
-    st.header("💬 Join the Conversation")
-    discussion_topic = st.text_area("What’s on your mind?")
+# Community Forum Page
+elif st.session_state.page == "🌍 Community Forum":
+    st.header("🌍 Community Forum")
+    st.text_area("Share your thoughts with the community:")
     if st.button("Post"):
-        st.success("Your discussion has been shared!")
-
-# Achievements & Badges
-elif st.session_state.page == "🏆 Achievements & Badges":
-    st.header("🏆 Your Achievements")
-    if len(st.session_state.completed_books) > 0:
-        st.success(f"You've completed {len(st.session_state.completed_books)} books! 🎉")
-    else:
-        st.info("Start reading to unlock achievements!")
-    
-# Reading Progress (Existing Page)
-elif st.session_state.page == "📊 Your Growth Journey":
-    st.header("📊 Your Growth Journey")
-    progress = np.random.randint(0, 100, size=len(books))
-    fig, ax = plt.subplots()
-    ax.pie(progress, labels=[book["title"] for book in books], autopct='%1.1f%%', startangle=140)
-    ax.set_title("Your Reading Progress")
-    st.pyplot(fig)
+        st.success("Your post has been shared!")
 
 # Footer
 st.markdown("---")
 st.markdown("🚀 Built for Future Leaders | © 2025 Next-Gen Power")
+
 
