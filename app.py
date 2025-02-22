@@ -44,20 +44,27 @@ if page == "🏡 Home":
 # Book Collection Page
 elif page == "📖 Book Collection":
     st.header("📚 Explore Motivational & Life-Changing Books")
+    st.markdown("""
+    Browse through our collection of carefully selected books that will inspire and empower you. 
+    Choose a category to filter the books or explore them all!
+    """)
     selected_category = st.selectbox("Choose a Category:", ["All"] + categories)
     
     filtered_books = books if selected_category == "All" else [book for book in books if book["category"] == selected_category]
     
-    cols = st.columns(3)
-    for index, book in enumerate(filtered_books):
-        with cols[index % 3]:
-            st.image(book["image_url"], width=150)
-            st.subheader(book["title"])
-            st.write(f"**Author:** {book['author']}")
-            if st.button(f"📖 Read More {book['title']}", key=book['title']):
-                webbrowser.open_new_tab(book["read_url"])
-                st.balloons()
-
+    for book in filtered_books:
+        with st.container():
+            col1, col2 = st.columns([1, 3])
+            with col1:
+                st.image(book["image_url"], width=120)
+            with col2:
+                st.subheader(book["title"])
+                st.write(f"**Author:** {book['author']}")
+                st.write(f"**Category:** {book['category']}")
+                if st.button(f"📖 Read More", key=book['title']):
+                    webbrowser.open_new_tab(book["read_url"])
+                    st.balloons()
+    
 # Reading Progress Page
 elif page == "📊 Reading Progress":
     st.header("📊 Track Your Reading Progress")
