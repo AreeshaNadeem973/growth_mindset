@@ -1,10 +1,11 @@
+
 import streamlit as st
 import matplotlib.pyplot as plt
 import numpy as np
 
 # App Title
 st.set_page_config(page_title="Motivational Book Hub", page_icon="📚")
-
+st.title("📚 Welcome to Motivational Book Hub")
 
 # Sidebar Navigation
 st.sidebar.header("📌 Quick Navigation")
@@ -40,14 +41,13 @@ if page == "🏡 Home":
 # Book Collection Page
 elif page == "📖 Book Collection":
     st.header("📚 Explore Motivational & Life-Changing Books")
-    selected_book = st.selectbox("Select a book to read:", [book["title"] for book in books])
-    
-    for book in books:
-        if book["title"] == selected_book:
-            st.image(book["image_url"], width=200)
+    cols = st.columns(3)
+    for index, book in enumerate(books):
+        with cols[index % 3]:
+            st.image(book["image_url"], width=150)
             st.subheader(book["title"])
             st.write(f"**Author:** {book['author']}")
-            if st.button("📖 Read Now"):
+            if st.button(f"📖 Read Now {book['title']}", key=book['title']):
                 st.session_state["current_book"] = book["title"]
                 st.rerun()
 
@@ -92,4 +92,3 @@ elif page == "📅 Reading Goals":
 # Footer
 st.markdown("---")
 st.markdown("Built with ❤️ using Streamlit | © 2025 Motivational Book Hub")
-
