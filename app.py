@@ -1,4 +1,3 @@
-
 import streamlit as st
 import matplotlib.pyplot as plt
 import numpy as np
@@ -58,9 +57,8 @@ elif page == "📊 Reading Progress":
     st.header("📊 Track Your Reading Progress")
     progress = np.random.randint(0, 100, size=len(book_titles))
     fig, ax = plt.subplots()
-    ax.barh(book_titles, progress, color=['#FF5733', '#33FF57', '#3357FF', '#F3FF33'])
-    ax.set_title("Reading Progress (%)")
-    ax.set_xlabel("Completion %")
+    ax.pie(progress, labels=book_titles, autopct='%1.1f%%', startangle=140, colors=['#FF5733', '#33FF57', '#3357FF', '#F3FF33', '#FF33A8', '#33FFF5'])
+    ax.set_title("Reading Progress Distribution")
     st.pyplot(fig)
 
 # Reviews & Thoughts Page
