@@ -1,6 +1,4 @@
 import streamlit as st
-import matplotlib.pyplot as plt
-import numpy as np
 import random
 
 # App Title
@@ -14,11 +12,20 @@ if "page" not in st.session_state:
 # Sidebar Navigation
 st.sidebar.header("📌 Quick Navigation")
 st.session_state.page = st.sidebar.radio("Go to:", [
-    "🏡 Home", "📚 Transform Your Mindset", "📊 Your Growth Journey", "📝 Share Your Insights", "📅 Set Your Vision", "🎯 Daily Growth Challenge", "🧠 Mindset Quiz", "📋 Goal Tracker", "💬 Community Polls"
+    "🏡 Home", "📚 Transform Your Mindset", "📊 Your Growth Journey", "📝 Share Your Insights", 
+    "📅 Set Your Vision", "🎯 Daily Growth Challenge", "🧠 Mindset Quiz", "📋 Goal Tracker", "💬 Community Polls",
+    "📔 Growth Journal"
 ])
 
-# Home Page
-if st.session_state.page == "🏡 Home":
+# Growth Journal Page
+if st.session_state.page == "📔 Growth Journal":
+    st.header("📔 Your Personal Growth Journal")
+    journal_entry = st.text_area("Write your thoughts for today:")
+    if st.button("Save Entry"):
+        st.success("Your journal entry has been saved! Keep reflecting and growing! ✨")
+
+# Other Pages
+elif st.session_state.page == "🏡 Home":
     st.header("🚀 Welcome to Next-Gen Power")
     st.image("https://images.pexels.com/photos/415071/pexels-photo-415071.jpeg", use_container_width=True)
     st.markdown("""
@@ -29,7 +36,6 @@ if st.session_state.page == "🏡 Home":
     """)
     st.success("Start your journey to greatness today! 🚀")
 
-# Daily Growth Challenge
 elif st.session_state.page == "🎯 Daily Growth Challenge":
     st.header("🎯 Your Daily Growth Challenge")
     challenges = [
@@ -44,7 +50,6 @@ elif st.session_state.page == "🎯 Daily Growth Challenge":
     if st.button("✅ Mark as Done"):
         st.success("Great job! Keep building momentum! 💪")
 
-# Mindset Quiz
 elif st.session_state.page == "🧠 Mindset Quiz":
     st.header("🧠 Test Your Growth Mindset")
     questions = [
@@ -60,14 +65,12 @@ elif st.session_state.page == "🧠 Mindset Quiz":
     if st.button("Submit Answers"):
         st.success(f"Your Growth Mindset Score: {score}/{len(questions)}")
 
-# Goal Tracker
 elif st.session_state.page == "📋 Goal Tracker":
     st.header("📋 Track Your Goals")
     goal = st.text_input("Set a new goal:")
     if st.button("Save Goal"):
         st.success("Your goal is now set! Keep growing! 🚀")
 
-# Community Polls
 elif st.session_state.page == "💬 Community Polls":
     st.header("💬 Community Poll: What's Your Success Mantra?")
     options = ["Hard Work", "Consistency", "Smart Work", "Resilience"]
