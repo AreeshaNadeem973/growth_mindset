@@ -29,7 +29,7 @@ if page == "🏡 Home":
 elif page == "📖 Book Collection":
     st.header("📚 Explore Motivational Books")
     books = [
-        {"title": "Atomic Habits", "url": "https://example.com/atomic-habits", "image": "https://images.pexels.com/photos/1005324/pexels-photo-1005324.jpeg"},
+        {"title": "Atomic Habits", "url": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fpsychiatryresource.com%2Fbookreviews%2Fatomic-habits-review&psig=AOvVaw1VSBl10wdn0NsajsATZZPL&ust=1740303775557000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCJDYkPn-1osDFQAAAAAdAAAAABAE", "image": "https://images.pexels.com/photos/1005324/pexels-photo-1005324.jpeg"},
         {"title": "The 5 AM Club", "url": "https://example.com/5am-club", "image": "https://images.pexels.com/photos/1261730/pexels-photo-1261730.jpeg"},
         {"title": "The Power of Now", "url": "https://example.com/power-of-now", "image": "https://images.pexels.com/photos/46274/books-education-school-literature-46274.jpeg"},
         {"title": "Think and Grow Rich", "url": "https://example.com/think-grow-rich", "image": "https://images.pexels.com/photos/159866/books-bookstore-book-reading-159866.jpeg"},
