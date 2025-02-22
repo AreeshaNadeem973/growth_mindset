@@ -4,7 +4,6 @@ import numpy as np
 import time
 from datetime import date
 import random
-import seaborn as sns
 
 # App Title
 st.set_page_config(page_title="Personal Growth Journey", page_icon="🌱")
@@ -58,7 +57,7 @@ elif page == "🌟 Daily Reflections":
     days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
     mood_levels = np.random.randint(1, 10, size=7)
     fig, ax = plt.subplots()
-    sns.lineplot(x=days, y=mood_levels, marker='o', linewidth=2, color='purple')
+    ax.plot(days, mood_levels, marker='o', linewidth=2, color='purple')
     ax.set_title("Weekly Mood Tracker")
     ax.set_ylabel("Mood (1-10)")
     ax.set_ylim(0, 10)
@@ -79,7 +78,7 @@ elif page == "📚 Learning Log":
     topics = ['Technology', 'Arts', 'Science', 'Language', 'Soft Skills']
     progress = np.random.randint(0, 100, size=len(topics))
     fig, ax = plt.subplots()
-    sns.barplot(x=topics, y=progress, palette='viridis')
+    ax.bar(topics, progress)
     ax.set_title("Learning Progress by Topic")
     ax.set_ylabel("Progress (%)")
     plt.xticks(rotation=45)
@@ -146,7 +145,7 @@ elif page == "🌍 Personal Projects":
     end_dates = [date(2023, 6, 30), date(2023, 12, 31), date(2023, 11, 30), date(2024, 2, 29)]
 
     fig, ax = plt.subplots(figsize=(10, 6))
-    ax.barh(projects, [end - start for start, end in zip(start_dates, end_dates)], left=start_dates)
+    ax.barh(projects, [(end - start).days for start, end in zip(start_dates, end_dates)], left=start_dates)
     ax.set_xlabel("Timeline")
     ax.set_ylabel("Projects")
     plt.tight_layout()
@@ -168,8 +167,17 @@ elif page == "🤝 Relationship Building":
     relationships = ["Family", "Friends", "Colleagues", "Community"]
     strength = np.random.randint(1, 10, size=(len(relationships), len(relationships)))
     fig, ax = plt.subplots()
-    sns.heatmap(strength, annot=True, fmt="d", cmap="YlGnBu", xticklabels=relationships, yticklabels=relationships)
+    im = ax.imshow(strength, cmap="YlGnBu")
+    ax.set_xticks(np.arange(len(relationships)))
+    ax.set_yticks(np.arange(len(relationships)))
+    ax.set_xticklabels(relationships)
+    ax.set_yticklabels(relationships)
+    plt.setp(ax.get_xticklabels(), rotation=45, ha="right", rotation_mode="anchor")
+    for i in range(len(relationships)):
+        for j in range(len(relationships)):
+            text = ax.text(j, i, strength[i, j], ha="center", va="center", color="black")
     ax.set_title("Relationship Strength Heatmap")
+    fig.tight_layout()
     st.pyplot(fig)
 
 # Knowledge Hub
