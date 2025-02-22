@@ -43,14 +43,20 @@ if page == "🏡 Home":
 # Book Collection Page
 elif page == "📖 Book Collection":
     st.header("📚 Explore Motivational & Life-Changing Books")
+    
+    # Filter Books
+    search_query = st.text_input("Search for a book:")
+    filtered_books = [book for book in books if search_query.lower() in book["title"].lower()]
+    
     cols = st.columns(3)
-    for index, book in enumerate(books):
+    for index, book in enumerate(filtered_books):
         with cols[index % 3]:
             st.image(book["image_url"], width=150)
             st.subheader(book["title"])
             st.write(f"**Author:** {book['author']}")
             if st.button(f"📖 Read Now {book['title']}", key=book['title']):
                 webbrowser.open_new_tab(book["read_url"])  # Open book link in new browser tab
+                st.balloons()
 
 # Reading Progress Page
 elif page == "📊 Reading Progress":
