@@ -5,7 +5,7 @@ import webbrowser
 
 # App Title
 st.set_page_config(page_title="Motivational Book Hub", page_icon="📚")
-st.title("📚 Growth Mindset")
+st.title(" Growth Mindset")
 
 # Sidebar Navigation
 st.sidebar.header("📌 Quick Navigation")
