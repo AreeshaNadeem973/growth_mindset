@@ -4,468 +4,461 @@ import numpy as np
 import pandas as pd
 from datetime import datetime, timedelta
 import random
+import time
 
-# App Title
-st.set_page_config(page_title="Life Optimizer", page_icon="⚡", layout="wide")
-st.title("⚡ Life Optimizer: Unleash Your Potential")
+# App Title and Configuration
+st.set_page_config(page_title="Life Mastery Hub", page_icon="🌟", layout="wide")
+st.title("🌟 Life Mastery Hub: Craft Your Ideal Life")
+
+# Custom CSS for improved design
+st.markdown("""
+    <style>
+    .stApp {
+        background: linear-gradient(to right, #f7f7f7, #e0e0e0);
+    }
+    .stButton>button {
+        background-color: #4CAF50;
+        color: white;
+        border-radius: 20px;
+    }
+    .stTextInput>div>div>input, .stSelectbox>div>div>select {
+        border-radius: 20px;
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
 # Sidebar for Navigation
-st.sidebar.header("🧭 Navigation")
-page = st.sidebar.radio("Explore:", [
-    "🏠 Command Center", "🎯 Mission Control", "🧠 Mind Gym",
-    "⚖️ Life Harmony", "🚀 Progress Pulse", "🔄 Habit Forge",
-    "🌐 Connection Hub", "🗺️ Learning Odyssey"
+st.sidebar.header("🧭 Journey Map")
+page = st.sidebar.radio("Explore Your Path:", [
+    "🏰 Realm of Possibilities", "🎭 Identity Forge", "🧠 Wisdom Workshop",
+    "🌈 Harmony Haven", "🚀 Quantum Leap Tracker", "⚡ Power Habits Lab",
+    "🌐 Synergy Sphere", "🗺️ Expedition of Knowledge"
 ])
 
-# Command Center
-if page == "🏠 Command Center":
-    st.header("Welcome to Your Command Center")
+# Realm of Possibilities (Home)
+if page == "🏰 Realm of Possibilities":
+    st.header("Welcome to Your Realm of Possibilities")
     
-    col1, col2 = st.columns(2)
+    col1, col2, col3 = st.columns([2,1,1])
     
     with col1:
-        st.subheader("Daily Focus")
-        focus_area = st.selectbox("What's your main focus today?", 
-                                  ["Personal Growth", "Career Development", "Health & Fitness", "Relationships", "Learning"])
-        st.write(f"Great choice! Let's make progress on {focus_area} today.")
+        st.subheader("Today's Quest")
+        quest = st.text_input("What's your main quest for today?")
+        if st.button("Embark on Quest"):
+            st.success(f"Your quest '{quest}' has begun. May your journey be legendary!")
         
-        st.subheader("Quick Wins")
-        tasks = [
-            st.checkbox("Complete 1 chapter of current book"),
-            st.checkbox("15-minute workout"),
-            st.checkbox("Meditate for 10 minutes"),
-            st.checkbox("Connect with a friend or family member")
-        ]
-        if st.button("Log Quick Wins"):
-            completed = sum(tasks)
-            st.success(f"You've completed {completed} quick wins today! Keep up the momentum!")
-    
-    with col2:
-        st.subheader("Productivity Pulse")
-        dates = pd.date_range(end=datetime.now(), periods=7).strftime("%Y-%m-%d").tolist()
-        productivity = [random.randint(50, 100) for _ in range(7)]
-        df = pd.DataFrame({"Date": dates, "Productivity": productivity})
+        st.subheader("Realm Stats")
+        realms = ['Mind', 'Body', 'Spirit', 'Relationships', 'Career']
+        realm_stats = {realm: random.randint(50, 100) for realm in realms}
         
         fig, ax = plt.subplots(figsize=(10, 6))
-        ax.plot(df['Date'], df['Productivity'], marker='o')
-        ax.set_title("7-Day Productivity Trend")
-        ax.set_xlabel("Date")
-        ax.set_ylabel("Productivity Score")
+        bars = ax.bar(realms, realm_stats.values(), color=plt.cm.viridis(np.linspace(0, 1, len(realms))))
         ax.set_ylim(0, 100)
-        plt.xticks(rotation=45)
-        st.pyplot(fig)
-        
-        avg_productivity = np.mean(productivity)
-        st.metric("Average Productivity", f"{avg_productivity:.1f}%", f"{avg_productivity - 75:.1f}%")
-
-# Mission Control
-elif page == "🎯 Mission Control":
-    st.header("🎯 Mission Control: Goal Tracking & Project Management")
-    
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        st.subheader("Set New Goal")
-        goal_title = st.text_input("Goal Title")
-        goal_description = st.text_area("Goal Description")
-        goal_deadline = st.date_input("Deadline")
-        goal_category = st.selectbox("Category", ["Career", "Personal", "Health", "Finance", "Relationships"])
-        
-        if st.button("Add Goal"):
-            st.success(f"New goal added: {goal_title}")
-    
-    with col2:
-        st.subheader("Active Goals")
-        goals = [
-            {"title": "Run a Marathon", "progress": 60, "category": "Health"},
-            {"title": "Learn Python", "progress": 75, "category": "Career"},
-            {"title": "Save $10,000", "progress": 45, "category": "Finance"},
-            {"title": "Write a Book", "progress": 30, "category": "Personal"}
-        ]
-        
-        fig, ax = plt.subplots(figsize=(10, 6))
-        categories = [goal['category'] for goal in goals]
-        titles = [goal['title'] for goal in goals]
-        progress = [goal['progress'] for goal in goals]
-        
-        colors = plt.cm.Spectral(np.linspace(0, 1, len(categories)))
-        ax.barh(titles, progress, color=colors)
-        ax.set_xlim(0, 100)
-        ax.set_xlabel("Progress (%)")
-        ax.set_title("Goal Progress Tracker")
-        
-        for i, v in enumerate(progress):
-            ax.text(v + 1, i, f"{v}%", va='center')
-        
-        st.pyplot(fig)
-    
-    st.subheader("Project Kanban Board")
-    col1, col2, col3, col4 = st.columns(4)
-    
-    with col1:
-        st.markdown("### To Do")
-        st.info("- Research new project ideas\n- Update resume\n- Plan weekend trip")
-    
-    with col2:
-        st.markdown("### In Progress")
-        st.warning("- Develop new app feature\n- Write blog post")
-    
-    with col3:
-        st.markdown("### Review")
-        st.success("- Code review for PR #123\n- Proofread report")
-    
-    with col4:
-        st.markdown("### Done")
-        st.error("- Team meeting\n- Gym session\n- Grocery shopping")
-
-# Mind Gym
-elif page == "🧠 Mind Gym":
-    st.header("🧠 Mind Gym: Skill Development & Mental Fitness")
-    
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        st.subheader("Skill Proficiency Tracker")
-        skills = ["Critical Thinking", "Creativity", "Communication", "Leadership", "Problem Solving"]
-        skill_levels = {skill: st.slider(f"{skill} proficiency:", 0, 100, 50) for skill in skills}
-        
-        if st.button("Update Skills"):
-            st.success("Skills updated successfully!")
-        
-        fig, ax = plt.subplots(figsize=(8, 8), subplot_kw=dict(projection='polar'))
-        angles = np.linspace(0, 2*np.pi, len(skills), endpoint=False)
-        values = list(skill_levels.values())
-        values += values[:1]
-        angles = np.concatenate((angles, [angles[0]]))
-        
-        ax.plot(angles, values)
-        ax.fill(angles, values, alpha=0.3)
-        ax.set_xticks(angles[:-1])
-        ax.set_xticklabels(skills)
-        ax.set_ylim(0, 100)
-        plt.title("Skill Proficiency Web")
-        st.pyplot(fig)
-    
-    with col2:
-        st.subheader("Daily Brain Teaser")
-        brain_teasers = [
-            {"question": "I speak without a mouth and hear without ears. I have no body, but I come alive with wind. What am I?", "answer": "An echo"},
-            {"question": "You measure my life in hours and I serve you by expiring. I'm quick when I'm thin and slow when I'm fat. The wind is my enemy. What am I?", "answer": "A candle"},
-            {"question": "What has keys, but no locks; space, but no room; you can enter, but not go in?", "answer": "A keyboard"}
-        ]
-        
-        selected_teaser = random.choice(brain_teasers)
-        st.write(selected_teaser["question"])
-        user_answer = st.text_input("Your answer:")
-        if st.button("Check Answer"):
-            if user_answer.lower() == selected_teaser["answer"].lower():
-                st.success("Correct! Great job!")
-            else:
-                st.error(f"Not quite. The answer is: {selected_teaser['answer']}")
-        
-        st.subheader("Mindfulness Minute")
-        if st.button("Start 1-Minute Meditation"):
-            st.info("Close your eyes, take deep breaths, and focus on the present moment.")
-            latest_iteration = st.empty()
-            bar = st.progress(0)
-            for i in range(60):
-                latest_iteration.text(f"{60 - i} seconds remaining")
-                bar.progress((i + 1) * 100 // 60)
-                time.sleep(1)
-            st.success("Meditation complete. How do you feel?")
-
-# Life Harmony
-elif page == "⚖️ Life Harmony":
-    st.header("⚖️ Life Harmony: Balancing Your Life Dimensions")
-    
-    life_dimensions = ["Career", "Finance", "Health", "Relationships", "Personal Growth", "Fun & Recreation"]
-    satisfaction_levels = {dim: st.slider(f"Rate your satisfaction with {dim}:", 0, 10, 5) for dim in life_dimensions}
-    
-    if st.button("Update Life Harmony"):
-        st.success("Life satisfaction levels updated!")
-    
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        fig, ax = plt.subplots(figsize=(10, 10), subplot_kw=dict(projection='polar'))
-        angles = np.linspace(0, 2*np.pi, len(life_dimensions), endpoint=False)
-        values = list(satisfaction_levels.values())
-        values += values[:1]
-        angles = np.concatenate((angles, [angles[0]]))
-        
-        ax.plot(angles, values)
-        ax.fill(angles, values, alpha=0.3)
-        ax.set_xticks(angles[:-1])
-        ax.set_xticklabels(life_dimensions)
-        ax.set_ylim(0, 10)
-        plt.title("Life Harmony Wheel")
-        st.pyplot(fig)
-    
-    with col2:
-        st.subheader("Life Harmony Insights")
-        total_satisfaction = sum(satisfaction_levels.values())
-        avg_satisfaction = total_satisfaction / len(life_dimensions)
-        st.metric("Overall Life Satisfaction", f"{avg_satisfaction:.1f} / 10", f"{avg_satisfaction - 7:.1f}")
-        
-        max_dimension = max(satisfaction_levels, key=satisfaction_levels.get)
-        min_dimension = min(satisfaction_levels, key=satisfaction_levels.get)
-        
-        st.write(f"💪 Strongest dimension: **{max_dimension}** ({satisfaction_levels[max_dimension]}/10)")
-        st.write(f"🎯 Area for improvement: **{min_dimension}** ({satisfaction_levels[min_dimension]}/10)")
-        
-        st.subheader("Suggested Actions")
-        if satisfaction_levels[min_dimension] < 5:
-            st.warning(f"Consider focusing on improving your {min_dimension.lower()} dimension.")
-            if min_dimension == "Health":
-                st.write("- Schedule a health check-up")
-                st.write("- Start a new exercise routine")
-                st.write("- Plan healthier meals")
-            elif min_dimension == "Relationships":
-                st.write("- Plan quality time with loved ones")
-                st.write("- Practice active listening")
-                st.write("- Express gratitude to someone important")
-
-# Progress Pulse
-elif page == "🚀 Progress Pulse":
-    st.header("🚀 Progress Pulse: Tracking Your Journey")
-    
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        st.subheader("Log Daily Progress")
-        progress_date = st.date_input("Date")
-        progress_category = st.selectbox("Category", ["Career", "Health", "Learning", "Personal"])
-        progress_description = st.text_area("What progress did you make today?")
-        
-        if st.button("Log Progress"):
-            st.success("Progress logged successfully!")
-    
-    with col2:
-        st.subheader("Progress Heatmap")
-        dates = pd.date_range(end=datetime.now(), periods=30)
-        categories = ["Career", "Health", "Learning", "Personal"]
-        data = np.random.randint(0, 5, size=(len(categories), len(dates)))
-        
-        fig, ax = plt.subplots(figsize=(12, 6))
-        im = ax.imshow(data, cmap="YlGn")
-        
-        ax.set_xticks(np.arange(len(dates)))
-        ax.set_yticks(np.arange(len(categories)))
-        ax.set_xticklabels([date.strftime("%d") for date in dates])
-        ax.set_yticklabels(categories)
-        
-        plt.setp(ax.get_xticklabels(), rotation=45, ha="right", rotation_mode="anchor")
-        
-        for i in range(len(categories)):
-            for j in range(len(dates)):
-                text = ax.text(j, i, data[i, j], ha="center", va="center", color="black")
-        
-        ax.set_title("30-Day Progress Heatmap")
-        fig.tight_layout()
-        st.pyplot(fig)
-    
-    st.subheader("Milestone Timeline")
-    milestones = [
-        {"date": "2023-01-15", "description": "Ran first 5K"},
-        {"date": "2023-03-01", "description": "Completed online course"},
-        {"date": "2023-04-20", "description": "Started new job"},
-        {"date": "2023-06-10", "description": "Launched personal blog"}
-    ]
-    
-    fig, ax = plt.subplots(figsize=(12, 6))
-    
-    for i, milestone in enumerate(milestones):
-        date = datetime.strptime(milestone["date"], "%Y-%m-%d")
-        ax.scatter(date, i, s=100, color='gold')
-        ax.annotate(milestone["description"], (date, i), xytext=(10, 0), 
-                    textcoords="offset points", ha='left', va='center')
-    
-    ax.set_yticks([])
-    ax.set_title("Milestone Timeline")
-    plt.xticks(rotation=45)
-    fig.tight_layout()
-    st.pyplot(fig)
-
-# Habit Forge
-elif page == "🔄 Habit Forge":
-    st.header("🔄 Habit Forge: Building Lasting Habits")
-    
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        st.subheader("Create New Habit")
-        habit_name = st.text_input("Habit Name")
-        habit_category = st.selectbox("Category", ["Health", "Productivity", "Learning", "Relationships", "Personal Growth"])
-        habit_frequency = st.selectbox("Frequency", ["Daily", "Weekly", "Monthly"])
-        habit_reminder = st.time_input("Set reminder time")
-        
-        if st.button("Add Habit"):
-            st.success(f"New habit '{habit_name}' added successfully!")
-    
-    with col2:
-        st.subheader("Habit Tracker")
-        habits = ["Morning Meditation", "Read 30 minutes", "Exercise", "Drink 8 glasses of water", "Practice gratitude"]
-        today = datetime.now().date()
-        dates = [(today - timedelta(days=i)).strftime("%a") for i in range(7)][::-1]
-        
-        data = np.random.choice([0, 1], size=(len(habits), 7), p=[0.3, 0.7])
-        
-        fig, ax = plt.subplots(figsize=(12, 6))
-        im = ax.imshow(data, cmap="YlGn")
-        
-        ax.set_xticks(np.arange(len(dates)))
-        ax.set_yticks(np.arange(len(habits)))
-        ax.set_xticklabels(dates)
-        ax.set_yticklabels(habits)
-        
-        plt.setp(ax.get_xticklabels(), rotation=45, ha="right", rotation_mode="anchor")
-        
-        for i in range(len(habits)):
-            for j in range(len(dates)):
-                text = ax.text(j, i, "✓" if data[i, j] else "", ha="center", va="center", color="black")
-        
-        ax.set_title("7-Day Habit Tracker")
-        fig.tight_layout()
-        st.pyplot(fig)
-    
-    st.subheader("Habit Streaks")
-    habit_streaks = {
-        "Morning Meditation": 15,
-        "Read 30 minutes": 7,
-        "Exercise": 21,
-        "Drink 8 glasses of water": 30,
-        "Practice gratitude": 10
-    }
-    
-    fig, ax = plt.subplots(figsize=(10, 6))
-    habits = list(habit_streaks.keys())
-    streaks = list(habit_streaks.values())
-    
-    bars = ax.barh(habits, streaks)
-    ax.set_xlabel("Current Streak (days)")
-    ax.set_title("Habit Streaks")
-    
-    for i, v in enumerate(streaks):
-        ax.text(v + 0.5, i, str(v), va='center')
-    
-    st.pyplot(fig)
-
-# Connection Hub
-elif page == "🌐 Connection Hub":
-    st.header("🌐 Connection Hub: Nurturing Relationships")
-    
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        st.subheader("Add New Connection")
-        connection_name = st.text_input("Name")
-        connection_type = st.selectbox("Relationship Type", ["Family", "Friend", "Professional", "Mentor", "Mentee"])
-        connection_notes = st.text_area("Notes")
-        
-        if st.button("Add Connection"):
-            st.success(f"New connection '{connection_name}' added successfully!")
-    
-    with col2:
-        st.subheader("Connection Strength")
-        connections = {
-            "Family": 9,
-            "Close Friends": 8,
-            "Colleagues": 6,
-            "Professional Network": 7,
-            "Community": 5
-        }
-        
-        fig, ax = plt.subplots(figsize=(10, 6))
-        categories = list(connections.keys())
-        strengths = list(connections.values())
-        
-        bars = ax.bar(categories, strengths, color=plt.cm.viridis(np.linspace(0, 1, len(categories))))
-        ax.set_ylim(0, 10)
-        ax.set_ylabel("Connection Strength (0-10)")
-        ax.set_title("Relationship Strength by Category")
+        ax.set_ylabel("Mastery Level")
+        ax.set_title("Your Life Realms")
         
         for bar in bars:
             height = bar.get_height()
             ax.text(bar.get_x() + bar.get_width()/2., height,
-                    f'{height}',
-                    ha='center', va='bottom')
+                    f'{height}%', ha='center', va='bottom')
         
-        plt.xticks(rotation=45, ha='right')
-        fig.tight_layout()
         st.pyplot(fig)
     
-    st.subheader("Interaction Planner")
-    st.write("Plan your next meaningful interaction:")
-    interaction_person = st.selectbox("Choose a person", ["Alice (Family)", "Bob (Friend)", "Charlie (Mentor)", "Diana (Colleague)"])
-    interaction_type = st.selectbox("Type of interaction", ["Call", "Meet for coffee", "Send a message", "Plan an activity"])
-    interaction_date = st.date_input("When?")
+    with col2:
+        st.subheader("Daily Power-Ups")
+        st.write("Boost your realms:")
+        if st.button("🧘 Meditate (Mind +5)"):
+            st.info("Inner peace achieved. Mind strengthened!")
+        if st.button("🏋️ Quick Workout (Body +5)"):
+            st.info("Energy surging. Body invigorated!")
+        if st.button("📞 Call a Friend (Relationships +5)"):
+            st.info("Connection deepened. Relationship strengthened!")
     
-    if st.button("Schedule Interaction"):
-        st.success(f"Interaction with {interaction_person} scheduled for {interaction_date}!")
+    with col3:
+        st.subheader("Wisdom Scroll")
+        quotes = [
+            "The only way to do great work is to love what you do. - Steve Jobs",
+            "Believe you can and you're halfway there. - Theodore Roosevelt",
+            "The future belongs to those who believe in the beauty of their dreams. - Eleanor Roosevelt",
+            "Success is not final, failure is not fatal: it is the courage to continue that counts. - Winston Churchill"
+        ]
+        st.info(random.choice(quotes))
 
-# Learning Odyssey
-elif page == "🗺️ Learning Odyssey":
-    st.header("🗺️ Learning Odyssey: Your Knowledge Adventure")
+# Identity Forge
+elif page == "🎭 Identity Forge":
+    st.header("🎭 Identity Forge: Sculpt Your Ideal Self")
     
     col1, col2 = st.columns(2)
     
     with col1:
-        st.subheader("Log Learning Activity")
-        learning_topic = st.text_input("What did you learn?")
-        learning_category = st.selectbox("Category", ["Technology", "Science", "Arts", "History", "Language", "Other"])
-        learning_method = st.selectbox("Learning Method", ["Book", "Online Course", "Podcast", "Video", "Practice", "Other"])
-        learning_duration = st.number_input("Time spent (minutes)", min_value=5, max_value=480, value=30, step=5)
+        st.subheader("Craft Your Avatar")
+        avatar_name = st.text_input("Your Avatar Name")
+        avatar_archetype = st.selectbox("Choose Your Archetype", 
+                                        ["The Hero", "The Sage", "The Explorer", "The Creator", "The Caregiver"])
+        avatar_mission = st.text_area("Your Life Mission")
         
-        if st.button("Log Learning"):
-            st.success(f"Learning activity '{learning_topic}' logged successfully!")
+        if st.button("Forge Identity"):
+            st.success(f"Identity forged! {avatar_name} the {avatar_archetype} is ready for the journey!")
     
     with col2:
-        st.subheader("Knowledge Map")
-        knowledge_areas = {
-            "Technology": 75,
-            "Science": 60,
-            "Arts": 45,
-            "History": 55,
-            "Language": 70,
-            "Philosophy": 40
-        }
+        st.subheader("Character Stats")
+        stats = ["Strength", "Intelligence", "Charisma", "Creativity", "Resilience"]
+        values = [random.randint(50, 100) for _ in range(len(stats))]
         
         fig, ax = plt.subplots(figsize=(8, 8), subplot_kw=dict(projection='polar'))
-        categories = list(knowledge_areas.keys())
-        values = list(knowledge_areas.values())
-        
-        angles = np.linspace(0, 2*np.pi, len(categories), endpoint=False)
+        angles = np.linspace(0, 2*np.pi, len(stats), endpoint=False)
         values += values[:1]
         angles = np.concatenate((angles, [angles[0]]))
         
         ax.plot(angles, values)
         ax.fill(angles, values, alpha=0.3)
         ax.set_xticks(angles[:-1])
-        ax.set_xticklabels(categories)
+        ax.set_xticklabels(stats)
         ax.set_ylim(0, 100)
-        plt.title("Knowledge Area Proficiency")
+        plt.title("Character Attributes")
         st.pyplot(fig)
     
-    st.subheader("Learning Streak")
-    learning_days = [1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1]  # 1 for learning day, 0 for no learning
-    current_streak = sum(takewhile(lambda x: x == 1, reversed(learning_days)))
+    st.subheader("Skill Tree")
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.write("Mind Branch")
+        st.progress(75)
+        st.write("Critical Thinking")
+        st.write("Creativity")
+    with col2:
+        st.write("Body Branch")
+        st.progress(60)
+        st.write("Strength")
+        st.write("Agility")
+    with col3:
+        st.write("Spirit Branch")
+        st.progress(80)
+        st.write("Meditation")
+        st.write("Empathy")
+
+# Wisdom Workshop
+elif page == "🧠 Wisdom Workshop":
+    st.header("🧠 Wisdom Workshop: Sharpen Your Mind")
     
-    fig, ax = plt.subplots(figsize=(12, 3))
-    ax.imshow([learning_days], cmap="YlGn", aspect="auto")
-    ax.set_xticks(range(len(learning_days)))
-    ax.set_xticklabels([f"Day {i+1}" for i in range(len(learning_days))])
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.subheader("Today's Challenge")
+        challenges = [
+            "Solve a Rubik's Cube",
+            "Learn 5 new words in a foreign language",
+            "Explain a complex topic to a friend",
+            "Write a short story in 15 minutes",
+            "Memorize a poem or song lyrics"
+        ]
+        challenge = random.choice(challenges)
+        st.info(f"Your challenge: {challenge}")
+        if st.button("Complete Challenge"):
+            st.success("Challenge completed! Your mind grows stronger.")
+        
+        st.subheader("Mind Palace")
+        topics = ["Philosophy", "Science", "Arts", "History", "Technology"]
+        knowledge = [random.randint(20, 100) for _ in topics]
+        
+        fig, ax = plt.subplots(figsize=(10, 6))
+        wedges, texts, autotexts = ax.pie(knowledge, labels=topics, autopct='%1.1f%%',
+                                          textprops=dict(color="w"), colors=plt.cm.Spectral(np.linspace(0, 1, len(topics))))
+        ax.set_title("Knowledge Distribution")
+        st.pyplot(fig)
+    
+    with col2:
+        st.subheader("Skill Mastery")
+        skills = ["Critical Thinking", "Problem Solving", "Creativity", "Memory", "Focus"]
+        levels = [random.randint(1, 10) for _ in skills]
+        
+        for skill, level in zip(skills, levels):
+            st.write(f"{skill}: {'🧠' * level}")
+        
+        st.subheader("Brain Teaser")
+        teasers = [
+            "I speak without a mouth and hear without ears. I have no body, but I come alive with the wind. What am I?",
+            "What has keys, but no locks; space, but no room; you can enter, but not go in?",
+            "The more you take, the more you leave behind. What am I?"
+        ]
+        selected_teaser = random.choice(teasers)
+        st.write(selected_teaser)
+        answer = st.text_input("Your answer:")
+        if st.button("Check Answer"):
+            st.info("Great attempt! Keep exercising that brain.")
+
+# Harmony Haven
+elif page == "🌈 Harmony Haven":
+    st.header("🌈 Harmony Haven: Balance Your Life Energies")
+    
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.subheader("Life Energy Wheel")
+        energies = ["Physical", "Emotional", "Mental", "Spiritual", "Social", "Financial"]
+        levels = [random.randint(50, 100) for _ in energies]
+        
+        fig, ax = plt.subplots(figsize=(8, 8), subplot_kw=dict(projection='polar'))
+        angles = np.linspace(0, 2*np.pi, len(energies), endpoint=False)
+        levels += levels[:1]
+        angles = np.concatenate((angles, [angles[0]]))
+        
+        ax.plot(angles, levels)
+        ax.fill(angles, levels, alpha=0.3)
+        ax.set_xticks(angles[:-1])
+        ax.set_xticklabels(energies)
+        ax.set_ylim(0, 100)
+        plt.title("Life Energy Balance")
+        st.pyplot(fig)
+    
+    with col2:
+        st.subheader("Harmony Rituals")
+        rituals = {
+            "Morning Meditation": st.checkbox("Morning Meditation"),
+            "Gratitude Journaling": st.checkbox("Gratitude Journaling"),
+            "Nature Walk": st.checkbox("Nature Walk"),
+            "Acts of Kindness": st.checkbox("Acts of Kindness"),
+            "Evening Reflection": st.checkbox("Evening Reflection")
+        }
+        if st.button("Complete Rituals"):
+            completed = sum(rituals.values())
+            st.success(f"You've completed {completed} harmony rituals. Inner peace intensifies!")
+    
+    st.subheader("Mood Tracker")
+    moods = ["Joyful", "Peaceful", "Neutral", "Stressed", "Melancholic"]
+    mood = st.select_slider("How are you feeling today?", options=moods)
+    if st.button("Log Mood"):
+        st.info(f"Mood logged: {mood}. Remember, every emotion is a valid part of your journey.")
+
+# Quantum Leap Tracker
+elif page == "🚀 Quantum Leap Tracker":
+    st.header("🚀 Quantum Leap Tracker: Accelerate Your Growth")
+    
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.subheader("Set a Quantum Goal")
+        goal = st.text_input("What's your next big leap?")
+        deadline = st.date_input("Target Date")
+        importance = st.slider("Importance", 1, 10, 5)
+        
+        if st.button("Initiate Quantum Leap"):
+            st.success(f"Quantum Goal '{goal}' set! The universe conspires in your favor.")
+    
+    with col2:
+        st.subheader("Growth Accelerator")
+        milestones = [
+            "Learn a New Skill",
+            "Overcome a Fear",
+            "Achieve a Personal Best",
+            "Help Someone Succeed",
+            "Explore a New Place"
+        ]
+        completed_milestones = st.multiselect("Select completed milestones:", milestones)
+        if st.button("Calculate Growth"):
+            growth = len(completed_milestones) * 20
+            st.metric("Personal Growth", f"{growth}%", f"+{growth}%")
+    
+    st.subheader("Leap Log")
+    leaps = [
+        {"date": "2023-01-15", "leap": "Ran first marathon"},
+        {"date": "2023-03-01", "leap": "Started a business"},
+        {"date": "2023-05-20", "leap": "Learned to code"},
+        {"date": "2023-07-10", "leap": "Traveled solo internationally"}
+    ]
+    
+    fig, ax = plt.subplots(figsize=(12, 6))
+    
+    for i, leap in enumerate(leaps):
+        date = datetime.strptime(leap["date"], "%Y-%m-%d")
+        ax.scatter(date, i, s=100, color='gold')
+        ax.annotate(leap["leap"], (date, i), xytext=(10, 0), 
+                    textcoords="offset points", ha='left', va='center')
+    
     ax.set_yticks([])
-    
-    for i, day in enumerate(learning_days):
-        ax.text(i, 0, "✓" if day else "✗", ha="center", va="center", color="black")
-    
-    ax.set_title(f"Learning Streak: {current_streak} days")
+    ax.set_title("Quantum Leap Timeline")
+    plt.xticks(rotation=45)
+    fig.tight_layout()
     st.pyplot(fig)
+
+# Power Habits Lab
+elif page == "⚡ Power Habits Lab":
+    st.header("⚡ Power Habits Lab: Forge Your Destiny")
     
-    st.metric("Current Learning Streak", f"{current_streak} days", f"+{current_streak}")
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.subheader("Habit Forge")
+        new_habit = st.text_input("Enter a new power habit:")
+        habit_type = st.selectbox("Habit Type", ["Keystone", "Supporting", "Breaking Bad Habit"])
+        frequency = st.selectbox("Frequency", ["Daily", "Weekly", "Monthly"])
+        
+        if st.button("Forge Habit"):
+            st.success(f"Power habit '{new_habit}' forged! Your destiny awaits.")
+    
+    with col2:
+        st.subheader("Habit Strength")
+        habits = ["Morning Ritual", "Exercise", "Reading", "Meditation", "Gratitude"]
+        strengths = [random.randint(1, 100) for _ in habits]
+        
+        fig, ax = plt.subplots(figsize=(10, 6))
+        bars = ax.barh(habits, strengths, color=plt.cm.viridis(np.linspace(0, 1, len(habits))))
+        ax.set_xlim(0, 100)
+        ax.set_xlabel("Habit Strength")
+        ax.set_title("Power Habits Mastery")
+        
+        for bar in bars:
+            width = bar.get_width()
+            ax.text(width, bar.get_y() + bar.get_height()/2, f'{width}%', 
+                    ha='left', va='center')
+        
+        st.pyplot(fig)
+    
+    st.subheader("21-Day Habit Challenge")
+    habit_challenge = st.selectbox("Select a habit for the 21-day challenge:", 
+                                   ["Waking up at 5 AM", "Cold Showers", "No Complaining", "Daily Exercise", "Mindful Eating"])
+    
+    progress = random.randint(1, 21)
+    st.progress(progress / 21)
+    st.write(f"Day {progress} of 21")
+    
+    if st.button("Complete Today's Challenge"):
+        st.balloons()
+        st.success("Another day conquered! Your willpower grows stronger.")
+
+# Synergy Sphere
+elif page == "🌐 Synergy Sphere":
+    st.header("🌐 Synergy Sphere: Amplify Your Connections")
+    
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.subheader("Forge New Connection")
+        name = st.text_input("Name of new connection:")
+        relationship = st.selectbox("Relationship Type", ["Friend", "Mentor", "Colleague", "Family", "Community Member"])
+        synergy_level = st.slider("Initial Synergy Level", 1, 10, 5)
+        
+        if st.button("Create Connection"):
+            st.success(f"New connection with {name} established! Your network grows stronger.")
+    
+    with col2:
+        st.subheader("Connection Web")
+        connections = ["Family", "Close Friends", "Colleagues", "Mentors", "Community"]
+        strengths = [random.randint(50, 100) for _ in connections]
+        
+        fig, ax = plt.subplots(figsize=(8, 8), subplot_kw=dict(projection='polar'))
+        angles = np.linspace(0, 2*np.pi, len(connections), endpoint=False)
+        strengths += strengths[:1]
+        angles = np.concatenate((angles, [angles[0]]))
+        
+        ax.plot(angles, strengths)
+        ax.fill(angles, strengths, alpha=0.3)
+        ax.set_xticks(angles[:-1])
+        ax.set_xticklabels(connections)
+        ax.set_ylim(0, 100)
+        plt.title("Connection Strength Web")
+        st.pyplot(fig)
+    
+    st.subheader("Synergy Booster")
+    boost_connection = st.selectbox("Choose a connection to boost:", ["Alice (Friend)", "Bob (Mentor)", "Carol (Colleague)", "David (Family)"])
+    boost_action = st.selectbox("Choose a synergy-boosting action:", ["Quality Time", "Deep Conversation", "Collaborative Project", "Acts of Kindness", "Shared Experience"])
+    
+    if st.button("Boost Synergy"):
+        st.success(f"Synergy boosted with {boost_connection} through {boost_action}! Your connection grows stronger.")
+    
+    st.subheader("Network Influence Map")
+    network_data = {
+        'You': ['Family', 'Friends', 'Work'],
+        'Family': ['Extended Family', 'Family Friends'],
+        'Friends': ['School Friends', 'Hobby Groups'],
+        'Work': ['Colleagues', 'Industry Contacts']
+    }
+    
+    fig, ax = plt.subplots(figsize=(10, 8))
+    
+    def draw_network(center, radius, start_angle, end_angle, level=0):
+        x = radius * np.cos(np.pi/2 - start_angle)
+        y = radius * np.sin(np.pi/2 - start_angle)
+        ax.scatter(x, y, s=100, color=plt.cm.viridis(level / 3))
+        ax.annotate(center, (x, y), ha='center', va='center')
+        
+        if center in network_data:
+            n = len(network_data[center])
+            for i, subcenter in enumerate(network_data[center]):
+                subangle = start_angle + (end_angle - start_angle) * (i + 0.5) / n
+                subradius = radius + 1
+                draw_network(subcenter, subradius, subangle - 0.2, subangle + 0.2, level+1)
+                ax.plot([x, subradius * np.cos(np.pi/2 - subangle)],
+                        [y, subradius * np.sin(np.pi/2 - subangle)], 'k-', alpha=0.2)
+    
+    draw_network("You", 0, 0, 2*np.pi)
+    ax.set_xlim(-5, 5)
+    ax.set_ylim(-5, 5)
+    ax.axis('off')
+    plt.title("Your Network Influence Map")
+    st.pyplot(fig)
+
+# Expedition of Knowledge
+elif page == "🗺️ Expedition of Knowledge":
+    st.header("🗺️ Expedition of Knowledge: Chart Your Learning Adventure")
+    
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.subheader("New Knowledge Expedition")
+        topic = st.text_input("What do you want to learn?")
+        learning_method = st.selectbox("Choose your learning method:", ["Book", "Online Course", "Podcast", "Documentary", "Hands-on Project"])
+        commitment = st.slider("Commitment Level (hours/week)", 1, 20, 5)
+        
+        if st.button("Embark on Learning Journey"):
+            st.success(f"Your expedition to master {topic} has begun! Knowledge awaits!")
+    
+    with col2:
+        st.subheader("Knowledge Archipelago")
+        subjects = ["Science", "Philosophy", "Arts", "Technology", "History"]
+        mastery = [random.randint(20, 100) for _ in subjects]
+        
+        fig, ax = plt.subplots(figsize=(10, 6))
+        ax.bar(subjects, mastery, color=plt.cm.Spectral(np.linspace(0, 1, len(subjects))))
+        ax.set_ylabel("Mastery Level")
+        ax.set_title("Your Knowledge Domains")
+        
+        for i, v in enumerate(mastery):
+            ax.text(i, v + 1, f"{v}%", ha='center')
+        
+        st.pyplot(fig)
+    
+    st.subheader("Learning Log")
+    log_date = st.date_input("Date of learning:")
+    log_topic = st.text_input("What did you learn?")
+    log_insights = st.text_area("Key insights:")
+    
+    if st.button("Record in Learning Log"):
+        st.success("Your knowledge has been etched into the annals of your personal history!")
+    
+    st.subheader("Wisdom Path")
+    learning_milestones = [
+        {"date": "2023-01-15", "milestone": "Started learning Python"},
+        {"date": "2023-03-01", "milestone": "Completed philosophy course"},
+        {"date": "2023-05-20", "milestone": "Read 'Sapiens' by Yuval Noah Harari"},
+        {"date": "2023-07-10", "milestone": "Attended AI conference"}
+    ]
+    
+    fig, ax = plt.subplots(figsize=(12, 6))
+    
+    for i, milestone in enumerate(learning_milestones):
+        date = datetime.strptime(milestone["date"], "%Y-%m-%d")
+        ax.scatter(date, i, s=100, color='purple')
+        ax.annotate(milestone["milestone"], (date, i), xytext=(10, 0), 
+                    textcoords="offset points", ha='left', va='center')
+    
+    ax.set_yticks([])
+    ax.set_title("Your Wisdom Path")
+    plt.xticks(rotation=45)
+    fig.tight_layout()
+    st.pyplot(fig)
 
 # Footer
 st.markdown("---")
-st.markdown("Empowering your journey to excellence | © 2025 Life Optimizer")
+st.markdown("Empowering your journey to mastery | © 2025 Life Mastery Hub")
 
 
