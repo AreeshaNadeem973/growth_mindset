@@ -16,7 +16,7 @@ page = st.sidebar.radio("Go to:", [
 # Home Page
 if page == "🏡 Home":
     st.header("📚 Welcome to Motivational Book Hub")
-    st.image("https://images.pexels.com/photos/415071/pexels-photo-415071.jpeg", width=500)  # Updated Image Size
+    st.image("https://images.pexels.com/photos/415071/pexels-photo-415071.jpeg", use_container_width=True)  # Updated Image Size
     st.markdown("""
     ### Explore & Grow with Motivational Books!
     ✅ **Read Life-Changing Books** 📖  
@@ -37,13 +37,23 @@ elif page == "📖 Book Collection":
         {"title": "The Magic of Thinking Big", "url": "https://example.com/magic-thinking-big", "image": "https://images.pexels.com/photos/415071/pexels-photo-415071.jpeg"}
     ]
     
-    cols = st.columns(3)
+    cols = st.columns(2)
     for index, book in enumerate(books):
-        with cols[index % 3]:
-            st.image(book["image"], use_column_width=True)
-            if st.button(f"📖 Read {book['title']}"):
-                st.write(f"Opening {book['title']}...")
-                st.markdown(f"[Read Now]({book['url']})")
+        with cols[index % 2]:
+            st.image(book["image"], use_container_width=True)
+            if st.button(f"📖 Read {book['title']}", key=book['title']):
+                st.session_state["selected_book"] = book
+                st.experimental_rerun()
+
+# Dynamic Book Reading Page
+if "selected_book" in st.session_state:
+    book = st.session_state["selected_book"]
+    st.header(f"📖 {book['title']}")
+    st.image(book["image"], use_container_width=True)
+    st.markdown(f"[Read Now]({book['url']})")
+    if st.button("🔙 Back to Collection"):
+        del st.session_state["selected_book"]
+        st.experimental_rerun()
 
 # Reading Progress Page
 elif page == "📊 Reading Progress":
