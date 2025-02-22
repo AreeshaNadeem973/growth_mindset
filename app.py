@@ -6,7 +6,6 @@ import numpy as np
 st.set_page_config(page_title="Master Your Mindset", page_icon="🚀")
 st.title("Master Your Mindset: A Journey to Success")
 
-
 # Initialize session state for navigation
 if "page" not in st.session_state:
     st.session_state.page = "🏡 Home"
@@ -35,7 +34,7 @@ categories = list(set(book["category"] for book in books))
 
 # Home Page
 if st.session_state.page == "🏡 Home":
-    st.header("🚀 Welcome to Next-Gen Power")
+    st.header("🚀 Welcome to Master Your Mindset")
     st.image("https://images.pexels.com/photos/415071/pexels-photo-415071.jpeg", use_container_width=True)
     st.markdown("""
     ### Unlock Your Full Potential with Knowledge!
@@ -106,4 +105,4 @@ elif st.session_state.page == "📅 Set Your Vision":
 
 # Footer
 st.markdown("---")
-st.markdown("🚀 Built for Future Leaders | © 2025 Next-Gen Power")
+st.markdown("🚀 Built for Future Leaders | © 2025 Master Your Mindset")
