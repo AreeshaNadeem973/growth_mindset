@@ -15,7 +15,7 @@ page = st.sidebar.radio("Go to:", [
 
 # Home Page
 if page == "🏡 Home":
-    st.header("📚 Welcome to Book Lovers Hub")
+
     st.image("https://images.pexels.com/photos/415071/pexels-photo-415071.jpeg", width=250)  # Smaller Image
     st.markdown("""
     ### Discover, Track, and Enjoy Books!
