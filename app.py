@@ -13,7 +13,7 @@ if "page" not in st.session_state:
 # Sidebar Navigation
 st.sidebar.header("📌 Quick Navigation")
 st.session_state.page = st.sidebar.radio("Go to:", [
-    "🏡 Home", "📚 Transform Your Mindset", "📊 Your Growth Journey", "📝 Share Your Insights",
+    "🏡 Home", "📚 Transform Your Mindset", "📖 Book Collection", "📊 Your Growth Journey", "📝 Share Your Insights",
     "📅 Set Your Vision", "🎙️ Inspirational Podcasts", "📜 Daily Affirmations", "🎯 Success Stories",
     "💡 Innovation Hub"
 ])
@@ -30,16 +30,44 @@ if st.session_state.page == "🏡 Home":
     """)
     st.success("Start your journey to greatness today! 🚀")
 
-# New Pages
+# Book Collection
+books = [
+    {"title": "Atomic Habits", "author": "James Clear", "category": "Self-Improvement", "description": "A practical guide to building good habits and breaking bad ones."},
+    {"title": "The 5 AM Club", "author": "Robin Sharma", "category": "Productivity", "description": "Discover the morning routine that can change your life."},
+    {"title": "Mindset: The New Psychology of Success", "author": "Carol S. Dweck", "category": "Psychology", "description": "Understand how a growth mindset leads to success."},
+    {"title": "Think and Grow Rich", "author": "Napoleon Hill", "category": "Wealth", "description": "Timeless principles of success and wealth-building."}
+]
 
+if st.session_state.page == "📖 Book Collection":
+    st.header("📖 Explore Transformational Books")
+    selected_category = st.selectbox("Choose a Category:", ["All"] + list(set(book["category"] for book in books)))
+    
+    filtered_books = books if selected_category == "All" else [book for book in books if book["category"] == selected_category]
+    
+    for book in filtered_books:
+        with st.container():
+            st.subheader(book["title"])
+            st.write(f"**Author:** {book['author']}")
+            st.write(f"📖 {book['description']}")
+            if st.button(f"📖 Read More", key=book['title']):
+                st.session_state.current_book = book
+                st.session_state.page = "📖 Reading"
+                st.rerun()
+
+if st.session_state.page == "📖 Reading" and "current_book" in st.session_state:
+    book = st.session_state.current_book
+    st.header(f"📖 {book['title']}")
+    st.write(f"**Author:** {book['author']}")
+    st.write(f"📖 {book['description']}")
+    if st.button("🔙 Back to Collection"):
+        del st.session_state.current_book
+        st.session_state.page = "📖 Book Collection"
+        st.rerun()
+
+# Other Pages
 elif st.session_state.page == "📚 Transform Your Mindset":
     st.header("📚 Transform Your Mindset")
     st.write("Discover powerful books and techniques to shift your mindset for success.")
-    st.markdown("""
-    - **Atomic Habits** by James Clear
-    - **Mindset: The New Psychology of Success** by Carol S. Dweck
-    - **Think and Grow Rich** by Napoleon Hill
-    """)
 
 elif st.session_state.page == "📊 Your Growth Journey":
     st.header("📊 Track Your Growth")
@@ -51,7 +79,6 @@ elif st.session_state.page == "📊 Your Growth Journey":
 
 elif st.session_state.page == "🎙️ Inspirational Podcasts":
     st.header("🎙️ Listen to Powerful Talks")
-    st.write("Tune in to life-changing podcasts from world-class thinkers and leaders.")
     podcast_links = {
         "The Tony Robbins Podcast": "https://www.tonyrobbins.com/podcast/",
         "The School of Greatness - Lewis Howes": "https://lewishowes.com/sog-podcast/",
@@ -73,7 +100,6 @@ elif st.session_state.page == "📜 Daily Affirmations":
 
 elif st.session_state.page == "🎯 Success Stories":
     st.header("🎯 Learn from the Best")
-    st.write("Read about inspiring people who have overcome challenges and built success.")
     st.markdown("""
     - 🌟 **Elon Musk:** From sleeping in his office to revolutionizing space travel.
     - 🌟 **Oprah Winfrey:** Overcame hardship to become a media mogul.
@@ -89,4 +115,3 @@ elif st.session_state.page == "💡 Innovation Hub":
 # Footer
 st.markdown("---")
 st.markdown("🚀 Built for Future Leaders | © 2025 Next-Gen Power")
-
