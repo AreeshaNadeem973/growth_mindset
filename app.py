@@ -6,12 +6,16 @@ import numpy as np
 st.set_page_config(page_title="Motivational Book Hub", page_icon="📚")
 st.title("Growth Mindset")
 
+# Initialize session state for navigation
+if "page" not in st.session_state:
+    st.session_state.page = "🏡 Home"
+
 # Sidebar Navigation
 st.sidebar.header("📌 Quick Navigation")
 if "current_book" in st.session_state:
-    page = "📖 Reading"
+    st.session_state.page = "📖 Reading"
 else:
-    page = st.sidebar.radio("Go to:", [
+    st.session_state.page = st.sidebar.radio("Go to:", [
         "🏡 Home", "📖 Book Collection", "📊 Reading Progress", "📝 Reviews & Thoughts", "📅 Reading Goals"
     ])
 
@@ -29,7 +33,7 @@ book_titles = [book["title"] for book in books]
 categories = list(set(book["category"] for book in books))
 
 # Home Page
-if page == "🏡 Home":
+if st.session_state.page == "🏡 Home":
     st.header("📚 Welcome to Motivational Book Hub")
     st.image("https://images.pexels.com/photos/415071/pexels-photo-415071.jpeg", use_container_width=True)
     st.markdown("""
@@ -41,7 +45,7 @@ if page == "🏡 Home":
     st.success("Start your journey to success today! 🚀")
 
 # Book Collection Page
-elif page == "📖 Book Collection":
+elif st.session_state.page == "📖 Book Collection":
     st.header("📚 Explore Motivational & Life-Changing Books")
     selected_category = st.selectbox("Choose a Category:", ["All"] + categories)
 
@@ -59,10 +63,11 @@ elif page == "📖 Book Collection":
                 st.write(f"📖 {book['description']}")
                 if st.button(f"📖 Read More", key=book['title']):
                     st.session_state.current_book = book  # Store the selected book
-                    st.experimental_rerun()  # Refresh the page to switch to "Reading" mode
+                    st.session_state.page = "📖 Reading"  # Set the new page
+                    st.rerun()  # Rerun the app to switch the page
 
 # Reading Page (Displays the selected book details)
-elif page == "📖 Reading" and "current_book" in st.session_state:
+elif st.session_state.page == "📖 Reading" and "current_book" in st.session_state:
     book = st.session_state.current_book
     st.header(f"📖 {book['title']}")
     st.image(book["image_url"], width=200)
@@ -71,10 +76,11 @@ elif page == "📖 Reading" and "current_book" in st.session_state:
     st.write(f"📖 {book['description']}")
     if st.button("🔙 Back to Collection"):
         del st.session_state.current_book  # Remove selected book
-        st.experimental_rerun()
+        st.session_state.page = "📖 Book Collection"
+        st.rerun()
 
 # Reading Progress Page
-elif page == "📊 Reading Progress":
+elif st.session_state.page == "📊 Reading Progress":
     st.header("📊 Track Your Reading Progress")
     progress = np.random.randint(0, 100, size=len(book_titles))
     fig, ax = plt.subplots()
@@ -83,7 +89,7 @@ elif page == "📊 Reading Progress":
     st.pyplot(fig)
 
 # Reviews & Thoughts Page
-elif page == "📝 Reviews & Thoughts":
+elif st.session_state.page == "📝 Reviews & Thoughts":
     st.header("📝 Share Your Thoughts on Books")
     book = st.selectbox("Select a Book", book_titles)
     review = st.text_area("Write your review:")
@@ -91,7 +97,7 @@ elif page == "📝 Reviews & Thoughts":
         st.success("Review submitted successfully!")
 
 # Reading Goals Page
-elif page == "📅 Reading Goals":
+elif st.session_state.page == "📅 Reading Goals":
     st.header("📅 Set Your Reading Goals")
     goal = st.text_input("Your Reading Goal:")
     if st.button("Save Goal"):
@@ -100,4 +106,3 @@ elif page == "📅 Reading Goals":
 # Footer
 st.markdown("---")
 st.markdown("Built with ❤️ using Streamlit | © 2025 Motivational Book Hub")
-
