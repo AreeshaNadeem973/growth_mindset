@@ -1,7 +1,6 @@
 import streamlit as st
 import matplotlib.pyplot as plt
 import numpy as np
-import random
 
 # App Title
 st.set_page_config(page_title="Motivational Book Hub", page_icon="📚")
@@ -16,7 +15,7 @@ page = st.sidebar.radio("Go to:", [
 # Home Page
 if page == "🏡 Home":
     st.header("📚 Welcome to Motivational Book Hub")
-    st.image("https://images.pexels.com/photos/415071/pexels-photo-415071.jpeg", width=500)  # Updated Image Size
+    st.image("https://images.pexels.com/photos/415071/pexels-photo-415071.jpeg", use_column_width=True)
     st.markdown("""
     ### Explore & Grow with Motivational Books!
     ✅ **Read Life-Changing Books** 📖  
@@ -27,9 +26,9 @@ if page == "🏡 Home":
 
 # Book Collection Page
 elif page == "📖 Book Collection":
-    st.header("📚 Explore Motivational Books")
+    st.header("📚 Explore Motivational & Life-Changing Books")
     books = [
-        {"title": "Atomic Habits", "url": "https://example.com/atomic-habits", "image": "https://psychiatryresource.com/assets/images/atomic-habits-review.jpg"},
+        {"title": "Atomic Habits", "url": "https://example.com/atomic-habits", "image": "https://psychiatryresource.com/images/atomic-habits.jpg"},
         {"title": "The 5 AM Club", "url": "https://example.com/5am-club", "image": "https://images.pexels.com/photos/1261730/pexels-photo-1261730.jpeg"},
         {"title": "The Power of Now", "url": "https://example.com/power-of-now", "image": "https://images.pexels.com/photos/46274/books-education-school-literature-46274.jpeg"},
         {"title": "Think and Grow Rich", "url": "https://example.com/think-grow-rich", "image": "https://images.pexels.com/photos/159866/books-bookstore-book-reading-159866.jpeg"},
@@ -40,8 +39,8 @@ elif page == "📖 Book Collection":
     cols = st.columns(2)
     for index, book in enumerate(books):
         with cols[index % 2]:
-            st.image(book["image"], use_container_width=True)
-            if st.button(f"📖 Read {book['title']}"):
+            st.image(book["image"], use_column_width=True)
+            if st.button(f"📖 Read {book['title']}", key=index):
                 st.write(f"Opening {book['title']}...")
                 st.markdown(f"[Read Now]({book['url']})")
 
@@ -74,3 +73,4 @@ elif page == "📅 Reading Goals":
 # Footer
 st.markdown("---")
 st.markdown("Built with ❤️ using Streamlit | © 2025 Motivational Book Hub")
+
