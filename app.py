@@ -1,3 +1,4 @@
+
 import streamlit as st
 import matplotlib.pyplot as plt
 import numpy as np
@@ -36,10 +37,10 @@ elif page == "📖 Book Collection":
         {"title": "Awaken the Giant Within", "author": "Tony Robbins", "image_url": "https://images-na.ssl-images-amazon.com/images/I/81tEgsxpNZS.jpg"}
     ]
     
-    cols = st.columns(2)
+    cols = st.columns(3)
     for index, book in enumerate(books):
-        with cols[index % 2]:
-            st.image(book["image_url"], use_container_width=True)
+        with cols[index % 3]:
+            st.image(book["image_url"], width=150)
             if st.button(f"📖 Read {book['title']}", key=index):
                 st.write(f"Opening {book['title']}...")
                 st.markdown(f"[Read Now](#)")
@@ -73,3 +74,4 @@ elif page == "📅 Reading Goals":
 # Footer
 st.markdown("---")
 st.markdown("Built with ❤️ using Streamlit | © 2025 Motivational Book Hub")
+
