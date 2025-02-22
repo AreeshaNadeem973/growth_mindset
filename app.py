@@ -61,6 +61,7 @@ elif page == "📖 Book Collection":
                 st.subheader(book["title"])
                 st.write(f"**Author:** {book['author']}")
                 st.write(f"**Category:** {book['category']}")
+                st.markdown("---")
                 if st.button(f"📖 Read More", key=book['title']):
                     webbrowser.open_new_tab(book["read_url"])
     
