@@ -3,8 +3,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # App Title
-st.set_page_config(page_title="Next-Gen Power", page_icon="🚀")
-st.title("Next-Gen Power: Mindset, Innovation & Success")
+st.set_page_config(page_title="Master Your Mindset", page_icon="🚀")
+st.title("Master Your Mindset: A Journey to Success")
+
 
 # Initialize session state for navigation
 if "page" not in st.session_state:
