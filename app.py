@@ -48,7 +48,7 @@ elif page == "📖 Book Collection":
             st.subheader(book["title"])
             st.write(f"**Author:** {book['author']}")
             if st.button(f"📖 Read Now {book['title']}", key=book['title']):
-                webbrowser.open(book["read_url"])  # Open book link in browser
+                webbrowser.open_new_tab(book["read_url"])  # Open book link in new browser tab
 
 # Reading Progress Page
 elif page == "📊 Reading Progress":
