@@ -18,15 +18,16 @@ else:
 
 # Book Data
 books = [
-    {"title": "Atomic Habits", "author": "James Clear", "image_url": "https://images-na.ssl-images-amazon.com/images/I/91bYsX41DVL.jpg", "read_url": "https://jamesclear.com/atomic-habits"},
-    {"title": "The 5 AM Club", "author": "Robin Sharma", "image_url": "https://images-na.ssl-images-amazon.com/images/I/71zytzrg6lL.jpg", "read_url": "https://www.robinsharma.com/book/the-5am-club"},
-    {"title": "Mindset: The New Psychology of Success", "author": "Carol S. Dweck", "image_url": "https://bukharibooks.com/wp-content/uploads/2019/07/mindset-2.png", "read_url": "https://www.amazon.com/Mindset-Psychology-Carol-S-Dweck/dp/0345472322"},
-    {"title": "The Subtle Art of Not Giving a F*ck", "author": "Mark Manson", "image_url": "https://images-na.ssl-images-amazon.com/images/I/71QKQ9mwV7L.jpg", "read_url": "https://markmanson.net/books/subtle-art"},
-    {"title": "Awaken the Giant Within", "author": "Tony Robbins", "image_url": "https://images-na.ssl-images-amazon.com/images/I/81tEgsxpNZS.jpg", "read_url": "https://www.tonyrobbins.com/podcast/awaken-the-giant-within/"},
-    {"title": "Think and Grow Rich", "author": "Napoleon Hill", "image_url": "https://images-na.ssl-images-amazon.com/images/I/71UypkUjStL.jpg", "read_url": "https://www.naphill.org/think-and-grow-rich/"}
+    {"title": "Atomic Habits", "author": "James Clear", "image_url": "https://images-na.ssl-images-amazon.com/images/I/91bYsX41DVL.jpg", "category": "Self-Improvement", "read_url": "https://jamesclear.com/atomic-habits"},
+    {"title": "The 5 AM Club", "author": "Robin Sharma", "image_url": "https://images-na.ssl-images-amazon.com/images/I/71zytzrg6lL.jpg", "category": "Productivity", "read_url": "https://www.robinsharma.com/book/the-5am-club"},
+    {"title": "Mindset: The New Psychology of Success", "author": "Carol S. Dweck", "image_url": "https://bukharibooks.com/wp-content/uploads/2019/07/mindset-2.png", "category": "Psychology", "read_url": "https://www.amazon.com/Mindset-Psychology-Carol-S-Dweck/dp/0345472322"},
+    {"title": "The Subtle Art of Not Giving a F*ck", "author": "Mark Manson", "image_url": "https://images-na.ssl-images-amazon.com/images/I/71QKQ9mwV7L.jpg", "category": "Self-Help", "read_url": "https://markmanson.net/books/subtle-art"},
+    {"title": "Awaken the Giant Within", "author": "Tony Robbins", "image_url": "https://images-na.ssl-images-amazon.com/images/I/81tEgsxpNZS.jpg", "category": "Motivation", "read_url": "https://www.tonyrobbins.com/podcast/awaken-the-giant-within/"},
+    {"title": "Think and Grow Rich", "author": "Napoleon Hill", "image_url": "https://images-na.ssl-images-amazon.com/images/I/71UypkUjStL.jpg", "category": "Wealth", "read_url": "https://www.naphill.org/think-and-grow-rich/"}
 ]
 
-book_titles = [book["title"] for book in books]  # Ensure book_titles is always defined
+book_titles = [book["title"] for book in books]
+categories = list(set(book["category"] for book in books))
 
 # Home Page
 if page == "🏡 Home":
@@ -43,10 +44,9 @@ if page == "🏡 Home":
 # Book Collection Page
 elif page == "📖 Book Collection":
     st.header("📚 Explore Motivational & Life-Changing Books")
+    selected_category = st.selectbox("Choose a Category:", ["All"] + categories)
     
-    # Filter Books
-    search_query = st.text_input("Search for a book:")
-    filtered_books = [book for book in books if search_query.lower() in book["title"].lower()]
+    filtered_books = books if selected_category == "All" else [book for book in books if book["category"] == selected_category]
     
     cols = st.columns(3)
     for index, book in enumerate(filtered_books):
@@ -54,8 +54,8 @@ elif page == "📖 Book Collection":
             st.image(book["image_url"], width=150)
             st.subheader(book["title"])
             st.write(f"**Author:** {book['author']}")
-            if st.button(f"📖 Read Now {book['title']}", key=book['title']):
-                webbrowser.open_new_tab(book["read_url"])  # Open book link in new browser tab
+            if st.button(f"📖 Read More {book['title']}", key=book['title']):
+                webbrowser.open_new_tab(book["read_url"])
                 st.balloons()
 
 # Reading Progress Page
@@ -66,6 +66,8 @@ elif page == "📊 Reading Progress":
     ax.pie(progress, labels=book_titles, autopct='%1.1f%%', startangle=140, colors=['#FF5733', '#33FF57', '#3357FF', '#F3FF33', '#FF33A8', '#33FFF5'])
     ax.set_title("Reading Progress Distribution")
     st.pyplot(fig)
+    if st.button("🎉 Celebrate Progress"):
+        st.balloons()
 
 # Reviews & Thoughts Page
 elif page == "📝 Reviews & Thoughts":
