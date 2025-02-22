@@ -1,7 +1,7 @@
-
 import streamlit as st
 import matplotlib.pyplot as plt
 import numpy as np
+import webbrowser
 
 # App Title
 st.set_page_config(page_title="Motivational Book Hub", page_icon="📚")
@@ -18,12 +18,12 @@ else:
 
 # Book Data
 books = [
-    {"title": "Atomic Habits", "author": "James Clear", "image_url": "https://images-na.ssl-images-amazon.com/images/I/91bYsX41DVL.jpg", "content": "This is the content of Atomic Habits..."},
-    {"title": "The 5 AM Club", "author": "Robin Sharma", "image_url": "https://images-na.ssl-images-amazon.com/images/I/71zytzrg6lL.jpg", "content": "This is the content of The 5 AM Club..."},
-    {"title": "Mindset: The New Psychology of Success", "author": "Carol S. Dweck", "image_url": "https://bukharibooks.com/wp-content/uploads/2019/07/mindset-2.png", "content": "This is the content of Mindset..."},
-    {"title": "The Subtle Art of Not Giving a F*ck", "author": "Mark Manson", "image_url": "https://images-na.ssl-images-amazon.com/images/I/71QKQ9mwV7L.jpg", "content": "This is the content of The Subtle Art of Not Giving a F*ck..."},
-    {"title": "Awaken the Giant Within", "author": "Tony Robbins", "image_url": "https://images-na.ssl-images-amazon.com/images/I/81tEgsxpNZS.jpg", "content": "This is the content of Awaken the Giant Within..."},
-    {"title": "Think and Grow Rich", "author": "Napoleon Hill", "image_url": "https://images-na.ssl-images-amazon.com/images/I/71UypkUjStL.jpg", "content": "This is the content of Think and Grow Rich..."}
+    {"title": "Atomic Habits", "author": "James Clear", "image_url": "https://images-na.ssl-images-amazon.com/images/I/91bYsX41DVL.jpg", "read_url": "https://jamesclear.com/atomic-habits"},
+    {"title": "The 5 AM Club", "author": "Robin Sharma", "image_url": "https://images-na.ssl-images-amazon.com/images/I/71zytzrg6lL.jpg", "read_url": "https://www.robinsharma.com/book/the-5am-club"},
+    {"title": "Mindset: The New Psychology of Success", "author": "Carol S. Dweck", "image_url": "https://bukharibooks.com/wp-content/uploads/2019/07/mindset-2.png", "read_url": "https://www.amazon.com/Mindset-Psychology-Carol-S-Dweck/dp/0345472322"},
+    {"title": "The Subtle Art of Not Giving a F*ck", "author": "Mark Manson", "image_url": "https://images-na.ssl-images-amazon.com/images/I/71QKQ9mwV7L.jpg", "read_url": "https://markmanson.net/books/subtle-art"},
+    {"title": "Awaken the Giant Within", "author": "Tony Robbins", "image_url": "https://images-na.ssl-images-amazon.com/images/I/81tEgsxpNZS.jpg", "read_url": "https://www.tonyrobbins.com/podcast/awaken-the-giant-within/"},
+    {"title": "Think and Grow Rich", "author": "Napoleon Hill", "image_url": "https://images-na.ssl-images-amazon.com/images/I/71UypkUjStL.jpg", "read_url": "https://www.naphill.org/think-and-grow-rich/"}
 ]
 
 # Home Page
@@ -48,20 +48,7 @@ elif page == "📖 Book Collection":
             st.subheader(book["title"])
             st.write(f"**Author:** {book['author']}")
             if st.button(f"📖 Read Now {book['title']}", key=book['title']):
-                st.session_state["current_book"] = book["title"]
-                st.rerun()
-
-# Dynamic Book Reading Page
-elif page == "📖 Reading":
-    for book in books:
-        if book["title"] == st.session_state.get("current_book"):
-            st.header(f"📖 Reading: {book['title']}")
-            st.image(book["image_url"], width=200)
-            st.subheader(f"By {book['author']}")
-            st.write(book["content"])
-            if st.button("⬅ Back to Collection"):
-                del st.session_state["current_book"]
-                st.rerun()
+                webbrowser.open(book["read_url"])  # Open book link in browser
 
 # Reading Progress Page
 elif page == "📊 Reading Progress":
