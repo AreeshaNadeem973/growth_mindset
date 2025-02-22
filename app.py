@@ -5,7 +5,6 @@ import random
 
 # App Title
 st.set_page_config(page_title="Book Lovers Hub", page_icon="📚")
-st.title("📚 Welcome to Book Lovers Hub")
 
 # Sidebar Navigation
 st.sidebar.header("📌 Quick Navigation")
@@ -15,7 +14,8 @@ page = st.sidebar.radio("Go to:", [
 
 # Home Page
 if page == "🏡 Home":
-    st.header("📚 Welcome to Book Lovers Hub")
+    st.title("📚 Welcome to Book Lovers Hub")
+    st.header("📚 Discover, Track, and Enjoy Books!")
     st.image("https://images.pexels.com/photos/415071/pexels-photo-415071.jpeg", width=300)  # Smaller Image
     st.markdown("""
     ### Discover, Track, and Enjoy Books!
@@ -35,11 +35,10 @@ elif page == "📖 Reading Tracker":
         st.success("Great job! Keep reading!")
         st.balloons()
 
-    # New Progress Graph with different colors
+    # Weekly Reading Progress Graph
     progress = np.random.randint(0, 7, size=len(books))
     fig, ax = plt.subplots()
-    colors = ['#FF9999', '#66B3FF', '#99FF99', '#FFCC99']
-    ax.bar(books, progress, color=colors)
+    ax.bar(books, progress, color=['#FF5733', '#33FF57', '#3357FF', '#F3FF33'])
     ax.set_title("Weekly Reading Progress")
     ax.set_ylabel("Days Read")
     ax.set_ylim(0, 7)
@@ -70,22 +69,13 @@ elif page == "📝 Book Reviews":
     if st.button("Submit Review"):
         st.success("Review submitted successfully!")
 
-    # Sentiment Analysis Graph
-    sentiments = ["Positive", "Neutral", "Negative"]
-    sentiment_counts = np.random.randint(5, 20, size=3)
-    fig, ax = plt.subplots()
-    ax.pie(sentiment_counts, labels=sentiments, autopct='%1.1f%%', colors=['#2ECC71', '#F1C40F', '#E74C3C'])
-    ax.set_title("Book Review Sentiments")
-    st.pyplot(fig)
-
 # Reading Statistics
 elif page == "📊 Reading Statistics":
     st.header("📊 Your Reading Trends")
     days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
     reading_hours = np.random.randint(0, 3, size=7)
     fig, ax = plt.subplots()
-    ax.plot(days, reading_hours, marker='o', linestyle='-', color='purple', linewidth=2, markersize=8)
-    ax.fill_between(days, reading_hours, color='purple', alpha=0.2)
+    ax.plot(days, reading_hours, marker='o', linestyle='-', color='purple')
     ax.set_title("Weekly Reading Hours")
     ax.set_ylabel("Hours Read")
     ax.set_ylim(0, 3)
